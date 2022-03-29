@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:himaskom_undip/widgets/articlecard.dart';
 import 'package:himaskom_undip/widgets/articlelistitem.dart';
 
 void main() {
@@ -45,14 +46,22 @@ class _PageState extends State<Page> {
       ),
       body: Form(
         key: _formKey,
-        child: ListView.separated(
+        child: ListView.builder(
           itemCount: 10,
-          separatorBuilder: (_, __) => const SizedBox(
-            height: 24,
-          ),
           itemBuilder: (context, index) {
+            if (index == 0) {
+              return ArticleCard(
+                judul:
+                    '[Jenis] Article Nomor $index Tapi Super Duper Panjang Kayak Gimana Gitu Ya SAD ASD ASD ASD ADS ASD ASD ASD ',
+                id: index.toString(),
+                createdAt: DateTime.now(),
+                thumbnailUrl:
+                    'https://upload.wikimedia.org/wikipedia/commons/e/ee/Sample_abc.jpg',
+              );
+            }
             return ArticleListItem(
-              judul: '[Jenis] Article Nomor $index',
+              judul:
+                  '[Jenis] Article Nomor $index Tapi Super Duper Panjang Kayak Gimana Gitu Ya SAD ASD ASD ASD ADS ASD ASD ASD ',
               id: index.toString(),
               createdAt: DateTime.now(),
               thumbnailUrl:
