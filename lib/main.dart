@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:himaskom_undip/widgets/categorycard.dart';
+import 'package:himaskom_undip/widgets/articleshortitem.dart';
 
 void main() {
   runApp(const MyApp());
@@ -47,62 +47,79 @@ class _PageState extends State<Page> {
         padding: const EdgeInsets.all(24),
         child: Form(
           key: _formKey,
-          child: GridView.count(
-            crossAxisCount: 2,
-            mainAxisSpacing: 16,
-            crossAxisSpacing: 16,
-            childAspectRatio: 1.13,
-            children: [
-              CategoryCard(
-                title: 'Event',
-                svgAsset: 'assets/category/event.svg',
-                subtitle: 'Berisi informasi mengenai kegiatan HM, AM, & UKM',
-                onTap: () {},
-              ),
-              CategoryCard(
-                title: 'Sistore',
-                svgAsset: 'assets/category/sistore.svg',
-                subtitle: 'Berisi produk - produk yang dijual oleh HIMASKOM',
-                onTap: () {},
-              ),
-              CategoryCard(
-                title: 'Beasiswa',
-                svgAsset: 'assets/category/beasiswa.svg',
-                subtitle: 'Berisi informasi mengenai kegiatan beasiswa',
-                onTap: () {},
-              ),
-              CategoryCard(
-                title: 'Prestasi',
-                svgAsset: 'assets/category/prestasi.svg',
-                subtitle: 'Berisi informasi mengenai database prestasi',
-                onTap: () {},
-              ),
-              CategoryCard(
-                title: 'Akademik',
-                svgAsset: 'assets/category/akademik.svg',
-                subtitle: 'Berisi informasi mengenai akademik perkuliahan',
-                onTap: () {},
-              ),
-              CategoryCard(
-                title: 'Karir',
-                svgAsset: 'assets/category/karir.svg',
-                subtitle: 'Berisi informasi mengenai loker dan magang',
-                onTap: () {},
-              ),
-              CategoryCard(
-                title: 'Lomba',
-                svgAsset: 'assets/category/lomba.svg',
-                subtitle: 'Berisi informasi mengenai kegiatan lomba',
-                onTap: () {},
-              ),
-              CategoryCard(
-                title: 'Umum',
-                svgAsset: 'assets/category/umum.svg',
-                subtitle: 'Berisi informasi umum mengenai fakultas dan jurusan',
-                onTap: () {},
-              ),
-            ],
+          child: ListView.separated(
+            itemCount: 10,
+            separatorBuilder: (context, index) {
+              return const SizedBox(height: 12);
+            },
+            itemBuilder: (context, index) {
+              return ArticleShortItem(
+                judul:
+                    '[Jenis] Article Nomor $index Tapi Super Duper Panjang Kayak Gimana Gitu Ya SAD ASD ASD ASD ADS ASD ASD ASD ',
+                id: index.toString(),
+                thumbnailUrl:
+                    'https://upload.wikimedia.org/wikipedia/commons/e/ee/Sample_abc.jpg',
+                isAdminVariant: true,
+              );
+            },
           ),
+          // GridView.count(
+          //   crossAxisCount: 2,
+          //   mainAxisSpacing: 16,
+          //   crossAxisSpacing: 16,
+          //   childAspectRatio: 1.13,
+          //   children: [
+          //     CategoryCard(
+          //       title: 'Event',
+          //       svgAsset: 'assets/category/event.svg',
+          //       subtitle: 'Berisi informasi mengenai kegiatan HM, AM, & UKM',
+          //       onTap: () {},
+          //     ),
+          //     CategoryCard(
+          //       title: 'Sistore',
+          //       svgAsset: 'assets/category/sistore.svg',
+          //       subtitle: 'Berisi produk - produk yang dijual oleh HIMASKOM',
+          //       onTap: () {},
+          //     ),
+          //     CategoryCard(
+          //       title: 'Beasiswa',
+          //       svgAsset: 'assets/category/beasiswa.svg',
+          //       subtitle: 'Berisi informasi mengenai kegiatan beasiswa',
+          //       onTap: () {},
+          //     ),
+          //     CategoryCard(
+          //       title: 'Prestasi',
+          //       svgAsset: 'assets/category/prestasi.svg',
+          //       subtitle: 'Berisi informasi mengenai database prestasi',
+          //       onTap: () {},
+          //     ),
+          //     CategoryCard(
+          //       title: 'Akademik',
+          //       svgAsset: 'assets/category/akademik.svg',
+          //       subtitle: 'Berisi informasi mengenai akademik perkuliahan',
+          //       onTap: () {},
+          //     ),
+          //     CategoryCard(
+          //       title: 'Karir',
+          //       svgAsset: 'assets/category/karir.svg',
+          //       subtitle: 'Berisi informasi mengenai loker dan magang',
+          //       onTap: () {},
+          //     ),
+          //     CategoryCard(
+          //       title: 'Lomba',
+          //       svgAsset: 'assets/category/lomba.svg',
+          //       subtitle: 'Berisi informasi mengenai kegiatan lomba',
+          //       onTap: () {},
+          //     ),
+          //     CategoryCard(
+          //       title: 'Umum',
+          //       svgAsset: 'assets/category/umum.svg',
+          //       subtitle: 'Berisi informasi umum mengenai fakultas dan jurusan',
+          //       onTap: () {},
+          //     ),
+          //   ],
+          // ),
+          ////////////////////////////////////
           // GridView.builder(
           //   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           //     crossAxisCount: 2,

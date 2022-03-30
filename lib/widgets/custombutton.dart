@@ -3,21 +3,25 @@ import 'package:flutter/material.dart';
 class CustomButton extends StatelessWidget {
   final void Function() onTap;
   final String? text;
-  final bool? loading;
+  final bool loading;
 
-  const CustomButton({Key? key, this.text, this.loading, required this.onTap})
-      : super(key: key);
+  const CustomButton({
+    Key? key,
+    this.text,
+    this.loading = false,
+    required this.onTap,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return MaterialButton(
-      onPressed: (loading ?? false) ? null : onTap,
+      onPressed: loading ? null : onTap,
       color: Theme.of(context).primaryColor,
       disabledColor: Theme.of(context).primaryColor,
       elevation: 0,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
       padding: const EdgeInsets.all(16),
-      child: (loading ?? false)
+      child: loading
           ? const SizedBox(
               height: 17,
               width: 17,
