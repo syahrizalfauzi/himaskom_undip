@@ -3,23 +3,31 @@ import 'dart:io';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:himaskom_undip/widgets/imageviewer.dart';
 import 'package:image_picker/image_picker.dart' as image_picker;
 
-class ImagePicker extends HookWidget {
+// Stateful karena gridview-nya pakai builder
+class ImagePicker extends StatefulHookWidget {
   final List<String> initialImageUrls;
 
   const ImagePicker({Key? key, this.initialImageUrls = const []})
       : super(key: key);
 
   @override
+  State<ImagePicker> createState() => _ImagePickerState();
+}
+
+class _ImagePickerState extends State<ImagePicker> {
+  @override
   Widget build(BuildContext context) {
     final _imageItems = useState(List<ImageProvider?>.generate(4, (index) {
       try {
-        return NetworkImage(initialImageUrls[index]);
+        return NetworkImage(widget.initialImageUrls[index]);
       } catch (_) {
         return null;
       }
     }));
+    final _deletedImageIndexes = useState<List<int>>([]);
 
     Future<void> _handleAddImage() async {
       final picker = image_picker.ImagePicker();
@@ -39,6 +47,29 @@ class ImagePicker extends HookWidget {
       }
 
       _imageItems.value = newImages;
+      setState(() {});
+    }
+
+    Future<void> _handleViewImage(int index) async {
+      final imageProvider = _imageItems.value[index]!;
+
+      final result = await Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (_) => ImageViewer(_imageItems.value[index]!),
+        ),
+      );
+
+      if (imageProvider is NetworkImage) {
+        _deletedImageIndexes.value.add(index);
+      }
+
+      if (result == null || !result) return;
+      final newImages = _imageItems.value;
+      newImages[index] = null;
+      newImages.sort((a, b) => a == null ? 1 : 0);
+
+      _imageItems.value = newImages;
+      setState(() {});
     }
 
     return GridView.builder(
@@ -70,7 +101,7 @@ class ImagePicker extends HookWidget {
         }
 
         return GestureDetector(
-          onTap: () {},
+          onTap: () => _handleViewImage(index),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(8),
             child: Image(

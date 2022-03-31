@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:himaskom_undip/widgets/imagepicker.dart';
-import 'package:himaskom_undip/widgets/userscaffold.dart';
 
 void main() {
   runApp(const MyApp());

@@ -43,6 +43,12 @@ dependencies:
   dotted_border: ^2.0.0+2
   image_picker: ^0.8.4+11
 
+dependency_overrides:
+  photo_view:
+    git:
+      url: https://github.com/bluefireteam/photo_view
+      ref: master
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
