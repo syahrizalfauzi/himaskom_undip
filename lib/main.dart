@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:himaskom_undip/widgets/imagepicker.dart';
 import 'package:himaskom_undip/widgets/userscaffold.dart';
 
 void main() {
@@ -38,13 +39,13 @@ class Page extends StatefulHookWidget {
 class _PageState extends State<Page> {
   @override
   Widget build(BuildContext context) {
-    return const UserScaffold();
-    // return Scaffold(
-    //   appBar: AppBar(
-    //     title: const Text('Title'),
-    //     elevation: 0,
-    //   ),
-    // );
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Title'),
+        elevation: 0,
+      ),
+      body: const ImagePicker(),
+    );
     // Padding(
     //   padding: const EdgeInsets.all(24),
     //   child: Form(
