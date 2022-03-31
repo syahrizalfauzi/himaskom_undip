@@ -71,7 +71,12 @@ class ArticleList extends HookWidget {
                 }
 
                 return Padding(
-                  padding: const EdgeInsets.only(top: 16, left: 24, right: 24),
+                  padding: EdgeInsets.only(
+                    top: 16,
+                    left: 24,
+                    right: 24,
+                    bottom: index == 9 ? 16 : 0,
+                  ),
                   child: child,
                 );
               },
