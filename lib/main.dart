@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:himaskom_undip/widgets/customtabview.dart';
 import 'package:himaskom_undip/widgets/itemgrid.dart';
 
 void main() {
@@ -20,6 +21,7 @@ class MyApp extends StatelessWidget {
           seedColor: const Color(0xFF171936),
           primary: const Color(0xFF171936),
         ),
+        primaryColor: const Color(0xFF171936),
         textTheme: GoogleFonts.interTextTheme(),
       ),
       home: const Page(),
@@ -40,9 +42,14 @@ class _PageState extends State<Page> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Title'),
+        elevation: 0,
       ),
-      body: const ItemGrid(
-        fetchUrl: "httpanaunau",
+      body: const CustomTabView(
+        items: [
+          ArticleTabItem(title: "HIMASKOM", fetchUrl: "http:himaskom"),
+          ArticleTabItem(title: "Al Muharrik", fetchUrl: "http:am"),
+          ArticleTabItem(title: "UKM TEKKOM", fetchUrl: "http:ukm"),
+        ],
       ),
     );
     // Padding(
