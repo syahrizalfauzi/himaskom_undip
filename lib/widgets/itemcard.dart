@@ -45,7 +45,7 @@ class ItemCard extends StatelessWidget {
                   height: 1.5,
                 ),
               ),
-              const SizedBox(height: 16),
+              const SizedBox(height: 12),
               Text(
                 NumberFormat.currency(
                   locale: 'id_ID',

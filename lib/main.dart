@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:himaskom_undip/widgets/articleshortlist.dart';
+import 'package:himaskom_undip/widgets/itemgrid.dart';
 
 void main() {
   runApp(const MyApp());
@@ -41,9 +41,8 @@ class _PageState extends State<Page> {
       appBar: AppBar(
         title: const Text('Title'),
       ),
-      body: const ArticleShortList(
+      body: const ItemGrid(
         fetchUrl: "httpanaunau",
-        isAdminVariant: true,
       ),
     );
     // Padding(
