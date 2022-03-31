@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:himaskom_undip/widgets/customtabview.dart';
-import 'package:himaskom_undip/widgets/itemgrid.dart';
+import 'package:himaskom_undip/widgets/userscaffold.dart';
 
 void main() {
   runApp(const MyApp());
@@ -39,19 +38,13 @@ class Page extends StatefulHookWidget {
 class _PageState extends State<Page> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Title'),
-        elevation: 0,
-      ),
-      body: const CustomTabView(
-        items: [
-          ArticleTabItem(title: "HIMASKOM", fetchUrl: "http:himaskom"),
-          ArticleTabItem(title: "Al Muharrik", fetchUrl: "http:am"),
-          ArticleTabItem(title: "UKM TEKKOM", fetchUrl: "http:ukm"),
-        ],
-      ),
-    );
+    return const UserScaffold();
+    // return Scaffold(
+    //   appBar: AppBar(
+    //     title: const Text('Title'),
+    //     elevation: 0,
+    //   ),
+    // );
     // Padding(
     //   padding: const EdgeInsets.all(24),
     //   child: Form(
