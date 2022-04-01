@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:himaskom_undip/widgets/imagepicker.dart';
+import 'package:himaskom_undip/widgets/tagpicker.dart';
 
 void main() {
   runApp(const MyApp());
@@ -21,6 +21,7 @@ class MyApp extends StatelessWidget {
           primary: const Color(0xFF171936),
         ),
         primaryColor: const Color(0xFF171936),
+        disabledColor: const Color(0xFFEEEEEE),
         textTheme: GoogleFonts.interTextTheme(),
       ),
       home: const Page(),
@@ -38,12 +39,40 @@ class Page extends StatefulHookWidget {
 class _PageState extends State<Page> {
   @override
   Widget build(BuildContext context) {
+    final eventTag = useState(0);
+    final karirTag = useState(1);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Title'),
         elevation: 0,
       ),
-      body: const ImagePicker(),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Flexible(
+            child: TagPicker(
+              tags: const [
+                Tag(name: "hm", title: "HM"),
+                Tag(name: "am", title: "AM"),
+                Tag(name: "ukm", title: "UKM"),
+              ],
+              selectedIndex: eventTag.value,
+              onTap: (_, index) => eventTag.value = index,
+            ),
+          ),
+          Flexible(
+            child: TagPicker(
+              tags: const [
+                Tag(name: "loker", title: "Loker"),
+                Tag(name: "magang", title: "Magang"),
+              ],
+              selectedIndex: karirTag.value,
+              onTap: (_, index) => karirTag.value = index,
+            ),
+          ),
+        ],
+      ),
     );
     // Padding(
     //   padding: const EdgeInsets.all(24),
