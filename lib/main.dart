@@ -22,7 +22,14 @@ class MyApp extends StatelessWidget {
         ),
         primaryColor: const Color(0xFF171936),
         disabledColor: const Color(0xFFEEEEEE),
-        textTheme: GoogleFonts.interTextTheme(),
+        textTheme: GoogleFonts.interTextTheme(TextTheme(
+          headline1: const TextStyle(fontWeight: FontWeight.w600, fontSize: 24),
+          caption: const TextStyle(fontWeight: FontWeight.w500, fontSize: 12),
+          bodyLarge: const TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
+          bodyMedium:
+              const TextStyle(fontWeight: FontWeight.w500, fontSize: 14),
+          bodyText1: const TextStyle(fontWeight: FontWeight.w400, fontSize: 14),
+        )),
       ),
       home: const Page(),
     );
