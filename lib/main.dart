@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:himaskom_undip/pages/daftar.pres.dart';
 import 'package:himaskom_undip/widgets/tagpicker.dart';
 
 void main() {
@@ -22,16 +23,34 @@ class MyApp extends StatelessWidget {
         ),
         primaryColor: const Color(0xFF171936),
         disabledColor: const Color(0xFFEEEEEE),
-        textTheme: GoogleFonts.interTextTheme(TextTheme(
-          headline1: const TextStyle(fontWeight: FontWeight.w600, fontSize: 24),
-          caption: const TextStyle(fontWeight: FontWeight.w500, fontSize: 12),
-          bodyLarge: const TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
-          bodyMedium:
-              const TextStyle(fontWeight: FontWeight.w500, fontSize: 14),
-          bodyText1: const TextStyle(fontWeight: FontWeight.w400, fontSize: 14),
-        )),
+        textTheme: GoogleFonts.interTextTheme(
+          const TextTheme(
+            headlineLarge: TextStyle(
+              fontWeight: FontWeight.w600,
+              fontSize: 24,
+              color: Colors.black,
+            ),
+            labelMedium: TextStyle(
+              fontWeight: FontWeight.w500,
+              fontSize: 12,
+              height: 1.4,
+            ),
+            bodyLarge: TextStyle(
+              fontWeight: FontWeight.w600,
+              fontSize: 16,
+            ),
+            bodyMedium: TextStyle(
+              fontWeight: FontWeight.w500,
+              fontSize: 14,
+            ),
+            bodySmall: TextStyle(
+              fontWeight: FontWeight.w400,
+              fontSize: 14,
+            ),
+          ),
+        ),
       ),
-      home: const Page(),
+      home: const DaftarPagePresentational(),
     );
   }
 }
