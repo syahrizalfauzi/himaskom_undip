@@ -12,6 +12,7 @@ class CustomTextFormField extends HookWidget {
   final TextInputType? textInputType;
   final String? labelText;
   final String? tipText;
+  final void Function(String)? onChange;
 
   const CustomTextFormField({
     Key? key,
@@ -25,6 +26,7 @@ class CustomTextFormField extends HookWidget {
     this.textInputType,
     this.labelText,
     this.tipText,
+    this.onChange,
   }) : super(key: key);
 
   @override
@@ -57,6 +59,14 @@ class CustomTextFormField extends HookWidget {
               borderRadius: BorderRadius.circular(4),
               borderSide: const BorderSide(color: Color(0xFFDFE8F6)),
             ),
+            errorBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(4),
+              borderSide: const BorderSide(color: Colors.red),
+            ),
+            focusedErrorBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(4),
+              borderSide: const BorderSide(color: Colors.red),
+            ),
             suffixIcon: textInputType == TextInputType.visiblePassword
                 ? IconButton(
                     color: _obscureText.value
@@ -81,6 +91,7 @@ class CustomTextFormField extends HookWidget {
           maxLength: maxLength,
           readOnly: onTap != null,
           onTap: onTap,
+          onChanged: onChange,
           validator: (v) {
             if (minLength != null && v != null && v.length < minLength!) {
               return 'Jumlah karakter kurang dari $minLength';

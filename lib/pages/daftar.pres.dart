@@ -4,7 +4,28 @@ import 'package:himaskom_undip/widgets/custombutton.dart';
 import 'package:himaskom_undip/widgets/customtextformfield.dart';
 
 class DaftarPagePresentational extends StatelessWidget {
-  const DaftarPagePresentational({Key? key}) : super(key: key);
+  final void Function(String) onNamaChange;
+  final void Function(String) onEmailChange;
+  final void Function(String) onPasswordChange;
+  final String? Function(String?) namaValidator;
+  final String? Function(String?) emailValidator;
+  final String? Function(String?) passwordValidator;
+  final Function() onTapDaftar;
+  final Function() onTapGoogle;
+  final Function() onTapMasuk;
+
+  const DaftarPagePresentational({
+    Key? key,
+    required this.onNamaChange,
+    required this.onEmailChange,
+    required this.onPasswordChange,
+    required this.onTapDaftar,
+    required this.onTapGoogle,
+    required this.onTapMasuk,
+    required this.namaValidator,
+    required this.emailValidator,
+    required this.passwordValidator,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -37,29 +58,35 @@ class DaftarPagePresentational extends StatelessWidget {
                 style: Theme.of(context).textTheme.labelMedium,
               ),
               const SizedBox(height: 48),
-              const CustomTextFormField(
+              CustomTextFormField(
                 labelText: 'Nama Lengkap',
                 hintText: "Masukkan nama lengkap",
                 textInputAction: TextInputAction.next,
+                onChange: onNamaChange,
+                validator: namaValidator,
               ),
               const SizedBox(height: 24),
-              const CustomTextFormField(
+              CustomTextFormField(
                 labelText: 'Alamat Email',
                 hintText: "Masukkan email anda",
                 textInputType: TextInputType.emailAddress,
                 textInputAction: TextInputAction.next,
+                onChange: onEmailChange,
+                validator: emailValidator,
               ),
               const SizedBox(height: 24),
-              const CustomTextFormField(
+              CustomTextFormField(
                 labelText: 'Password',
                 hintText: "Masukkan password anda",
                 textInputType: TextInputType.visiblePassword,
+                onChange: onPasswordChange,
+                validator: passwordValidator,
               ),
               const SizedBox(height: 24),
               const SizedBox(height: 24),
               CustomButton(
-                onTap: () {},
-                text: "Masuk",
+                onTap: onTapDaftar,
+                text: "Daftar",
               ),
               const SizedBox(height: 24),
               SizedBox(
@@ -97,7 +124,7 @@ class DaftarPagePresentational extends StatelessWidget {
               Align(
                 alignment: Alignment.center,
                 child: InkWell(
-                  onTap: () {},
+                  onTap: onTapGoogle,
                   borderRadius: BorderRadius.circular(24),
                   child: Container(
                     height: 48,
@@ -112,10 +139,13 @@ class DaftarPagePresentational extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 24),
-              Text(
-                'Sudah punya akun? Masuk',
-                style: Theme.of(context).textTheme.labelMedium,
-                textAlign: TextAlign.center,
+              GestureDetector(
+                onTap: onTapMasuk,
+                child: Text(
+                  'Sudah punya akun? Masuk',
+                  style: Theme.of(context).textTheme.labelMedium,
+                  textAlign: TextAlign.center,
+                ),
               ),
             ],
           ),
