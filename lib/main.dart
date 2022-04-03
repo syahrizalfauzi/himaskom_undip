@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:himaskom_undip/pages/beranda.pres.dart';
 import 'package:himaskom_undip/pages/login.con.dart';
 
 void main() {
@@ -48,7 +49,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      home: const LoginPageContainer(),
+      home: Scaffold(body: const BerandaPagePresentational()),
     );
   }
 }

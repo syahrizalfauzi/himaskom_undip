@@ -53,6 +53,7 @@ class ArticleListItem extends StatelessWidget {
                   ],
                 ),
               ),
+              const SizedBox(width: 8),
               ClipRRect(
                 borderRadius: BorderRadius.circular(4),
                 child: SizedBox(

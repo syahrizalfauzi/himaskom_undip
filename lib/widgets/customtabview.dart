@@ -33,6 +33,7 @@ class CustomTabView extends HookWidget {
             labelStyle: GoogleFonts.inter(
               fontWeight: FontWeight.w600,
             ),
+            isScrollable: true,
             tabs: items.map((e) => Tab(text: e.title)).toList(),
           ),
         ),
