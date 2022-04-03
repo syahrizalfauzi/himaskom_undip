@@ -6,16 +6,16 @@ class BerandaPagePresentational extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomTabView(items: [
-      const ArticleTabItem(fetchUrl: "rekomendasi", title: "Rekomendasi"),
-      const ArticleTabItem(fetchUrl: "umum", title: "Umum"),
-      const ArticleTabItem(fetchUrl: "event", title: "Event"),
-      const ArticleTabItem(fetchUrl: "sistore", title: "Sistore"),
-      const ArticleTabItem(fetchUrl: "beasiswa", title: "Beasiswa"),
-      const ArticleTabItem(fetchUrl: "prestasi", title: "Prestasi"),
-      const ArticleTabItem(fetchUrl: "akademik", title: "Akademik"),
-      const ArticleTabItem(fetchUrl: "karir", title: "Karir"),
-      const ArticleTabItem(fetchUrl: "lomba", title: "Lomba"),
+    return const CustomTabView(items: [
+      ArticleTabItem(fetchUrl: "rekomendasi", title: "Rekomendasi"),
+      ArticleTabItem(fetchUrl: "umum", title: "Umum"),
+      ArticleTabItem(fetchUrl: "event", title: "Event"),
+      ArticleTabItem(fetchUrl: "sistore", title: "Sistore"),
+      ArticleTabItem(fetchUrl: "beasiswa", title: "Beasiswa"),
+      ArticleTabItem(fetchUrl: "prestasi", title: "Prestasi"),
+      ArticleTabItem(fetchUrl: "akademik", title: "Akademik"),
+      ArticleTabItem(fetchUrl: "karir", title: "Karir"),
+      ArticleTabItem(fetchUrl: "lomba", title: "Lomba"),
     ]);
   }
 }
