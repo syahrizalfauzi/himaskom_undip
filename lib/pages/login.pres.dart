@@ -3,28 +3,26 @@ import 'package:flutter_svg/svg.dart';
 import 'package:himaskom_undip/widgets/custombutton.dart';
 import 'package:himaskom_undip/widgets/customtextformfield.dart';
 
-class DaftarPagePresentational extends StatelessWidget {
-  final void Function(String) onNamaChange;
+class LoginPagePresentational extends StatelessWidget {
   final void Function(String) onEmailChange;
   final void Function(String) onPasswordChange;
-  final String? Function(String?) namaValidator;
   final String? Function(String?) emailValidator;
   final String? Function(String?) passwordValidator;
-  final Function() onTapDaftar;
-  final Function() onTapGoogle;
   final Function() onTapMasuk;
+  final Function() onTapForgot;
+  final Function() onTapGoogle;
+  final Function() onTapDaftar;
 
-  const DaftarPagePresentational({
+  const LoginPagePresentational({
     Key? key,
-    required this.onNamaChange,
     required this.onEmailChange,
     required this.onPasswordChange,
     required this.onTapDaftar,
     required this.onTapGoogle,
     required this.onTapMasuk,
-    required this.namaValidator,
     required this.emailValidator,
     required this.passwordValidator,
+    required this.onTapForgot,
   }) : super(key: key);
 
   @override
@@ -54,18 +52,10 @@ class DaftarPagePresentational extends StatelessWidget {
               ),
               const SizedBox(height: 12),
               Text(
-                'Mulai dapatkan informasi terbaru dari\nTeknik Komputer',
+                'Masukkan akun anda untuk melanjutkan',
                 style: Theme.of(context).textTheme.labelMedium,
               ),
               const SizedBox(height: 48),
-              CustomTextFormField(
-                labelText: 'Nama Lengkap',
-                hintText: "Masukkan nama lengkap",
-                textInputAction: TextInputAction.next,
-                onChange: onNamaChange,
-                validator: namaValidator,
-              ),
-              const SizedBox(height: 24),
               CustomTextFormField(
                 labelText: 'Alamat Email',
                 hintText: "Masukkan email anda",
@@ -84,8 +74,17 @@ class DaftarPagePresentational extends StatelessWidget {
               ),
               const SizedBox(height: 24),
               CustomButton(
-                onTap: onTapDaftar,
-                text: "Daftar",
+                onTap: onTapMasuk,
+                text: "Masuk",
+              ),
+              const SizedBox(height: 24),
+              GestureDetector(
+                onTap: onTapForgot,
+                child: Text(
+                  'Lupa password?',
+                  style: Theme.of(context).textTheme.labelMedium,
+                  textAlign: TextAlign.center,
+                ),
               ),
               const SizedBox(height: 24),
               SizedBox(
@@ -103,7 +102,7 @@ class DaftarPagePresentational extends StatelessWidget {
                       children: [
                         const SizedBox(width: 12),
                         Text(
-                          'Atau daftar dengan',
+                          'Atau masuk dengan',
                           style: Theme.of(context).textTheme.labelMedium,
                         ),
                         const SizedBox(width: 12),
@@ -139,9 +138,9 @@ class DaftarPagePresentational extends StatelessWidget {
               ),
               const SizedBox(height: 24),
               GestureDetector(
-                onTap: onTapMasuk,
+                onTap: onTapDaftar,
                 child: Text(
-                  'Sudah punya akun? Masuk',
+                  'Anda belum punya akun? Daftar',
                   style: Theme.of(context).textTheme.labelMedium,
                   textAlign: TextAlign.center,
                 ),
