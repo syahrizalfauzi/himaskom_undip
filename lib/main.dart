@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:himaskom_undip/pages/beranda.con.dart';
 import 'package:himaskom_undip/pages/beranda.pres.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,43 +14,45 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'HIMASKOM UNDIP',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color(0xFF171936),
-          primary: const Color(0xFF171936),
-        ),
-        primaryColor: const Color(0xFF171936),
-        disabledColor: const Color(0xFFEEEEEE),
-        textTheme: GoogleFonts.interTextTheme(
-          const TextTheme(
-            headlineLarge: TextStyle(
-              fontWeight: FontWeight.w600,
-              fontSize: 24,
-              color: Colors.black,
-            ),
-            labelMedium: TextStyle(
-              fontWeight: FontWeight.w500,
-              fontSize: 12,
-              height: 1.4,
-            ),
-            bodyLarge: TextStyle(
-              fontWeight: FontWeight.w600,
-              fontSize: 16,
-            ),
-            bodyMedium: TextStyle(
-              fontWeight: FontWeight.w500,
-              fontSize: 14,
-            ),
-            bodySmall: TextStyle(
-              fontWeight: FontWeight.w400,
-              fontSize: 14,
+    return ProviderScope(
+      child: MaterialApp(
+        title: 'HIMASKOM UNDIP',
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(
+            seedColor: const Color(0xFF171936),
+            primary: const Color(0xFF171936),
+          ),
+          primaryColor: const Color(0xFF171936),
+          disabledColor: const Color(0xFFEEEEEE),
+          textTheme: GoogleFonts.interTextTheme(
+            const TextTheme(
+              headlineLarge: TextStyle(
+                fontWeight: FontWeight.w600,
+                fontSize: 24,
+                color: Colors.black,
+              ),
+              labelMedium: TextStyle(
+                fontWeight: FontWeight.w500,
+                fontSize: 12,
+                height: 1.4,
+              ),
+              bodyLarge: TextStyle(
+                fontWeight: FontWeight.w600,
+                fontSize: 16,
+              ),
+              bodyMedium: TextStyle(
+                fontWeight: FontWeight.w500,
+                fontSize: 14,
+              ),
+              bodySmall: TextStyle(
+                fontWeight: FontWeight.w400,
+                fontSize: 14,
+              ),
             ),
           ),
         ),
+        home: const Scaffold(body: BerandaPageContainer()),
       ),
-      home: const Scaffold(body: BerandaPagePresentational()),
     );
   }
 }

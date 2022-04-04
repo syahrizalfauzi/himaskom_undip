@@ -1,18 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:himaskom_undip/models/article.dart';
 
 class ArticleShortItem extends StatelessWidget {
-  final String id;
-  final String judul;
+  final Article article;
   final bool isAdminVariant;
-  final String? thumbnailUrl;
 
   const ArticleShortItem({
     Key? key,
-    required this.id,
-    required this.judul,
+    required this.article,
     this.isAdminVariant = false,
-    this.thumbnailUrl,
   }) : super(key: key);
 
   @override
@@ -50,7 +47,7 @@ class ArticleShortItem extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(12),
                 child: Text(
-                  judul,
+                  article.judul,
                   overflow: TextOverflow.ellipsis,
                   style: const TextStyle(
                       fontWeight: FontWeight.w600, fontSize: 14),
@@ -77,7 +74,7 @@ class ArticleShortItem extends StatelessWidget {
                   height: 56,
                   width: 56,
                   child: Image.network(
-                    thumbnailUrl!,
+                    article.gambarUrl![0],
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -85,7 +82,7 @@ class ArticleShortItem extends StatelessWidget {
               const SizedBox(width: 12),
               Expanded(
                 child: Text(
-                  judul,
+                  article.judul,
                   overflow: TextOverflow.ellipsis,
                   style: const TextStyle(
                       fontWeight: FontWeight.w600, fontSize: 14),

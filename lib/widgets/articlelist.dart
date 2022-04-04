@@ -1,41 +1,49 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:himaskom_undip/models/articlestate.dart';
 import 'package:himaskom_undip/widgets/articlecard.dart';
 import 'package:himaskom_undip/widgets/articlelistitem.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class ArticleList extends HookWidget {
-  final String fetchUrl;
+class ArticleList extends HookConsumerWidget {
+  final List<ProviderListenable<ArticleState>> state;
   final bool firstHighlight;
 
   const ArticleList({
     Key? key,
-    required this.fetchUrl,
+    required this.state,
     this.firstHighlight = false,
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    final isLoading = useState(true);
+  Widget build(BuildContext context, ref) {
+    final _state = state.map((e) => ref.watch(e));
+    final _articles = useMemoized(
+        () => _state.map((e) => e.articles).reduce((a, b) => [...a, ...b]),
+        [_state]);
+    final _isLoading = useMemoized(
+        () => _state.map((e) => e.isLoading).reduce((a, b) => a || b),
+        [_state]);
 
     Future<void> _fetch() async {
-      isLoading.value = true;
-      await Future.delayed(const Duration(seconds: 1));
-      isLoading.value = false;
+      await Future.wait(_state.map((e) => e.fetch()));
     }
 
     useEffect(() {
-      _fetch();
+      if (_articles.isEmpty) {
+        _fetch();
+      }
       return null;
     }, []);
 
     return RefreshIndicator(
       onRefresh: _fetch,
-      child: isLoading.value
+      child: _isLoading
           ? const Center(
               child: CircularProgressIndicator(),
             )
           : ListView.builder(
-              itemCount: 10,
+              itemCount: _articles.length,
               itemBuilder: (context, index) {
                 Widget child;
                 if (index == 0 && firstHighlight) {
@@ -43,14 +51,7 @@ class ArticleList extends HookWidget {
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      ArticleCard(
-                        judul:
-                            '[Jenis] Article Nomor $index Tapi Super Duper Panjang Kayak Gimana Gitu Ya SAD ASD ASD ASD ADS ASD ASD ASD ',
-                        id: index.toString(),
-                        createdAt: DateTime.now(),
-                        thumbnailUrl:
-                            'https://upload.wikimedia.org/wikipedia/commons/e/ee/Sample_abc.jpg',
-                      ),
+                      ArticleCard(article: _articles[index]),
                       const SizedBox(height: 32),
                       const Text(
                         'Info Terbaru',
@@ -61,12 +62,7 @@ class ArticleList extends HookWidget {
                   );
                 } else {
                   child = ArticleListItem(
-                    judul:
-                        '[Jenis] Article Nomor $index Tapi Super Duper Panjang Kayak Gimana Gitu Ya SAD ASD ASD ASD ADS ASD ASD ASD ',
-                    id: index.toString(),
-                    createdAt: DateTime.now(),
-                    thumbnailUrl:
-                        'https://upload.wikimedia.org/wikipedia/commons/e/ee/Sample_abc.jpg',
+                    article: _articles[index],
                   );
                 }
 

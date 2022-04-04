@@ -1,17 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:himaskom_undip/models/article.dart';
 import 'package:intl/intl.dart';
 
 class ArticleCard extends StatelessWidget {
-  final String judul;
-  final String id;
-  final DateTime createdAt;
-  final String thumbnailUrl;
+  final Article article;
   const ArticleCard({
     Key? key,
-    required this.judul,
-    required this.id,
-    required this.createdAt,
-    required this.thumbnailUrl,
+    required this.article,
   }) : super(key: key);
 
   @override
@@ -31,12 +26,13 @@ class ArticleCard extends StatelessWidget {
                 borderRadius: BorderRadius.circular(4),
                 child: AspectRatio(
                   aspectRatio: 2,
-                  child: Image.network(thumbnailUrl, fit: BoxFit.cover),
+                  child:
+                      Image.network(article.gambarUrl![0], fit: BoxFit.cover),
                 ),
               ),
               const SizedBox(height: 16),
               Text(
-                judul,
+                article.judul,
                 overflow: TextOverflow.ellipsis,
                 maxLines: 2,
                 style: const TextStyle(
@@ -50,7 +46,7 @@ class ArticleCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    DateFormat('dd MMM y').format(createdAt),
+                    DateFormat('dd MMM y').format(article.createdAt!),
                     style: const TextStyle(
                       fontWeight: FontWeight.w400,
                       color: Color(0xFFB4B3BA),

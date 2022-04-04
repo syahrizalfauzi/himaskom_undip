@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:himaskom_undip/models/articlestate.dart';
 import 'package:himaskom_undip/widgets/articlelist.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class ArticleTabItem {
+  final List<ProviderListenable<ArticleState>> state;
   final String title;
-  final String fetchUrl;
 
   const ArticleTabItem({
+    required this.state,
     required this.title,
-    required this.fetchUrl,
   });
 }
 
@@ -43,7 +45,7 @@ class CustomTabView extends HookWidget {
             children: items
                 .map(
                   (e) => ArticleList(
-                    fetchUrl: e.fetchUrl,
+                    state: e.state,
                     firstHighlight: true,
                   ),
                 )

@@ -1,17 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:himaskom_undip/models/article.dart';
 import 'package:intl/intl.dart';
 
 class ItemCard extends StatelessWidget {
-  final String judul;
-  final String id;
-  final int harga;
-  final String thumbnailUrl;
+  final Article article;
   const ItemCard({
     Key? key,
-    required this.judul,
-    required this.id,
-    required this.harga,
-    required this.thumbnailUrl,
+    required this.article,
   }) : super(key: key);
 
   @override
@@ -31,12 +26,13 @@ class ItemCard extends StatelessWidget {
                 borderRadius: BorderRadius.circular(4),
                 child: AspectRatio(
                   aspectRatio: 1,
-                  child: Image.network(thumbnailUrl, fit: BoxFit.cover),
+                  child:
+                      Image.network(article.gambarUrl![0], fit: BoxFit.cover),
                 ),
               ),
               const SizedBox(height: 12),
               Text(
-                judul,
+                article.judul,
                 overflow: TextOverflow.ellipsis,
                 maxLines: 2,
                 style: const TextStyle(
@@ -51,7 +47,7 @@ class ItemCard extends StatelessWidget {
                   locale: 'id_ID',
                   symbol: "Rp. ",
                   decimalDigits: 0,
-                ).format(harga),
+                ).format(article.harga),
                 overflow: TextOverflow.ellipsis,
                 style: const TextStyle(
                   fontSize: 18,
