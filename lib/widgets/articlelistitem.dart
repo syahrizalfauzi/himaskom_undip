@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:himaskom_undip/models/article.dart';
+import 'package:himaskom_undip/utils/getArticleCallback.dart';
 import 'package:intl/intl.dart';
 
 class ArticleListItem extends StatelessWidget {
   final Article article;
+  final Function(Article) onTap;
 
   const ArticleListItem({
     Key? key,
     required this.article,
+    required this.onTap,
   }) : super(key: key);
 
   @override
@@ -15,7 +18,7 @@ class ArticleListItem extends StatelessWidget {
     return Material(
       color: Colors.transparent,
       child: InkWell(
-        onTap: () {},
+        onTap: getArticleCallback(onTap, article),
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 16),
           child: Row(

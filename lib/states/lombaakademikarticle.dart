@@ -7,4 +7,6 @@ final lombaAkademikArticleState =
 class LombaAkademikArticleState extends ArticleState {
   @override
   final String fetchUrl = "articles/lomba/akademik";
+  @override
+  final String title = "Akademik";
 }

@@ -7,4 +7,6 @@ final beasiswaArticleState =
 class BeasiswaArticleState extends ArticleState {
   @override
   final String fetchUrl = "articles/beasiswa";
+  @override
+  final String title = "Beasiswa";
 }

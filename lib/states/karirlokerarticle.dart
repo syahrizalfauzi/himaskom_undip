@@ -7,4 +7,6 @@ final karirLokerArticleState =
 class KarirLokerArticleState extends ArticleState {
   @override
   final String fetchUrl = "articles/karir/loker";
+  @override
+  final String title = "Loker";
 }

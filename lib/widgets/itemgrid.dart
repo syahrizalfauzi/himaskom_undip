@@ -1,31 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:himaskom_undip/models/articlestate.dart';
+import 'package:himaskom_undip/models/article.dart';
 import 'package:himaskom_undip/widgets/itemcard.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class ItemGrid extends HookConsumerWidget {
-  final ProviderListenable<ArticleState> state;
+class ItemGrid extends StatelessWidget {
+  final List<Article> articles;
+  final Future<void> Function() onRefresh;
+  final bool isLoading;
 
   const ItemGrid({
     Key? key,
-    required this.state,
+    required this.articles,
+    required this.onRefresh,
+    this.isLoading = false,
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context, ref) {
-    final _state = ref.watch(state);
-
-    useEffect(() {
-      if (_state.articles.isEmpty) {
-        _state.fetch();
-      }
-      return null;
-    }, []);
-
+  Widget build(BuildContext context) {
     return RefreshIndicator(
-      onRefresh: _state.fetch,
-      child: _state.isLoading
+      onRefresh: onRefresh,
+      child: isLoading
           ? const Center(
               child: CircularProgressIndicator(),
             )
@@ -37,10 +30,10 @@ class ItemGrid extends HookConsumerWidget {
                 crossAxisSpacing: 16,
               ),
               padding: const EdgeInsets.all(16),
-              itemCount: _state.articles.length,
+              itemCount: articles.length,
               itemBuilder: (context, index) {
                 return ItemCard(
-                  article: _state.articles[index],
+                  article: articles[index],
                 );
               },
             ),

@@ -7,4 +7,6 @@ final akademikArticleState =
 class AkademikArticleState extends ArticleState {
   @override
   final String fetchUrl = "articles/akademik";
+  @override
+  final String title = "Akademik";
 }

@@ -7,6 +7,7 @@ import 'package:http/http.dart' as http;
 abstract class ArticleState extends ChangeNotifier {
   final String _baseUrl = "https://himaskom-undip-backend.et.r.appspot.com/";
   final String fetchUrl = "";
+  final String title = "Articles";
   List<Article> articles = _sampleArticles;
   bool _isLoading = false;
 
@@ -16,9 +17,13 @@ abstract class ArticleState extends ChangeNotifier {
     _isLoading = true;
     notifyListeners();
     final response = await http.get(Uri.parse(_baseUrl + fetchUrl));
-    articles = (jsonDecode(response.body)["data"] as List)
-        .map((e) => Article.fromJson(e))
-        .toList();
+    final data = jsonDecode(response.body)["data"] as List?;
+
+    if (data == null) {
+      articles = [];
+    } else {
+      articles = data.map((e) => Article.fromJson(e)).toList();
+    }
     _isLoading = false;
     notifyListeners();
   }

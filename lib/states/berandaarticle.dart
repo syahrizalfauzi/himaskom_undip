@@ -7,4 +7,6 @@ final berandaArticleState =
 class BerandaArticleState extends ArticleState {
   @override
   final String fetchUrl = "articles";
+  @override
+  final String title = "Rekomendasi";
 }

@@ -1,24 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:himaskom_undip/models/articlestate.dart';
+import 'package:himaskom_undip/models/article.dart';
 import 'package:himaskom_undip/widgets/articlelist.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class ArticleTabItem {
-  final List<ProviderListenable<ArticleState>> state;
+  final List<Article> articles;
   final String title;
+  final bool isLoading;
+  final Future<void> Function() onRefresh;
 
   const ArticleTabItem({
-    required this.state,
+    required this.articles,
     required this.title,
+    required this.isLoading,
+    required this.onRefresh,
   });
 }
 
 class CustomTabView extends HookWidget {
   final List<ArticleTabItem> items;
+  final Function(Article) onTapArticle;
+  final Function(Article) onSaveArticle;
+  final Function(Article) onShareArticle;
 
-  const CustomTabView({Key? key, required this.items}) : super(key: key);
+  const CustomTabView({
+    Key? key,
+    required this.items,
+    required this.onTapArticle,
+    required this.onSaveArticle,
+    required this.onShareArticle,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -45,8 +57,13 @@ class CustomTabView extends HookWidget {
             children: items
                 .map(
                   (e) => ArticleList(
-                    state: e.state,
+                    articles: e.articles,
                     firstHighlight: true,
+                    isLoading: e.isLoading,
+                    onRefresh: e.onRefresh,
+                    onSaveArticle: onSaveArticle,
+                    onShareArticle: onShareArticle,
+                    onTapArticle: onTapArticle,
                   ),
                 )
                 .toList(),

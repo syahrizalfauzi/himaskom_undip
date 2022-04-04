@@ -7,4 +7,6 @@ final sistoreArticleState =
 class SistoreArticleState extends ArticleState {
   @override
   final String fetchUrl = "articles/sistore";
+  @override
+  final String title = "Sistore";
 }

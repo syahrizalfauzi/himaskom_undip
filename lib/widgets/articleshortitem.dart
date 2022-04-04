@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:himaskom_undip/models/article.dart';
+import 'package:himaskom_undip/utils/getArticleCallback.dart';
 
 class ArticleShortItem extends StatelessWidget {
   final Article article;
+  final Function(Article) onTap;
   final bool isAdminVariant;
 
   const ArticleShortItem({
     Key? key,
     required this.article,
+    required this.onTap,
     this.isAdminVariant = false,
   }) : super(key: key);
 
@@ -43,7 +46,7 @@ class ArticleShortItem extends StatelessWidget {
             margin: EdgeInsets.zero,
             elevation: 0,
             child: InkWell(
-              onTap: () {},
+              onTap: getArticleCallback(onTap, article),
               child: Padding(
                 padding: const EdgeInsets.all(12),
                 child: Text(

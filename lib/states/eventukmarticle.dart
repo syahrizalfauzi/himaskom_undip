@@ -7,4 +7,6 @@ final eventUkmArticleState =
 class EventUkmArticleState extends ArticleState {
   @override
   final String fetchUrl = "articles/event/ukm";
+  @override
+  final String title = "UKM Tekkom";
 }

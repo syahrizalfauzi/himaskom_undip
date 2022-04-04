@@ -20,7 +20,7 @@ class CategoryCard extends StatelessWidget {
       elevation: 10,
       shadowColor: const Color(0x328D92AB),
       child: InkWell(
-        onTap: () {},
+        onTap: onTap,
         child: Padding(
           padding: const EdgeInsets.all(12),
           child: Column(

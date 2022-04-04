@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:himaskom_undip/pages/beranda.con.dart';
-import 'package:himaskom_undip/pages/beranda.pres.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 void main() {

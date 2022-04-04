@@ -7,4 +7,6 @@ final karirMagangArticleState =
 class KarirMagangArticleState extends ArticleState {
   @override
   final String fetchUrl = "articles/karir/magang";
+  @override
+  final String title = "Magang";
 }

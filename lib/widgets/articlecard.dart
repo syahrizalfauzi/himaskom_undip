@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:himaskom_undip/models/article.dart';
 import 'package:intl/intl.dart';
+import 'package:himaskom_undip/utils/getArticleCallback.dart';
 
 class ArticleCard extends StatelessWidget {
   final Article article;
+  final Function(Article) onTap;
+  final Function(Article) onSave;
+  final Function(Article) onShare;
   const ArticleCard({
     Key? key,
     required this.article,
+    required this.onTap,
+    required this.onSave,
+    required this.onShare,
   }) : super(key: key);
 
   @override
@@ -15,7 +22,7 @@ class ArticleCard extends StatelessWidget {
       elevation: 10,
       shadowColor: const Color(0x328D92AB),
       child: InkWell(
-        onTap: () {},
+        onTap: getArticleCallback(onTap, article),
         child: Padding(
           padding: const EdgeInsets.all(16),
           child: Column(
@@ -57,6 +64,7 @@ class ArticleCard extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       GestureDetector(
+                        onTap: getArticleCallback(onSave, article),
                         child: Icon(
                           Icons.bookmark_outline,
                           color: Theme.of(context).disabledColor,
@@ -64,6 +72,7 @@ class ArticleCard extends StatelessWidget {
                       ),
                       const SizedBox(width: 12),
                       GestureDetector(
+                        onTap: getArticleCallback(onShare, article),
                         child: Icon(
                           Icons.ios_share,
                           color: Theme.of(context).disabledColor,

@@ -7,4 +7,6 @@ final eventHmArticleState =
 class EventHmArticleState extends ArticleState {
   @override
   final String fetchUrl = "articles/event/hm";
+  @override
+  final String title = "HIMASKOM";
 }

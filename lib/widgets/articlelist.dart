@@ -1,49 +1,38 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:himaskom_undip/models/articlestate.dart';
+import 'package:himaskom_undip/models/article.dart';
 import 'package:himaskom_undip/widgets/articlecard.dart';
 import 'package:himaskom_undip/widgets/articlelistitem.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class ArticleList extends HookConsumerWidget {
-  final List<ProviderListenable<ArticleState>> state;
+class ArticleList extends StatelessWidget {
+  final List<Article> articles;
+  final Future<void> Function() onRefresh;
+  final Function(Article) onTapArticle;
+  final Function(Article) onSaveArticle;
+  final Function(Article) onShareArticle;
+  final bool isLoading;
   final bool firstHighlight;
 
   const ArticleList({
     Key? key,
-    required this.state,
+    required this.articles,
+    required this.onRefresh,
+    required this.onTapArticle,
+    required this.onSaveArticle,
+    required this.onShareArticle,
+    required this.isLoading,
     this.firstHighlight = false,
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context, ref) {
-    final _state = state.map((e) => ref.watch(e));
-    final _articles = useMemoized(
-        () => _state.map((e) => e.articles).reduce((a, b) => [...a, ...b]),
-        [_state]);
-    final _isLoading = useMemoized(
-        () => _state.map((e) => e.isLoading).reduce((a, b) => a || b),
-        [_state]);
-
-    Future<void> _fetch() async {
-      await Future.wait(_state.map((e) => e.fetch()));
-    }
-
-    useEffect(() {
-      if (_articles.isEmpty) {
-        _fetch();
-      }
-      return null;
-    }, []);
-
+  Widget build(BuildContext context) {
     return RefreshIndicator(
-      onRefresh: _fetch,
-      child: _isLoading
+      onRefresh: onRefresh,
+      child: isLoading
           ? const Center(
               child: CircularProgressIndicator(),
             )
           : ListView.builder(
-              itemCount: _articles.length,
+              itemCount: articles.length,
               itemBuilder: (context, index) {
                 Widget child;
                 if (index == 0 && firstHighlight) {
@@ -51,7 +40,12 @@ class ArticleList extends HookConsumerWidget {
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      ArticleCard(article: _articles[index]),
+                      ArticleCard(
+                        article: articles[index],
+                        onTap: onTapArticle,
+                        onSave: onSaveArticle,
+                        onShare: onShareArticle,
+                      ),
                       const SizedBox(height: 32),
                       const Text(
                         'Info Terbaru',
@@ -62,7 +56,8 @@ class ArticleList extends HookConsumerWidget {
                   );
                 } else {
                   child = ArticleListItem(
-                    article: _articles[index],
+                    article: articles[index],
+                    onTap: onTapArticle,
                   );
                 }
 

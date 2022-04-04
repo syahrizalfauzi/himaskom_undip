@@ -7,4 +7,6 @@ final prestasiArticleState =
 class PrestasiArticleState extends ArticleState {
   @override
   final String fetchUrl = "articles/prestasi";
+  @override
+  final String title = "Prestasi";
 }
