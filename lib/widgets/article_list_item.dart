@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:himaskom_undip/models/article.dart';
-import 'package:himaskom_undip/utils/getArticleCallback.dart';
+import 'package:himaskom_undip/utils/get_article_callback.dart';
 import 'package:intl/intl.dart';
 
 class ArticleListItem extends StatelessWidget {

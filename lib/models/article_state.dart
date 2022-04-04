@@ -8,13 +8,11 @@ abstract class ArticleState extends ChangeNotifier {
   final String _baseUrl = "https://himaskom-undip-backend.et.r.appspot.com/";
   final String fetchUrl = "";
   final String title = "Articles";
-  List<Article> articles = _sampleArticles;
-  bool _isLoading = false;
+  List<Article> articles = sampleArticles;
+  bool isLoading = false;
 
-  bool get isLoading => _isLoading;
-
-  Future<void> fetch() async {
-    _isLoading = true;
+  Future<void> getAll() async {
+    isLoading = true;
     notifyListeners();
     final response = await http.get(Uri.parse(_baseUrl + fetchUrl));
     final data = jsonDecode(response.body)["data"] as List?;
@@ -24,12 +22,12 @@ abstract class ArticleState extends ChangeNotifier {
     } else {
       articles = data.map((e) => Article.fromJson(e)).toList();
     }
-    _isLoading = false;
+    isLoading = false;
     notifyListeners();
   }
 }
 
-final _sampleArticles = [
+final sampleArticles = [
   Article(
     id: "id-1",
     judul: "Judul Article 1",

@@ -21,7 +21,7 @@ class ArticleTabItem {
       title: title,
       isLoading: states.map((e) => e.isLoading).reduce((a, b) => a || b),
       onRefresh: () async {
-        await Future.wait(states.map((e) => e.fetch()));
+        await Future.wait(states.map((e) => e.getAll()));
       },
     );
   }
@@ -31,7 +31,7 @@ class ArticleTabItem {
       articles: state.articles,
       title: state.title,
       isLoading: state.isLoading,
-      onRefresh: state.fetch,
+      onRefresh: state.getAll,
     );
   }
 }

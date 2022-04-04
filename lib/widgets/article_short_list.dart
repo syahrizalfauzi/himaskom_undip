@@ -6,6 +6,7 @@ class ArticleShortList extends StatelessWidget {
   final List<Article> articles;
   final Future<void> Function() onRefresh;
   final Function(Article) onTapArticle;
+  final Function(Article) onDeleteArticle;
   final bool isLoading;
   final bool isAdminVariant;
 
@@ -14,8 +15,9 @@ class ArticleShortList extends StatelessWidget {
     required this.articles,
     required this.onRefresh,
     required this.onTapArticle,
-    this.isLoading = false,
-    this.isAdminVariant = false,
+    required this.onDeleteArticle,
+    required this.isLoading,
+    required this.isAdminVariant,
   }) : super(key: key);
 
   @override
@@ -28,6 +30,7 @@ class ArticleShortList extends StatelessWidget {
             )
           : ListView.builder(
               itemCount: articles.length,
+              shrinkWrap: true,
               itemBuilder: (context, index) {
                 return Padding(
                   padding: EdgeInsets.only(
@@ -40,6 +43,7 @@ class ArticleShortList extends StatelessWidget {
                     article: articles[index],
                     isAdminVariant: isAdminVariant,
                     onTap: onTapArticle,
+                    onDelete: onDeleteArticle,
                   ),
                 );
               },

@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:himaskom_undip/models/article.dart';
-import 'package:himaskom_undip/utils/getArticleCallback.dart';
+import 'package:himaskom_undip/utils/get_article_callback.dart';
 
 class ArticleShortItem extends StatelessWidget {
   final Article article;
   final Function(Article) onTap;
+  final Function(Article) onDelete;
   final bool isAdminVariant;
 
   const ArticleShortItem({
     Key? key,
     required this.article,
     required this.onTap,
-    this.isAdminVariant = false,
+    required this.onDelete,
+    required this.isAdminVariant,
   }) : super(key: key);
 
   @override
@@ -26,8 +28,7 @@ class ArticleShortItem extends StatelessWidget {
             extentRatio: 0.15,
             children: [
               SlidableAction(
-                // An action can be bigger than the others.
-                onPressed: (context) {},
+                onPressed: (_) => onDelete(article),
                 backgroundColor: const Color(0xFFFE7575),
                 foregroundColor: Colors.white,
                 icon: Icons.delete_outline,
@@ -36,24 +37,26 @@ class ArticleShortItem extends StatelessWidget {
               ),
             ],
           ),
-          child: Card(
-            shape: const RoundedRectangleBorder(
-              side: BorderSide(
-                color: Color(0xFFECECEE),
+          child: SizedBox(
+            width: double.infinity,
+            child: Card(
+              margin: EdgeInsets.zero,
+              elevation: 0,
+              shape: const RoundedRectangleBorder(
+                side: BorderSide(
+                  color: Color(0xFFECECEE),
+                ),
+                borderRadius: BorderRadius.horizontal(left: Radius.circular(4)),
               ),
-              borderRadius: BorderRadius.horizontal(left: Radius.circular(4)),
-            ),
-            margin: EdgeInsets.zero,
-            elevation: 0,
-            child: InkWell(
-              onTap: getArticleCallback(onTap, article),
-              child: Padding(
-                padding: const EdgeInsets.all(12),
-                child: Text(
-                  article.judul,
-                  overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
-                      fontWeight: FontWeight.w600, fontSize: 14),
+              child: InkWell(
+                onTap: getArticleCallback(onTap, article),
+                child: Padding(
+                  padding: const EdgeInsets.all(12),
+                  child: Text(
+                    article.judul,
+                    overflow: TextOverflow.ellipsis,
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
                 ),
               ),
             ),
@@ -65,7 +68,7 @@ class ArticleShortItem extends StatelessWidget {
       elevation: 10,
       shadowColor: const Color(0x328D92AB),
       child: InkWell(
-        onTap: () {},
+        onTap: getArticleCallback(onTap, article),
         child: Padding(
           padding: const EdgeInsets.all(12),
           child: Row(
@@ -87,8 +90,7 @@ class ArticleShortItem extends StatelessWidget {
                 child: Text(
                   article.judul,
                   overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
-                      fontWeight: FontWeight.w600, fontSize: 14),
+                  style: Theme.of(context).textTheme.titleMedium,
                 ),
               ),
               GestureDetector(

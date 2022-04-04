@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:himaskom_undip/pages/beranda_con.dart';
+import 'package:himaskom_undip/pages/notifikasi_con.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 void main() {
@@ -47,10 +47,14 @@ class MyApp extends StatelessWidget {
                 fontWeight: FontWeight.w400,
                 fontSize: 14,
               ),
+              titleMedium: TextStyle(
+                fontWeight: FontWeight.w600,
+                fontSize: 14,
+              ),
             ),
           ),
         ),
-        home: const Scaffold(body: BerandaPageContainer()),
+        home: const Scaffold(body: NotifikasiPageContainer()),
       ),
     );
   }
