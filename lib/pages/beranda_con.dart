@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:himaskom_undip/models/article.dart';
+import 'package:himaskom_undip/models/article_tab_item.dart';
 import 'package:himaskom_undip/pages/beranda_pres.dart';
 import 'package:himaskom_undip/states/akademik_article.dart';
 import 'package:himaskom_undip/states/beasiswa_article.dart';
@@ -14,8 +15,6 @@ import 'package:himaskom_undip/states/lomba_nonakademik_article.dart';
 import 'package:himaskom_undip/states/prestasi_article.dart';
 import 'package:himaskom_undip/states/sistore_article.dart';
 import 'package:himaskom_undip/states/umum_article.dart';
-import 'package:himaskom_undip/utils/combine_article_states.dart';
-import 'package:himaskom_undip/widgets/custom_tab_view.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class BerandaPageContainer extends HookConsumerWidget {
@@ -54,18 +53,11 @@ class BerandaPageContainer extends HookConsumerWidget {
       onTapArticle: _onTapArticle,
       articleTabItems: [
         ..._articleStates
-            .map(
-              (e) => ArticleTabItem(
-                articles: e.articles,
-                title: e.title,
-                isLoading: e.isLoading,
-                onRefresh: e.fetch,
-              ),
-            )
+            .map((e) => ArticleTabItem.fromArticleState(e))
             .toList(),
-        combineArticleStates(_eventArticleStates, "Event"),
-        combineArticleStates(_karirArticleStates, "Karir"),
-        combineArticleStates(_lombaArticleStates, "Lomba"),
+        ArticleTabItem.fromArticleStates(_eventArticleStates, "Event"),
+        ArticleTabItem.fromArticleStates(_karirArticleStates, "Karir"),
+        ArticleTabItem.fromArticleStates(_lombaArticleStates, "Lomba"),
       ],
     );
   }

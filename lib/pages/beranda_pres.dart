@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:himaskom_undip/models/article.dart';
+import 'package:himaskom_undip/models/article_tab_item.dart';
 import 'package:himaskom_undip/widgets/custom_tab_view.dart';
 
 class BerandaPagePresentational extends StatelessWidget {
@@ -18,7 +19,7 @@ class BerandaPagePresentational extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomTabView(
+    return ArticleTabView(
       onSaveArticle: onSaveArticle,
       onShareArticle: onShareArticle,
       onTapArticle: onTapArticle,

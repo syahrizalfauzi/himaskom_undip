@@ -1,14 +1,5 @@
 import 'package:flutter/material.dart';
-
-class Tag {
-  final String title;
-  final String name;
-
-  const Tag({
-    required this.title,
-    required this.name,
-  });
-}
+import 'package:himaskom_undip/models/tag.dart';
 
 class TagPicker extends StatelessWidget {
   final List<Tag> tags;

@@ -2,29 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:himaskom_undip/models/article.dart';
+import 'package:himaskom_undip/models/article_tab_item.dart';
 import 'package:himaskom_undip/widgets/article_list.dart';
 
-class ArticleTabItem {
-  final List<Article> articles;
-  final String title;
-  final bool isLoading;
-  final Future<void> Function() onRefresh;
-
-  const ArticleTabItem({
-    required this.articles,
-    required this.title,
-    required this.isLoading,
-    required this.onRefresh,
-  });
-}
-
-class CustomTabView extends HookWidget {
+class ArticleTabView extends HookWidget {
   final List<ArticleTabItem> items;
   final Function(Article) onTapArticle;
   final Function(Article) onSaveArticle;
   final Function(Article) onShareArticle;
 
-  const CustomTabView({
+  const ArticleTabView({
     Key? key,
     required this.items,
     required this.onTapArticle,
