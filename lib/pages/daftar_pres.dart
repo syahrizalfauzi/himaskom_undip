@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:himaskom_undip/widgets/custombutton.dart';
-import 'package:himaskom_undip/widgets/customtextformfield.dart';
+import 'package:himaskom_undip/widgets/custom_button.dart';
+import 'package:himaskom_undip/widgets/custom_text_form_field.dart';
 
 class DaftarPagePresentational extends StatelessWidget {
   final void Function(String) onNamaChange;

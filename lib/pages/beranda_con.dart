@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:himaskom_undip/models/article.dart';
-import 'package:himaskom_undip/pages/beranda.pres.dart';
-import 'package:himaskom_undip/states/akademikarticle.dart';
-import 'package:himaskom_undip/states/beasiswaarticle.dart';
-import 'package:himaskom_undip/states/berandaarticle.dart';
-import 'package:himaskom_undip/states/eventamarticle.dart';
-import 'package:himaskom_undip/states/eventhmarticle.dart';
-import 'package:himaskom_undip/states/eventukmarticle.dart';
-import 'package:himaskom_undip/states/karirlokerarticle.dart';
-import 'package:himaskom_undip/states/karirmagangarticle.dart';
-import 'package:himaskom_undip/states/lombaakademikarticle.dart';
-import 'package:himaskom_undip/states/lombanonakademikarticle.dart';
-import 'package:himaskom_undip/states/prestasiarticle.dart';
-import 'package:himaskom_undip/states/sistorearticle.dart';
-import 'package:himaskom_undip/states/umumarticle.dart';
-import 'package:himaskom_undip/utils/combinearticlestates.dart';
-import 'package:himaskom_undip/widgets/customtabview.dart';
+import 'package:himaskom_undip/pages/beranda_pres.dart';
+import 'package:himaskom_undip/states/akademik_article.dart';
+import 'package:himaskom_undip/states/beasiswa_article.dart';
+import 'package:himaskom_undip/states/beranda_article.dart';
+import 'package:himaskom_undip/states/event_am_article.dart';
+import 'package:himaskom_undip/states/event_hm_article.dart';
+import 'package:himaskom_undip/states/event_ukm_article.dart';
+import 'package:himaskom_undip/states/karir_loker_article.dart';
+import 'package:himaskom_undip/states/karir_magang_article.dart';
+import 'package:himaskom_undip/states/lomba_akademik_article.dart';
+import 'package:himaskom_undip/states/lomba_nonakademik_article.dart';
+import 'package:himaskom_undip/states/prestasi_article.dart';
+import 'package:himaskom_undip/states/sistore_article.dart';
+import 'package:himaskom_undip/states/umum_article.dart';
+import 'package:himaskom_undip/utils/combine_article_states.dart';
+import 'package:himaskom_undip/widgets/custom_tab_view.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class BerandaPageContainer extends HookConsumerWidget {

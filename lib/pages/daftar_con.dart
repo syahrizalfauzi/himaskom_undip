@@ -1,22 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:himaskom_undip/pages/login.pres.dart';
+import 'package:himaskom_undip/pages/daftar_pres.dart';
 
-class LoginPageContainer extends StatefulHookWidget {
-  const LoginPageContainer({Key? key}) : super(key: key);
+class DaftarPageContainer extends StatefulHookWidget {
+  const DaftarPageContainer({Key? key}) : super(key: key);
 
   @override
-  State<LoginPageContainer> createState() => _DaftarPageContainerState();
+  State<DaftarPageContainer> createState() => _DaftarPageContainerState();
 }
 
-class _DaftarPageContainerState extends State<LoginPageContainer> {
+class _DaftarPageContainerState extends State<DaftarPageContainer> {
   final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
+    final nama = useState("");
     final email = useState("");
     final password = useState("");
 
+    handleNamaChange(String newNama) => nama.value = newNama;
     handleEmailChange(String newEmail) => email.value = newEmail;
     handlePasswordChange(String newPassword) => password.value = newPassword;
     validateNotEmpty(String? text) => (text == null)
@@ -24,21 +26,22 @@ class _DaftarPageContainerState extends State<LoginPageContainer> {
         : text.isEmpty
             ? "Tidak boleh kosong"
             : null;
-    handleTapMasuk() {
+    handleTapDaftar() {
       _formKey.currentState!.validate();
     }
 
     return Form(
       key: _formKey,
-      child: LoginPagePresentational(
+      child: DaftarPagePresentational(
+        onNamaChange: handleNamaChange,
         onEmailChange: handleEmailChange,
         onPasswordChange: handlePasswordChange,
+        onTapDaftar: handleTapDaftar,
+        namaValidator: validateNotEmpty,
         emailValidator: validateNotEmpty,
         passwordValidator: validateNotEmpty,
-        onTapMasuk: handleTapMasuk,
-        onTapForgot: () => debugPrint('Tap forgot'),
         onTapGoogle: () => debugPrint('Tap google'),
-        onTapDaftar: () => debugPrint('Tap daftar'),
+        onTapMasuk: () => debugPrint('Tap masuk'),
       ),
     );
   }

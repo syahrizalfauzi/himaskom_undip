@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:himaskom_undip/widgets/userscaffold.dart';
+import 'package:himaskom_undip/widgets/user_scaffold.dart';
 
 class DrawerItem extends StatelessWidget {
   final void Function(Pages) onTap;

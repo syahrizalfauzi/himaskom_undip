@@ -1,5 +1,5 @@
-import 'package:himaskom_undip/models/articlestate.dart';
-import 'package:himaskom_undip/widgets/customtabview.dart';
+import 'package:himaskom_undip/models/article_state.dart';
+import 'package:himaskom_undip/widgets/custom_tab_view.dart';
 
 ArticleTabItem combineArticleStates(List<ArticleState> states, String title) =>
     ArticleTabItem(

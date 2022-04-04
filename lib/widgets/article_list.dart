@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:himaskom_undip/models/article.dart';
-import 'package:himaskom_undip/widgets/articlecard.dart';
-import 'package:himaskom_undip/widgets/articlelistitem.dart';
+import 'package:himaskom_undip/widgets/article_card.dart';
+import 'package:himaskom_undip/widgets/article_list_item.dart';
 
 class ArticleList extends StatelessWidget {
   final List<Article> articles;

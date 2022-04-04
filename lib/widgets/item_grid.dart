@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:himaskom_undip/models/article.dart';
-import 'package:himaskom_undip/widgets/itemcard.dart';
+import 'package:himaskom_undip/widgets/item_card.dart';
 
 class ItemGrid extends StatelessWidget {
   final List<Article> articles;

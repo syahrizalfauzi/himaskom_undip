@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:himaskom_undip/models/article.dart';
-import 'package:himaskom_undip/widgets/articlelist.dart';
+import 'package:himaskom_undip/widgets/article_list.dart';
 
 class ArticleTabItem {
   final List<Article> articles;
