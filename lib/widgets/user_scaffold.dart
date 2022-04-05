@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced_drawer/flutter_advanced_drawer.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:himaskom_undip/pages/beranda_con.dart';
 import 'package:himaskom_undip/pages/kategori_con.dart';
+import 'package:himaskom_undip/pages/notifikasi_con.dart';
+import 'package:himaskom_undip/pages/penyimpanan_con.dart';
+import 'package:himaskom_undip/pages/profile_con.dart';
 import 'package:himaskom_undip/widgets/drawer_item.dart';
 
-enum Pages { beranda, notifikasi, semuakategori, penyimpanan, profil }
+enum Pages { beranda, notifikasi, semuakategori, penyimpanan, profile }
 
 const pageTitle = {
   'beranda': "Beranda",
   'notifikasi': "Notifikasi",
   'semuakategori': "Semua Kategori",
   'penyimpanan': "Penyimpanan",
-  'profil': "Profil"
+  'profile': "Profile"
 };
 
 class UserScaffold extends StatefulHookWidget {
@@ -49,6 +53,7 @@ class _PageState extends State<UserScaffold> {
         ]),
         child: Scaffold(
           appBar: AppBar(
+            elevation: 0,
             title: Text(
               pageTitle[_currentPage.value.name]!,
               style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
@@ -77,10 +82,20 @@ class _PageState extends State<UserScaffold> {
             ],
           ),
           backgroundColor: Colors.white,
-          body: const AnimatedSwitcher(
-            duration: Duration(milliseconds: 250),
-            child: KategoriPageContainer(),
-          ),
+          body: (() {
+            switch (_currentPage.value) {
+              case Pages.beranda:
+                return const BerandaPageContainer();
+              case Pages.notifikasi:
+                return const NotifikasiPageContainer();
+              case Pages.semuakategori:
+                return const KategoriPageContainer();
+              case Pages.penyimpanan:
+                return const PenyimpananPageContainer();
+              case Pages.profile:
+                return const ProfilePageContainer();
+            }
+          })(),
         ),
       ),
       drawer: SafeArea(
@@ -148,9 +163,9 @@ class _PageState extends State<UserScaffold> {
                   isSelected: _currentPage.value == Pages.penyimpanan,
                 ),
                 DrawerItem(
-                  page: Pages.profil,
+                  page: Pages.profile,
                   onTap: _handleItemTap,
-                  isSelected: _currentPage.value == Pages.profil,
+                  isSelected: _currentPage.value == Pages.profile,
                 ),
                 const Spacer(),
                 ListTile(

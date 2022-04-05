@@ -25,8 +25,9 @@ class KategoriPagePresentational extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return Container(
       padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
+      color: const Color(0xFFFAFAFA),
       child: GridView.count(
         crossAxisCount: 2,
         mainAxisSpacing: 16,
