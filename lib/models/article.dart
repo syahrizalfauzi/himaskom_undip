@@ -75,6 +75,35 @@ class Article {
     );
   }
 
+  String get jenisString {
+    switch (jenis) {
+      case ArticleCategory.umum:
+        return 'Umum';
+      case ArticleCategory.eventHm:
+        return 'Event';
+      case ArticleCategory.eventAm:
+        return 'Event';
+      case ArticleCategory.eventUkm:
+        return 'Event';
+      case ArticleCategory.sistore:
+        return 'Sistore';
+      case ArticleCategory.beasiswa:
+        return 'Beasiswa';
+      case ArticleCategory.prestasi:
+        return 'Prestasi';
+      case ArticleCategory.akademik:
+        return 'Akademik';
+      case ArticleCategory.karirLoker:
+        return 'Karir';
+      case ArticleCategory.karirMagang:
+        return 'Karir';
+      case ArticleCategory.lombaAkademik:
+        return 'Lomba';
+      case ArticleCategory.lombaNonakademik:
+        return 'Lomba';
+    }
+  }
+
   @override
   String toString() {
     return 'Article(id: $id, judul: $judul, gambarUrl: $gambarUrl, jenis: $jenis, harga: $harga, createdAt: $createdAt, deskripsi: $deskripsi)';

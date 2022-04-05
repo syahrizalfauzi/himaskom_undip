@@ -53,7 +53,7 @@ class ArticleShortItem extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.all(12),
                   child: Text(
-                    article.judul,
+                    '[${article.jenisString}] ${article.judul}',
                     overflow: TextOverflow.ellipsis,
                     style: Theme.of(context).textTheme.titleMedium,
                   ),
@@ -88,7 +88,7 @@ class ArticleShortItem extends StatelessWidget {
               const SizedBox(width: 12),
               Expanded(
                 child: Text(
-                  article.judul,
+                  '[${article.jenisString}] ${article.judul}',
                   overflow: TextOverflow.ellipsis,
                   style: Theme.of(context).textTheme.titleMedium,
                 ),

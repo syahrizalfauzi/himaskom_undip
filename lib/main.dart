@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
             primary: const Color(0xFF171936),
           ),
           primaryColor: const Color(0xFF171936),
-          disabledColor: const Color(0xFFEEEEEE),
+          disabledColor: const Color(0xFFB4B3BA),
           textTheme: GoogleFonts.interTextTheme(
             const TextTheme(
               headlineLarge: TextStyle(
@@ -34,6 +34,11 @@ class MyApp extends StatelessWidget {
                 fontWeight: FontWeight.w500,
                 fontSize: 12,
                 height: 1.4,
+              ),
+              labelSmall: TextStyle(
+                fontWeight: FontWeight.w400,
+                fontSize: 12,
+                letterSpacing: 0,
               ),
               bodyLarge: TextStyle(
                 fontWeight: FontWeight.w600,

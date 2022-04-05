@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:himaskom_undip/models/article.dart';
 import 'package:himaskom_undip/utils/get_article_callback.dart';
+import 'package:himaskom_undip/widgets/article_jenis_icon.dart';
 import 'package:intl/intl.dart';
 
 class ArticleCard extends StatelessWidget {
@@ -80,6 +81,18 @@ class ArticleCard extends StatelessWidget {
                       ),
                     ],
                   )
+                ],
+              ),
+              const SizedBox(height: 8),
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  ArticleJenisIcon(jenis: article.jenis),
+                  const SizedBox(width: 6),
+                  Text(
+                    article.jenisString,
+                    style: Theme.of(context).textTheme.labelSmall,
+                  ),
                 ],
               ),
             ],
