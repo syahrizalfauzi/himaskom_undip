@@ -4,17 +4,21 @@ import 'package:himaskom_undip/widgets/article_short_list.dart';
 
 class NotifikasiPagePresentational extends StatelessWidget {
   final List<Article> articles;
+  final String settingsSubtitle;
   final Future<void> Function() onRefresh;
   final Function(Article) onTapArticle;
   final Function(Article) onDeleteArticle;
+  final void Function() onTapSettings;
   final bool isLoading;
 
   const NotifikasiPagePresentational({
     Key? key,
     required this.articles,
+    required this.settingsSubtitle,
     required this.onRefresh,
     required this.onTapArticle,
     required this.onDeleteArticle,
+    required this.onTapSettings,
     required this.isLoading,
   }) : super(key: key);
 
@@ -38,12 +42,15 @@ class NotifikasiPagePresentational extends StatelessWidget {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    "Semua Kategori",
+                    settingsSubtitle,
                     style: Theme.of(context).textTheme.bodyMedium,
                   ),
                 ],
               ),
-              IconButton(onPressed: () {}, icon: const Icon(Icons.more_horiz))
+              IconButton(
+                onPressed: onTapSettings,
+                icon: const Icon(Icons.more_horiz),
+              )
             ],
           ),
         ),

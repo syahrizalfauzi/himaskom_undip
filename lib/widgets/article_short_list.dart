@@ -22,32 +22,34 @@ class ArticleShortList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RefreshIndicator(
-      onRefresh: onRefresh,
-      child: isLoading
-          ? const Center(
-              child: CircularProgressIndicator(),
-            )
-          : ListView.builder(
-              itemCount: articles.length,
-              shrinkWrap: true,
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding: EdgeInsets.only(
-                    top: 16,
-                    left: 24,
-                    right: 24,
-                    bottom: index == 9 ? 16 : 0,
-                  ),
-                  child: ArticleShortItem(
-                    article: articles[index],
-                    isAdminVariant: isAdminVariant,
-                    onTap: onTapArticle,
-                    onDelete: onDeleteArticle,
-                  ),
-                );
-              },
-            ),
+    return Container(
+      color: const Color(0xFFFAFAFA),
+      child: RefreshIndicator(
+        onRefresh: onRefresh,
+        child: isLoading
+            ? const Center(
+                child: CircularProgressIndicator(),
+              )
+            : ListView.builder(
+                itemCount: articles.length,
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: EdgeInsets.only(
+                      top: 16,
+                      left: 24,
+                      right: 24,
+                      bottom: index == 9 ? 16 : 0,
+                    ),
+                    child: ArticleShortItem(
+                      article: articles[index],
+                      isAdminVariant: isAdminVariant,
+                      onTap: onTapArticle,
+                      onDelete: onDeleteArticle,
+                    ),
+                  );
+                },
+              ),
+      ),
     );
   }
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:himaskom_undip/pages/notifikasi_con.dart';
+import 'package:himaskom_undip/widgets/user_scaffold.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 void main() {
@@ -54,7 +54,8 @@ class MyApp extends StatelessWidget {
             ),
           ),
         ),
-        home: const Scaffold(body: NotifikasiPageContainer()),
+        home: const UserScaffold(),
+        // home: const Scaffold(body: NotifikasiPageContainer()),
       ),
     );
   }

@@ -4,12 +4,14 @@ class CustomButton extends StatelessWidget {
   final void Function() onTap;
   final String? text;
   final bool loading;
+  final bool dense;
 
   const CustomButton({
     Key? key,
+    required this.onTap,
     this.text,
     this.loading = false,
-    required this.onTap,
+    this.dense = false,
   }) : super(key: key);
 
   @override
@@ -20,7 +22,10 @@ class CustomButton extends StatelessWidget {
       disabledColor: Theme.of(context).primaryColor,
       elevation: 0,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
-      padding: const EdgeInsets.all(16),
+      padding: EdgeInsets.symmetric(
+        horizontal: 16,
+        vertical: dense ? 8 : 16,
+      ),
       child: loading
           ? const SizedBox(
               height: 17,

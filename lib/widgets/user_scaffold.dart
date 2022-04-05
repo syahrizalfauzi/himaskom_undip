@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced_drawer/flutter_advanced_drawer.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:himaskom_undip/pages/notifikasi_con.dart';
 import 'package:himaskom_undip/widgets/drawer_item.dart';
 
 enum Pages { beranda, notifikasi, semuakategori, penyimpanan, profil }
@@ -76,9 +77,9 @@ class _PageState extends State<UserScaffold> {
             ],
           ),
           backgroundColor: Colors.white,
-          body: AnimatedSwitcher(
-            duration: const Duration(milliseconds: 250),
-            child: Text(_currentPage.value.toString()),
+          body: const AnimatedSwitcher(
+            duration: Duration(milliseconds: 250),
+            child: NotifikasiPageContainer(),
           ),
         ),
       ),

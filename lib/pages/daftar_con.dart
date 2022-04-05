@@ -14,32 +14,32 @@ class _DaftarPageContainerState extends State<DaftarPageContainer> {
 
   @override
   Widget build(BuildContext context) {
-    final nama = useState("");
-    final email = useState("");
-    final password = useState("");
+    final _nama = useState("");
+    final _email = useState("");
+    final _password = useState("");
 
-    handleNamaChange(String newNama) => nama.value = newNama;
-    handleEmailChange(String newEmail) => email.value = newEmail;
-    handlePasswordChange(String newPassword) => password.value = newPassword;
-    validateNotEmpty(String? text) => (text == null)
+    _handleNamaChange(String newNama) => _nama.value = newNama;
+    _handleEmailChange(String newEmail) => _email.value = newEmail;
+    _handlePasswordChange(String newPassword) => _password.value = newPassword;
+    _validateNotEmpty(String? text) => (text == null)
         ? "Tidak boleh kosong"
         : text.isEmpty
             ? "Tidak boleh kosong"
             : null;
-    handleTapDaftar() {
+    _handleTapDaftar() {
       _formKey.currentState!.validate();
     }
 
     return Form(
       key: _formKey,
       child: DaftarPagePresentational(
-        onNamaChange: handleNamaChange,
-        onEmailChange: handleEmailChange,
-        onPasswordChange: handlePasswordChange,
-        onTapDaftar: handleTapDaftar,
-        namaValidator: validateNotEmpty,
-        emailValidator: validateNotEmpty,
-        passwordValidator: validateNotEmpty,
+        onNamaChange: _handleNamaChange,
+        onEmailChange: _handleEmailChange,
+        onPasswordChange: _handlePasswordChange,
+        onTapDaftar: _handleTapDaftar,
+        namaValidator: _validateNotEmpty,
+        emailValidator: _validateNotEmpty,
+        passwordValidator: _validateNotEmpty,
         onTapGoogle: () => debugPrint('Tap google'),
         onTapMasuk: () => debugPrint('Tap masuk'),
       ),

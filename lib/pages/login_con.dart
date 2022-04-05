@@ -14,28 +14,28 @@ class _DaftarPageContainerState extends State<LoginPageContainer> {
 
   @override
   Widget build(BuildContext context) {
-    final email = useState("");
-    final password = useState("");
+    final _email = useState("");
+    final _password = useState("");
 
-    handleEmailChange(String newEmail) => email.value = newEmail;
-    handlePasswordChange(String newPassword) => password.value = newPassword;
-    validateNotEmpty(String? text) => (text == null)
+    _handleEmailChange(String newEmail) => _email.value = newEmail;
+    _handlePasswordChange(String newPassword) => _password.value = newPassword;
+    _validateNotEmpty(String? text) => (text == null)
         ? "Tidak boleh kosong"
         : text.isEmpty
             ? "Tidak boleh kosong"
             : null;
-    handleTapMasuk() {
+    _handleTapMasuk() {
       _formKey.currentState!.validate();
     }
 
     return Form(
       key: _formKey,
       child: LoginPagePresentational(
-        onEmailChange: handleEmailChange,
-        onPasswordChange: handlePasswordChange,
-        emailValidator: validateNotEmpty,
-        passwordValidator: validateNotEmpty,
-        onTapMasuk: handleTapMasuk,
+        onEmailChange: _handleEmailChange,
+        onPasswordChange: _handlePasswordChange,
+        emailValidator: _validateNotEmpty,
+        passwordValidator: _validateNotEmpty,
+        onTapMasuk: _handleTapMasuk,
         onTapForgot: () => debugPrint('Tap forgot'),
         onTapGoogle: () => debugPrint('Tap google'),
         onTapDaftar: () => debugPrint('Tap daftar'),
