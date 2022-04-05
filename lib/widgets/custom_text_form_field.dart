@@ -2,31 +2,37 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 class CustomTextFormField extends HookWidget {
+  final bool dense;
   final String? hintText;
   final bool? multiline;
   final int? minLength;
   final int? maxLength;
   final void Function()? onTap;
+  final void Function(String)? onSubmit;
   final String? Function(String?)? validator;
   final TextInputAction? textInputAction;
   final TextInputType? textInputType;
   final String? labelText;
   final String? tipText;
   final void Function(String)? onChange;
+  final TextEditingController? controller;
 
   const CustomTextFormField({
     Key? key,
+    this.dense = false,
     this.hintText,
     this.multiline,
     this.minLength,
     this.maxLength,
     this.onTap,
+    this.onSubmit,
     this.validator,
     this.textInputAction,
     this.textInputType,
     this.labelText,
     this.tipText,
     this.onChange,
+    this.controller,
   }) : super(key: key);
 
   @override
@@ -46,11 +52,16 @@ class CustomTextFormField extends HookWidget {
               Text(tipText!, style: Theme.of(context).textTheme.caption),
           ],
         ),
-        const SizedBox(height: 8),
+        if (labelText != null || tipText != null) const SizedBox(height: 8),
         TextFormField(
           decoration: InputDecoration(
             hintText: hintText,
-            hintStyle: const TextStyle(color: Color(0xFFB4C9E9)),
+            contentPadding:
+                dense ? const EdgeInsets.fromLTRB(8, 0, 8, 0) : null,
+            hintStyle: TextStyle(
+                color: dense
+                    ? Theme.of(context).disabledColor
+                    : const Color(0xFFB4C9E9)),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(4),
               borderSide: const BorderSide(color: Color(0xFFDFE8F6)),
@@ -91,7 +102,9 @@ class CustomTextFormField extends HookWidget {
           maxLength: maxLength,
           readOnly: onTap != null,
           onTap: onTap,
+          onFieldSubmitted: onSubmit,
           onChanged: onChange,
+          controller: controller,
           validator: (v) {
             if (minLength != null && v != null && v.length < minLength!) {
               return 'Jumlah karakter kurang dari $minLength';
