@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:himaskom_undip/models/article.dart';
+import 'package:himaskom_undip/utils/get_article_callback.dart';
 import 'package:intl/intl.dart';
 
 class ItemCard extends StatelessWidget {
   final Article article;
+  final void Function(Article) onTap;
   const ItemCard({
     Key? key,
     required this.article,
+    required this.onTap,
   }) : super(key: key);
 
   @override
@@ -15,7 +18,7 @@ class ItemCard extends StatelessWidget {
       elevation: 10,
       shadowColor: const Color(0x328D92AB),
       child: InkWell(
-        onTap: () {},
+        onTap: getArticleCallback(onTap, article),
         child: Padding(
           padding: const EdgeInsets.all(16),
           child: Column(

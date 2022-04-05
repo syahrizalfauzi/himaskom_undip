@@ -8,5 +8,5 @@ class KarirLokerArticleState extends ArticleState {
   @override
   final String fetchUrl = "articles/karir/loker";
   @override
-  final String title = "Loker";
+  final String title = "Lowongan Kerja";
 }

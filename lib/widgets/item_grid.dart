@@ -5,12 +5,14 @@ import 'package:himaskom_undip/widgets/item_card.dart';
 class ItemGrid extends StatelessWidget {
   final List<Article> articles;
   final Future<void> Function() onRefresh;
+  final Function(Article) onTapItem;
   final bool isLoading;
 
   const ItemGrid({
     Key? key,
     required this.articles,
     required this.onRefresh,
+    required this.onTapItem,
     this.isLoading = false,
   }) : super(key: key);
 
@@ -34,6 +36,7 @@ class ItemGrid extends StatelessWidget {
               itemBuilder: (context, index) {
                 return ItemCard(
                   article: articles[index],
+                  onTap: onTapItem,
                 );
               },
             ),

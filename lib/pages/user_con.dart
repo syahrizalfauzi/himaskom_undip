@@ -1,13 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced_drawer/flutter_advanced_drawer.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:himaskom_undip/pages/beranda_con.dart';
-import 'package:himaskom_undip/pages/kategori_con.dart';
-import 'package:himaskom_undip/pages/notifikasi_con.dart';
-import 'package:himaskom_undip/pages/penyimpanan_con.dart';
-import 'package:himaskom_undip/pages/profile_con.dart';
 import 'package:himaskom_undip/pages/user_pres.dart';
-import 'package:himaskom_undip/widgets/drawer_item.dart';
 
 class UserContainer extends StatefulHookWidget {
   const UserContainer({Key? key}) : super(key: key);
@@ -44,15 +38,16 @@ class _PageState extends State<UserContainer> {
       _advancedDrawerController.hideDrawer();
     }
 
-    void _handleTap() {}
+    void _handleTapLogOut() {}
+    void _handleTapSearch() {}
 
     return UserPresentational(
       drawerController: _advancedDrawerController,
       appBarTitle: _appBarTitle,
       currentPage: _currentPage.value,
       onChangePage: _handleTapItem,
-      onTapLogOut: _handleTap,
-      onTapSearch: _handleTap,
+      onTapLogOut: _handleTapLogOut,
+      onTapSearch: _handleTapSearch,
     );
   }
 }
