@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced_drawer/flutter_advanced_drawer.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:himaskom_undip/pages/beranda_con.dart';
 import 'package:himaskom_undip/pages/kategori_con.dart';
 import 'package:himaskom_undip/pages/notifikasi_con.dart';
@@ -10,36 +9,29 @@ import 'package:himaskom_undip/widgets/drawer_item.dart';
 
 enum Pages { beranda, notifikasi, semuakategori, penyimpanan, profile }
 
-const pageTitle = {
-  'beranda': "Beranda",
-  'notifikasi': "Notifikasi",
-  'semuakategori': "Semua Kategori",
-  'penyimpanan': "Penyimpanan",
-  'profile': "Profile"
-};
+class UserPresentational extends StatelessWidget {
+  final AdvancedDrawerController drawerController;
+  final String appBarTitle;
+  final Pages currentPage;
+  final void Function(Pages) onChangePage;
+  final void Function() onTapLogOut;
+  final void Function() onTapSearch;
 
-class UserScaffold extends StatefulHookWidget {
-  const UserScaffold({Key? key}) : super(key: key);
-
-  @override
-  State<UserScaffold> createState() => _PageState();
-}
-
-class _PageState extends State<UserScaffold> {
-  final _advancedDrawerController = AdvancedDrawerController();
+  const UserPresentational({
+    Key? key,
+    required this.drawerController,
+    required this.appBarTitle,
+    required this.currentPage,
+    required this.onChangePage,
+    required this.onTapLogOut,
+    required this.onTapSearch,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final _currentPage = useState(Pages.beranda);
-
-    void _handleItemTap(Pages page) {
-      _currentPage.value = page;
-      _advancedDrawerController.hideDrawer();
-    }
-
     return AdvancedDrawer(
       backdropColor: const Color(0xFFF9F8FD),
-      controller: _advancedDrawerController,
+      controller: drawerController,
       animationCurve: Curves.easeInOutExpo,
       animationDuration: const Duration(milliseconds: 250),
       openRatio: 0.5,
@@ -55,14 +47,14 @@ class _PageState extends State<UserScaffold> {
           appBar: AppBar(
             elevation: 0,
             title: Text(
-              pageTitle[_currentPage.value.name]!,
+              appBarTitle,
               style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
             ),
             centerTitle: true,
             leading: IconButton(
-              onPressed: () => _advancedDrawerController.showDrawer(),
+              onPressed: drawerController.showDrawer,
               icon: ValueListenableBuilder<AdvancedDrawerValue>(
-                valueListenable: _advancedDrawerController,
+                valueListenable: drawerController,
                 builder: (_, value, __) {
                   return AnimatedSwitcher(
                     duration: const Duration(milliseconds: 250),
@@ -76,14 +68,14 @@ class _PageState extends State<UserScaffold> {
             ),
             actions: [
               IconButton(
-                onPressed: () {},
+                onPressed: onTapSearch,
                 icon: const Icon(Icons.search),
               )
             ],
           ),
           backgroundColor: Colors.white,
           body: (() {
-            switch (_currentPage.value) {
+            switch (currentPage) {
               case Pages.beranda:
                 return const BerandaPageContainer();
               case Pages.notifikasi:
@@ -143,35 +135,35 @@ class _PageState extends State<UserScaffold> {
                 ),
                 const Spacer(),
                 DrawerItem(
-                  page: Pages.beranda,
-                  onTap: _handleItemTap,
-                  isSelected: _currentPage.value == Pages.beranda,
+                  title: 'Beranda',
+                  onTap: () => onChangePage(Pages.beranda),
+                  isSelected: currentPage == Pages.beranda,
                 ),
                 DrawerItem(
-                  page: Pages.notifikasi,
-                  onTap: _handleItemTap,
-                  isSelected: _currentPage.value == Pages.notifikasi,
+                  title: 'Notifikasi',
+                  onTap: () => onChangePage(Pages.notifikasi),
+                  isSelected: currentPage == Pages.notifikasi,
                 ),
                 DrawerItem(
-                  page: Pages.semuakategori,
-                  onTap: _handleItemTap,
-                  isSelected: _currentPage.value == Pages.semuakategori,
+                  title: 'Semua Kategori',
+                  onTap: () => onChangePage(Pages.semuakategori),
+                  isSelected: currentPage == Pages.semuakategori,
                 ),
                 DrawerItem(
-                  page: Pages.penyimpanan,
-                  onTap: _handleItemTap,
-                  isSelected: _currentPage.value == Pages.penyimpanan,
+                  title: 'Penyimpanan',
+                  onTap: () => onChangePage(Pages.penyimpanan),
+                  isSelected: currentPage == Pages.penyimpanan,
                 ),
                 DrawerItem(
-                  page: Pages.profile,
-                  onTap: _handleItemTap,
-                  isSelected: _currentPage.value == Pages.profile,
+                  title: 'Profile',
+                  onTap: () => onChangePage(Pages.profile),
+                  isSelected: currentPage == Pages.profile,
                 ),
                 const Spacer(),
                 ListTile(
-                  onTap: () {},
+                  onTap: onTapLogOut,
                   title: const Text(
-                    'Log out',
+                    'Log Out',
                     style: TextStyle(
                       color: Colors.red,
                       fontWeight: FontWeight.w600,

@@ -4,14 +4,12 @@ class ProfilePagePresentational extends StatelessWidget {
   final String? avatarUrl;
   final String name;
   final String email;
-  final Function() onLogOut;
 
   const ProfilePagePresentational({
     Key? key,
     this.avatarUrl,
     required this.name,
     required this.email,
-    required this.onLogOut,
   }) : super(key: key);
 
   @override

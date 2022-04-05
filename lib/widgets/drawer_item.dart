@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:himaskom_undip/widgets/user_scaffold.dart';
 
 class DrawerItem extends StatelessWidget {
-  final void Function(Pages) onTap;
-  final Pages page;
+  final void Function() onTap;
+  final String title;
   final bool isSelected;
 
   const DrawerItem({
     Key? key,
-    required this.page,
+    required this.title,
     required this.onTap,
     required this.isSelected,
   }) : super(key: key);
@@ -16,9 +15,9 @@ class DrawerItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      onTap: () => onTap(page),
+      onTap: onTap,
       title: Text(
-        pageTitle[page.name]!,
+        title,
         style: TextStyle(
           color: isSelected ? Colors.black : const Color(0xFFB4B3Ba),
           fontWeight: FontWeight.w600,

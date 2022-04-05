@@ -6,10 +6,9 @@ class ProfilePageContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ProfilePagePresentational(
+    return const ProfilePagePresentational(
       email: 'syahrizal@gmail.com',
       name: 'Syahrizal Fauzi',
-      onLogOut: () {},
     );
   }
 }
