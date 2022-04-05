@@ -20,7 +20,7 @@ class ArticleListItem extends StatelessWidget {
       child: InkWell(
         onTap: getArticleCallback(onTap, article),
         child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 16),
+          padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 24),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             mainAxisSize: MainAxisSize.max,

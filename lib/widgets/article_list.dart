@@ -6,9 +6,9 @@ import 'package:himaskom_undip/widgets/article_list_item.dart';
 class ArticleList extends StatelessWidget {
   final List<Article> articles;
   final Future<void> Function() onRefresh;
-  final Function(Article) onTapArticle;
-  final Function(Article) onSaveArticle;
-  final Function(Article) onShareArticle;
+  final Function(Article)? onTapArticle;
+  final Function(Article)? onSaveArticle;
+  final Function(Article)? onShareArticle;
   final bool isLoading;
   final bool firstHighlight;
 
@@ -16,9 +16,9 @@ class ArticleList extends StatelessWidget {
     Key? key,
     required this.articles,
     required this.onRefresh,
-    required this.onTapArticle,
-    required this.onSaveArticle,
-    required this.onShareArticle,
+    this.onTapArticle,
+    this.onSaveArticle,
+    this.onShareArticle,
     required this.isLoading,
     this.firstHighlight = false,
   }) : super(key: key);
@@ -42,9 +42,9 @@ class ArticleList extends StatelessWidget {
                     children: [
                       ArticleCard(
                         article: articles[index],
-                        onTap: onTapArticle,
-                        onSave: onSaveArticle,
-                        onShare: onShareArticle,
+                        onTap: onTapArticle!,
+                        onSave: onSaveArticle!,
+                        onShare: onShareArticle!,
                       ),
                       const SizedBox(height: 32),
                       const Text(
@@ -57,15 +57,15 @@ class ArticleList extends StatelessWidget {
                 } else {
                   child = ArticleListItem(
                     article: articles[index],
-                    onTap: onTapArticle,
+                    onTap: onTapArticle!,
                   );
                 }
 
                 return Padding(
                   padding: EdgeInsets.only(
+                    left: firstHighlight && index == 0 ? 24 : 0,
+                    right: firstHighlight && index == 0 ? 24 : 0,
                     top: 16,
-                    left: 24,
-                    right: 24,
                     bottom: index == 9 ? 16 : 0,
                   ),
                   child: child,
