@@ -43,7 +43,7 @@ class _PageState extends State<UserContainer> {
 
     void _handleTapArticle(Article article) {
       Navigator.of(context).push(MaterialPageRoute(
-          builder: (_) => ArticleDetailPageContainer(id: article.id)));
+          builder: (_) => ArticleDetailPageContainer(article: article)));
     }
 
     void _handleShareArticle(Article article) {}

@@ -3,14 +3,14 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:himaskom_undip/models/article.dart';
 import 'package:himaskom_undip/pages/article_detail_pres.dart';
 import 'package:himaskom_undip/pages/pengingat_settings_con.dart';
-import 'package:himaskom_undip/states/event_hm_article.dart';
+import 'package:himaskom_undip/utils/get_article_state.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:loop_page_view/loop_page_view.dart';
 
 class ArticleDetailPageContainer extends StatefulHookConsumerWidget {
-  final String id;
+  final Article article;
 
-  const ArticleDetailPageContainer({Key? key, required this.id})
+  const ArticleDetailPageContainer({Key? key, required this.article})
       : super(key: key);
 
   @override
@@ -24,7 +24,7 @@ class _ArticleDetailPageContainerState
 
   @override
   Widget build(BuildContext context) {
-    final _articleState = ref.watch(eventHmArticleState);
+    final _articleState = ref.watch(getArticleStateFromArticle(widget.article));
     final _currentImageIndex = useState(0.0);
     final _article = useState<Article?>(null);
 
@@ -38,7 +38,7 @@ class _ArticleDetailPageContainerState
 
     Future<void> _fetch() async {
       _article.value = null;
-      _article.value = await _articleState.get(widget.id);
+      _article.value = await _articleState.get(widget.article.id);
     }
 
     void _handle() {}
