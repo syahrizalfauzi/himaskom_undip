@@ -14,7 +14,7 @@ import 'package:himaskom_undip/states/lomba_nonakademik_article.dart';
 import 'package:himaskom_undip/states/prestasi_article.dart';
 import 'package:himaskom_undip/states/sistore_article.dart';
 import 'package:himaskom_undip/states/umum_article.dart';
-import 'package:himaskom_undip/states/user_scaffold.dart';
+import 'package:himaskom_undip/widgets/user_scaffold.dart';
 import 'package:himaskom_undip/widgets/article_list.dart';
 import 'package:himaskom_undip/widgets/article_tab_view.dart';
 import 'package:himaskom_undip/widgets/item_grid.dart';

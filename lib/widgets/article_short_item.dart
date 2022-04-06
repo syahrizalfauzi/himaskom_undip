@@ -94,6 +94,7 @@ class ArticleShortItem extends StatelessWidget {
                 ),
               ),
               GestureDetector(
+                onTap: getArticleCallback(onDelete, article),
                 child: const Icon(
                   Icons.delete_outline,
                   color: Colors.red,
