@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced_drawer/flutter_advanced_drawer.dart';
+import 'package:himaskom_undip/models/article.dart';
 import 'package:himaskom_undip/pages/beranda_con.dart';
 import 'package:himaskom_undip/pages/kategori_con.dart';
 import 'package:himaskom_undip/pages/notifikasi_con.dart';
@@ -16,6 +17,10 @@ class UserPresentational extends StatelessWidget {
   final void Function(Pages) onChangePage;
   final void Function() onTapLogOut;
   final void Function() onTapSearch;
+  final Function(Article) onTapArticle;
+  final Function(Article) onSaveArticle;
+  final Function(Article) onShareArticle;
+  final Function(Article) onDeleteArticle;
 
   const UserPresentational({
     Key? key,
@@ -25,6 +30,10 @@ class UserPresentational extends StatelessWidget {
     required this.onChangePage,
     required this.onTapLogOut,
     required this.onTapSearch,
+    required this.onTapArticle,
+    required this.onSaveArticle,
+    required this.onShareArticle,
+    required this.onDeleteArticle,
   }) : super(key: key);
 
   @override
@@ -77,13 +86,25 @@ class UserPresentational extends StatelessWidget {
           body: (() {
             switch (currentPage) {
               case Pages.beranda:
-                return const BerandaPageContainer();
+                return BerandaPageContainer(
+                  onTapArticle: onTapArticle,
+                  onSaveArticle: onSaveArticle,
+                  onShareArticle: onShareArticle,
+                );
               case Pages.notifikasi:
-                return const NotifikasiPageContainer();
+                return NotifikasiPageContainer(
+                  onTapArticle: onTapArticle,
+                  onDeleteArticle: onDeleteArticle,
+                );
               case Pages.semuakategori:
-                return KategoriPageContainer(onTapSearch: onTapSearch);
+                return KategoriPageContainer(
+                  onTapSearch: onTapSearch,
+                  onTapArticle: onTapArticle,
+                  onSaveArticle: onSaveArticle,
+                  onShareArticle: onShareArticle,
+                );
               case Pages.penyimpanan:
-                return const PenyimpananPageContainer();
+                return PenyimpananPageContainer(onTapArticle: onTapArticle);
               case Pages.profile:
                 return const ProfilePageContainer();
             }

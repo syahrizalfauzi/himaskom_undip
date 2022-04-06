@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced_drawer/flutter_advanced_drawer.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:himaskom_undip/models/article.dart';
 import 'package:himaskom_undip/pages/user_pres.dart';
 
 class UserContainer extends StatefulHookWidget {
@@ -40,6 +41,10 @@ class _PageState extends State<UserContainer> {
 
     void _handleTapLogOut() {}
     void _handleTapSearch() {}
+    void _handleTapArticle(Article article) {}
+    void _handleShareArticle(Article article) {}
+    void _handleSaveArticle(Article article) {}
+    void _handleDeleteArticle(Article article) {}
 
     return UserPresentational(
       drawerController: _advancedDrawerController,
@@ -48,6 +53,10 @@ class _PageState extends State<UserContainer> {
       onChangePage: _handleTapItem,
       onTapLogOut: _handleTapLogOut,
       onTapSearch: _handleTapSearch,
+      onDeleteArticle: _handleDeleteArticle,
+      onSaveArticle: _handleSaveArticle,
+      onShareArticle: _handleShareArticle,
+      onTapArticle: _handleTapArticle,
     );
   }
 }

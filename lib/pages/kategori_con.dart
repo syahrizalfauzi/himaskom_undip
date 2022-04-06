@@ -22,8 +22,17 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class KategoriPageContainer extends HookConsumerWidget {
   final void Function() onTapSearch;
-  const KategoriPageContainer({Key? key, required this.onTapSearch})
-      : super(key: key);
+  final Function(Article) onTapArticle;
+  final Function(Article) onSaveArticle;
+  final Function(Article) onShareArticle;
+
+  const KategoriPageContainer({
+    Key? key,
+    required this.onTapSearch,
+    required this.onTapArticle,
+    required this.onSaveArticle,
+    required this.onShareArticle,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context, ref) {
@@ -46,10 +55,6 @@ class KategoriPageContainer extends HookConsumerWidget {
       ref.watch(lombaNonakademikArticleState),
     ];
 
-    void _handleSaveArticle(Article article) {}
-    void _handleShareArticle(Article article) {}
-    void _handleTapArticle(Article article) {}
-
     void _handleTapAkademik() {
       Navigator.of(context).push(MaterialPageRoute(
           builder: ((context) => UserScaffold(
@@ -60,9 +65,9 @@ class KategoriPageContainer extends HookConsumerWidget {
                   onRefresh: _akademikState.getAll,
                   isLoading: _akademikState.isLoading,
                   firstHighlight: true,
-                  onSaveArticle: _handleSaveArticle,
-                  onShareArticle: _handleShareArticle,
-                  onTapArticle: _handleTapArticle,
+                  onSaveArticle: onSaveArticle,
+                  onShareArticle: onShareArticle,
+                  onTapArticle: onTapArticle,
                 ),
               ))));
     }
@@ -77,9 +82,9 @@ class KategoriPageContainer extends HookConsumerWidget {
                 onRefresh: _beasiswaState.getAll,
                 isLoading: _beasiswaState.isLoading,
                 firstHighlight: true,
-                onSaveArticle: _handleSaveArticle,
-                onShareArticle: _handleShareArticle,
-                onTapArticle: _handleTapArticle,
+                onSaveArticle: onSaveArticle,
+                onShareArticle: onShareArticle,
+                onTapArticle: onTapArticle,
               )))));
     }
 
@@ -93,9 +98,9 @@ class KategoriPageContainer extends HookConsumerWidget {
                 onRefresh: _prestasiState.getAll,
                 isLoading: _prestasiState.isLoading,
                 firstHighlight: true,
-                onSaveArticle: _handleSaveArticle,
-                onShareArticle: _handleShareArticle,
-                onTapArticle: _handleTapArticle,
+                onSaveArticle: onSaveArticle,
+                onShareArticle: onShareArticle,
+                onTapArticle: onTapArticle,
               )))));
     }
 
@@ -108,7 +113,7 @@ class KategoriPageContainer extends HookConsumerWidget {
                 articles: _sistoreState.articles,
                 onRefresh: _sistoreState.getAll,
                 isLoading: _sistoreState.isLoading,
-                onTapItem: _handleTapArticle,
+                onTapItem: onTapArticle,
               )))));
     }
 
@@ -122,9 +127,9 @@ class KategoriPageContainer extends HookConsumerWidget {
                 onRefresh: _umumState.getAll,
                 isLoading: _umumState.isLoading,
                 firstHighlight: true,
-                onSaveArticle: _handleSaveArticle,
-                onShareArticle: _handleShareArticle,
-                onTapArticle: _handleTapArticle,
+                onSaveArticle: onSaveArticle,
+                onShareArticle: onShareArticle,
+                onTapArticle: onTapArticle,
               )))));
     }
 
@@ -137,9 +142,9 @@ class KategoriPageContainer extends HookConsumerWidget {
                 items: _eventStates
                     .map((e) => ArticleTabItem.fromArticleState(e))
                     .toList(),
-                onTapArticle: _handleTapArticle,
-                onSaveArticle: _handleTapArticle,
-                onShareArticle: _handleTapArticle,
+                onTapArticle: onTapArticle,
+                onSaveArticle: onSaveArticle,
+                onShareArticle: onShareArticle,
               )))));
     }
 
@@ -152,9 +157,9 @@ class KategoriPageContainer extends HookConsumerWidget {
                 items: _karirStates
                     .map((e) => ArticleTabItem.fromArticleState(e))
                     .toList(),
-                onTapArticle: _handleTapArticle,
-                onSaveArticle: _handleTapArticle,
-                onShareArticle: _handleTapArticle,
+                onTapArticle: onTapArticle,
+                onSaveArticle: onSaveArticle,
+                onShareArticle: onShareArticle,
               )))));
     }
 
@@ -167,9 +172,9 @@ class KategoriPageContainer extends HookConsumerWidget {
                 items: _lombaStates
                     .map((e) => ArticleTabItem.fromArticleState(e))
                     .toList(),
-                onTapArticle: _handleTapArticle,
-                onSaveArticle: _handleTapArticle,
-                onShareArticle: _handleTapArticle,
+                onTapArticle: onTapArticle,
+                onSaveArticle: onSaveArticle,
+                onShareArticle: onShareArticle,
               )))));
     }
 
