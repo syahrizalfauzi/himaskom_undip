@@ -50,8 +50,8 @@ class ArticleJenisIcon extends StatelessWidget {
     }
     return SvgPicture.asset(
       'assets/category/$asset.svg',
-      height: 16,
-      width: 16,
+      height: 20,
+      width: 20,
     );
   }
 }

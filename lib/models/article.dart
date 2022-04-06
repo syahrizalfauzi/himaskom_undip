@@ -13,6 +13,8 @@ enum ArticleCategory {
   lombaNonakademik,
 }
 
+enum PostVariant { article, item, event }
+
 ArticleCategory _parseCategory(String jenis) {
   switch (jenis) {
     case "umum":
@@ -101,6 +103,18 @@ class Article {
         return 'Lomba';
       case ArticleCategory.lombaNonakademik:
         return 'Lomba';
+    }
+  }
+
+  PostVariant get variant {
+    if (jenis == ArticleCategory.sistore) {
+      return PostVariant.item;
+    } else if (jenis == ArticleCategory.eventAm ||
+        jenis == ArticleCategory.eventHm ||
+        jenis == ArticleCategory.eventUkm) {
+      return PostVariant.event;
+    } else {
+      return PostVariant.article;
     }
   }
 

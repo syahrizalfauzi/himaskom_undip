@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:himaskom_undip/pages/search_con.dart';
+import 'package:himaskom_undip/pages/article_detail_con.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 void main() {
@@ -35,6 +35,11 @@ class MyApp extends StatelessWidget {
                 fontSize: 18,
                 color: Colors.black,
               ),
+              headlineSmall: TextStyle(
+                fontWeight: FontWeight.w600,
+                fontSize: 18,
+                color: Colors.black,
+              ),
               labelMedium: TextStyle(
                 fontWeight: FontWeight.w500,
                 fontSize: 12,
@@ -64,7 +69,7 @@ class MyApp extends StatelessWidget {
             ),
           ),
         ),
-        home: const SearchPageContainer(),
+        home: const ArticleDetailPageContainer(),
       ),
     );
   }

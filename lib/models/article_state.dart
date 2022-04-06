@@ -25,6 +25,32 @@ abstract class ArticleState extends ChangeNotifier {
     isLoading = false;
     notifyListeners();
   }
+
+  Future<Article> get(String id) async {
+    // final response = await http.get(Uri.parse(_baseUrl + '/$id'));
+    final index = articles.indexWhere((e) => e.id == id);
+    await Future.delayed(const Duration(seconds: 1));
+    // final article = Article.fromJson(jsonDecode(response.body)["data"]);
+    final article = Article(
+      id: id,
+      judul: "Judul Article 1",
+      gambarUrl: [
+        'https://upload.wikimedia.org/wikipedia/commons/e/ee/Sample_abc.jpg'
+      ],
+      deskripsi: "Halo ni deskripsi",
+      createdAt: DateTime.now(),
+      jenis: ArticleCategory.eventAm,
+      harga: 120,
+    );
+
+    if (index == -1) {
+      articles.insert(0, article);
+    } else {
+      articles[index] = article;
+    }
+
+    return article;
+  }
 }
 
 final sampleArticles = [
