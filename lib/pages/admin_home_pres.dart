@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:himaskom_undip/models/article_tab_item.dart';
+import 'package:himaskom_undip/models/article_state_item.dart';
 
 class AdminHomePagePresentational extends StatelessWidget {
-  final List<ArticleTabItem> items;
+  final List<ArticleStateItem> items;
   final void Function() onLogOut;
 
   const AdminHomePagePresentational({

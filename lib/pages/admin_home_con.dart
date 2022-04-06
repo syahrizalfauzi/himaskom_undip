@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:himaskom_undip/models/article.dart';
-import 'package:himaskom_undip/models/article_state.dart';
-import 'package:himaskom_undip/models/article_tab_item.dart';
+import 'package:himaskom_undip/models/article_state_item.dart';
 import 'package:himaskom_undip/pages/admin_home_pres.dart';
 import 'package:himaskom_undip/states/akademik_article.dart';
 import 'package:himaskom_undip/states/beasiswa_article.dart';
@@ -16,9 +14,6 @@ import 'package:himaskom_undip/states/lomba_nonakademik_article.dart';
 import 'package:himaskom_undip/states/prestasi_article.dart';
 import 'package:himaskom_undip/states/sistore_article.dart';
 import 'package:himaskom_undip/states/umum_article.dart';
-import 'package:himaskom_undip/widgets/admin_scaffold.dart';
-import 'package:himaskom_undip/widgets/article_short_list.dart';
-import 'package:himaskom_undip/widgets/article_state_builder.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class AdminHomePageContainer extends HookConsumerWidget {
@@ -52,85 +47,40 @@ class AdminHomePageContainer extends HookConsumerWidget {
       ref.watch(lombaNonakademikArticleState),
     ];
 
-    final _eventItem = useMemoized(
-        () => ArticleTabItem.fromArticleStates(_eventStates, "Event"),
-        [_eventStates]);
-    final _karirItem = useMemoized(
-        () => ArticleTabItem.fromArticleStates(_karirStates, "Karir"),
-        [_eventStates]);
-    final _lombaItem = useMemoized(
-        () => ArticleTabItem.fromArticleStates(_lombaStates, "Lomba"),
-        [_eventStates]);
-
-    void _handleTapEvent() {
-      Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: (context) => AdminScaffold(
-            title: 'Event',
-            child: ArticleShortList(
-              articles: _eventItem.articles,
-              onRefresh: _eventItem.onRefresh,
-              onTapArticle: onTapArticle,
-              onDeleteArticle: onDeleteArticle,
-              isLoading: _eventItem.isLoading,
-              isAdminVariant: true,
-            ),
-          ),
-        ),
-      );
-    }
-
-    void _handleTapSistore() {
-      // Navigator.of(context).push(
-      //   MaterialPageRoute(
-      //       builder: (context) => ArticleStateBuilder(
-      //           state: sistoreArticleState,
-      //           builder: (state) {
-      //             return AdminScaffold(
-      //               title: 'Sistore',
-      //               child: ArticleShortList(
-      //                 articles: state.articles,
-      //                 onRefresh: state.getAll,
-      //                 onTapArticle: onTapArticle,
-      //                 onDeleteArticle: onDeleteArticle,
-      //                 isLoading: state.isLoading,
-      //                 isAdminVariant: true,
-      //               ),
-      //             );
-      //           })
-      // HookConsumer(builder: (_, ref, __) {
-      //   final _state = ref.watch(sistoreArticleState);
-
-      //   return AdminScaffold(
-      //     title: 'Sistore',
-      //     child: ArticleShortList(
-      //       articles: _state.articles,
-      //       onRefresh: _state.getAll,
-      //       onTapArticle: onTapArticle,
-      //       onDeleteArticle: onDeleteArticle,
-      //       isLoading: _state.isLoading,
-      //       isAdminVariant: true,
-      //     ),
-      //   );
-      // }),
-      //       ),
-      // );
-    }
+    void _handleTapEvent() {}
+    void _handleTapSistore() {}
+    void _handleTapBeasiswa() {}
+    void _handleTapPrestasi() {}
+    void _handleTapAkademik() {}
+    void _handleTapKarir() {}
+    void _handleTapLomba() {}
+    void _handleTapUmum() {}
 
     void _handleLogOut() {}
 
     return AdminHomePagePresentational(
       onLogOut: _handleLogOut,
       items: [
-        ArticleTabItem.fromArticleStates(
-            _eventStates, 'Event', _handleTapEvent),
-        ArticleTabItem.fromArticleState(_sistoreState, _handleTapSistore),
-        ArticleTabItem.fromArticleState(_beasiswaState),
-        ArticleTabItem.fromArticleState(_prestasiState),
-        ArticleTabItem.fromArticleState(_akademikState),
-        ArticleTabItem.fromArticleStates(_karirStates, 'Karir'),
-        ArticleTabItem.fromArticleStates(_lombaStates, 'Lomba'),
-        ArticleTabItem.fromArticleState(_umumState),
+        ArticleStateItem.fromArticleStates(
+          _eventStates,
+          'Event',
+          _handleTapEvent,
+        ),
+        ArticleStateItem.fromArticleState(_sistoreState, _handleTapSistore),
+        ArticleStateItem.fromArticleState(_beasiswaState, _handleTapBeasiswa),
+        ArticleStateItem.fromArticleState(_prestasiState, _handleTapPrestasi),
+        ArticleStateItem.fromArticleState(_akademikState, _handleTapAkademik),
+        ArticleStateItem.fromArticleStates(
+          _karirStates,
+          'Karir',
+          _handleTapKarir,
+        ),
+        ArticleStateItem.fromArticleStates(
+          _lombaStates,
+          'Lomba',
+          _handleTapLomba,
+        ),
+        ArticleStateItem.fromArticleState(_umumState, _handleTapUmum),
       ],
     );
   }

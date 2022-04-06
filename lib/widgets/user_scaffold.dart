@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:himaskom_undip/models/article.dart';
-import 'package:himaskom_undip/models/article_tab_item.dart';
+import 'package:himaskom_undip/models/article_state_item.dart';
 import 'package:himaskom_undip/widgets/article_list.dart';
+import 'package:himaskom_undip/widgets/article_tab_view.dart';
 import 'package:himaskom_undip/widgets/item_grid.dart';
 
 class UserScaffold extends StatelessWidget {
@@ -39,7 +40,7 @@ class UserScaffold extends StatelessWidget {
   }
 
   factory UserScaffold.withItemGrid({
-    required ArticleTabItem tabItem,
+    required ArticleStateItem tabItem,
     required void Function() onTapSearch,
     required Function(Article) onTapItem,
   }) {
@@ -55,7 +56,7 @@ class UserScaffold extends StatelessWidget {
     );
   }
   factory UserScaffold.withArticleList({
-    required ArticleTabItem tabItem,
+    required ArticleStateItem tabItem,
     required void Function() onTapSearch,
     required Function(Article) onTapArticle,
     required Function(Article) onSaveArticle,
@@ -73,6 +74,26 @@ class UserScaffold extends StatelessWidget {
         onSaveArticle: onSaveArticle,
         onShareArticle: onShareArticle,
         firstHighlight: firstHighlight,
+      ),
+    );
+  }
+
+  factory UserScaffold.withArticleTabView({
+    required String title,
+    required List<ArticleStateItem> tabItems,
+    required void Function() onTapSearch,
+    required Function(Article) onTapArticle,
+    required Function(Article) onSaveArticle,
+    required Function(Article) onShareArticle,
+  }) {
+    return UserScaffold(
+      title: title,
+      onTapSearch: onTapSearch,
+      child: ArticleTabView(
+        onTapArticle: onTapArticle,
+        onSaveArticle: onSaveArticle,
+        onShareArticle: onShareArticle,
+        items: tabItems,
       ),
     );
   }

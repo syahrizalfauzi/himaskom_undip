@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:himaskom_undip/models/article.dart';
-import 'package:himaskom_undip/models/article_tab_item.dart';
+import 'package:himaskom_undip/models/article_state_item.dart';
 import 'package:himaskom_undip/widgets/article_list.dart';
 
 class ArticleTabView extends HookWidget {
-  final List<ArticleTabItem> items;
+  final List<ArticleStateItem> items;
   final Function(Article) onTapArticle;
   final Function(Article) onSaveArticle;
   final Function(Article) onShareArticle;

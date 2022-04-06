@@ -47,7 +47,7 @@ import 'package:himaskom_undip/models/article_state.dart';
 //   }
 // }
 
-class ArticleTabItem {
+class ArticleStateItem {
   final List<Article> articles;
   final String title;
   final bool isLoading;
@@ -55,7 +55,7 @@ class ArticleTabItem {
   final void Function()? onTap;
   // final ArticleTabItemCategory category;
 
-  const ArticleTabItem({
+  const ArticleStateItem({
     required this.articles,
     required this.title,
     required this.isLoading,
@@ -64,10 +64,10 @@ class ArticleTabItem {
     // required this.category,
   });
 
-  factory ArticleTabItem.fromArticleStates(
+  factory ArticleStateItem.fromArticleStates(
       List<ArticleState> states, String title,
       [void Function()? onTap]) {
-    return ArticleTabItem(
+    return ArticleStateItem(
       articles: states.map((e) => e.articles).reduce((a, b) => [...a, ...b]),
       title: title,
       isLoading: states.map((e) => e.isLoading).reduce((a, b) => a || b),
@@ -79,9 +79,9 @@ class ArticleTabItem {
     );
   }
 
-  factory ArticleTabItem.fromArticleState(ArticleState state,
+  factory ArticleStateItem.fromArticleState(ArticleState state,
       [void Function()? onTap]) {
-    return ArticleTabItem(
+    return ArticleStateItem(
       articles: state.articles,
       title: state.title,
       isLoading: state.isLoading,
