@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:himaskom_undip/models/article.dart';
 import 'package:himaskom_undip/pages/article_detail_pres.dart';
+import 'package:himaskom_undip/pages/pengingat_settings_con.dart';
 import 'package:himaskom_undip/states/event_hm_article.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:loop_page_view/loop_page_view.dart';
@@ -42,6 +43,10 @@ class _ArticleDetailPageContainerState
 
     void _handle() {}
     void _handleHubungi() {}
+    void _handlePengingat() {
+      showDialog(
+          context: context, builder: (_) => const PengingatSettingsContainer());
+    }
 
     useEffect(() {
       _imageController.addListener(() {
@@ -59,7 +64,7 @@ class _ArticleDetailPageContainerState
       article: _article.value,
       onBagikan: _handle,
       onHubungi: _handleHubungi,
-      onPengingat: _handle,
+      onPengingat: _handlePengingat,
       onSimpan: _handle,
       onRefresh: _fetch,
     );
