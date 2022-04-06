@@ -3,16 +3,26 @@ import 'package:flutter/material.dart';
 class AdminScaffold extends StatelessWidget {
   final String title;
   final Widget child;
+  final void Function()? onTapFab;
 
   const AdminScaffold({
     Key? key,
     required this.title,
     required this.child,
+    this.onTapFab,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
+      body: child,
+      floatingActionButton: onTapFab != null
+          ? FloatingActionButton(
+              onPressed: onTapFab,
+              child: const Icon(Icons.add),
+            )
+          : null,
       appBar: AppBar(
         elevation: 0,
         title: Text(
@@ -21,8 +31,6 @@ class AdminScaffold extends StatelessWidget {
         ),
         centerTitle: true,
       ),
-      backgroundColor: Colors.white,
-      body: child,
     );
   }
 }

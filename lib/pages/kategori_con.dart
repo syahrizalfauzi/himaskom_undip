@@ -14,6 +14,8 @@ import 'package:himaskom_undip/states/lomba_nonakademik_article.dart';
 import 'package:himaskom_undip/states/prestasi_article.dart';
 import 'package:himaskom_undip/states/sistore_article.dart';
 import 'package:himaskom_undip/states/umum_article.dart';
+import 'package:himaskom_undip/utils/push_article_state_page.dart';
+import 'package:himaskom_undip/widgets/article_state_builder.dart';
 import 'package:himaskom_undip/widgets/user_scaffold.dart';
 import 'package:himaskom_undip/widgets/article_list.dart';
 import 'package:himaskom_undip/widgets/article_tab_view.dart';
@@ -56,86 +58,90 @@ class KategoriPageContainer extends HookConsumerWidget {
     ];
 
     void _handleTapAkademik() {
-      Navigator.of(context).push(MaterialPageRoute(
-          builder: ((context) => UserScaffold(
-                title: "Akademik",
-                onTapSearch: onTapSearch,
-                child: ArticleList(
-                  articles: _akademikState.articles,
-                  onRefresh: _akademikState.getAll,
-                  isLoading: _akademikState.isLoading,
-                  firstHighlight: true,
-                  onSaveArticle: onSaveArticle,
-                  onShareArticle: onShareArticle,
-                  onTapArticle: onTapArticle,
-                ),
-              ))));
+      pushArticleStatePage(
+        context: context,
+        state: akademikArticleState,
+        title: "Akademik",
+        builder: (item) => UserScaffold.withArticleList(
+          tabItem: item,
+          onTapSearch: onTapSearch,
+          onTapArticle: onTapArticle,
+          onSaveArticle: onSaveArticle,
+          onShareArticle: onShareArticle,
+        ),
+      );
     }
 
     void _handleTapBeasiswa() {
-      Navigator.of(context).push(MaterialPageRoute(
-          builder: ((context) => UserScaffold(
-              title: "Beasiswa",
-              onTapSearch: onTapSearch,
-              child: ArticleList(
-                articles: _beasiswaState.articles,
-                onRefresh: _beasiswaState.getAll,
-                isLoading: _beasiswaState.isLoading,
-                firstHighlight: true,
-                onSaveArticle: onSaveArticle,
-                onShareArticle: onShareArticle,
-                onTapArticle: onTapArticle,
-              )))));
+      pushArticleStatePage(
+        context: context,
+        state: beasiswaArticleState,
+        title: "Beasiswa",
+        builder: (item) => UserScaffold.withArticleList(
+          tabItem: item,
+          onTapSearch: onTapSearch,
+          onTapArticle: onTapArticle,
+          onSaveArticle: onSaveArticle,
+          onShareArticle: onShareArticle,
+        ),
+      );
     }
 
     void _handleTapPrestasi() {
-      Navigator.of(context).push(MaterialPageRoute(
-          builder: ((context) => UserScaffold(
-              title: "Prestasi",
-              onTapSearch: onTapSearch,
-              child: ArticleList(
-                articles: _prestasiState.articles,
-                onRefresh: _prestasiState.getAll,
-                isLoading: _prestasiState.isLoading,
-                firstHighlight: true,
-                onSaveArticle: onSaveArticle,
-                onShareArticle: onShareArticle,
-                onTapArticle: onTapArticle,
-              )))));
+      pushArticleStatePage(
+        context: context,
+        state: prestasiArticleState,
+        title: "Prestasi",
+        builder: (item) => UserScaffold.withArticleList(
+          tabItem: item,
+          onTapSearch: onTapSearch,
+          onTapArticle: onTapArticle,
+          onSaveArticle: onSaveArticle,
+          onShareArticle: onShareArticle,
+        ),
+      );
     }
 
     void _handleTapSistore() {
-      Navigator.of(context).push(MaterialPageRoute(
-          builder: ((context) => UserScaffold(
-              title: "Sistore",
-              onTapSearch: onTapSearch,
-              child: ItemGrid(
-                articles: _sistoreState.articles,
-                onRefresh: _sistoreState.getAll,
-                isLoading: _sistoreState.isLoading,
-                onTapItem: onTapArticle,
-              )))));
+      pushArticleStatePage(
+        context: context,
+        state: sistoreArticleState,
+        title: "Sistore",
+        builder: (item) => UserScaffold.withArticleList(
+          tabItem: item,
+          onTapSearch: onTapSearch,
+          onTapArticle: onTapArticle,
+          onSaveArticle: onSaveArticle,
+          onShareArticle: onShareArticle,
+        ),
+      );
     }
 
     void _handleTapUmum() {
-      Navigator.of(context).push(MaterialPageRoute(
-          builder: ((context) => UserScaffold(
-              title: "Umum",
-              onTapSearch: onTapSearch,
-              child: ArticleList(
-                articles: _umumState.articles,
-                onRefresh: _umumState.getAll,
-                isLoading: _umumState.isLoading,
-                firstHighlight: true,
-                onSaveArticle: onSaveArticle,
-                onShareArticle: onShareArticle,
-                onTapArticle: onTapArticle,
-              )))));
+      pushArticleStatePage(
+        context: context,
+        state: umumArticleState,
+        title: "Umum",
+        builder: (item) => UserScaffold.withArticleList(
+          tabItem: item,
+          onTapSearch: onTapSearch,
+          onTapArticle: onTapArticle,
+          onSaveArticle: onSaveArticle,
+          onShareArticle: onShareArticle,
+        ),
+      );
     }
 
     void _handleTapEvent() {
-      Navigator.of(context).push(MaterialPageRoute(
-          builder: ((context) => UserScaffold(
+      pushArticleStatesPage(
+          context: context,
+          states: [
+            eventAmArticleState,
+            eventHmArticleState,
+            eventUkmArticleState
+          ],
+          title: "Title",
+          builder: (state) => UserScaffold(
               title: "Event",
               onTapSearch: onTapSearch,
               child: ArticleTabView(
@@ -145,12 +151,15 @@ class KategoriPageContainer extends HookConsumerWidget {
                 onTapArticle: onTapArticle,
                 onSaveArticle: onSaveArticle,
                 onShareArticle: onShareArticle,
-              )))));
+              )));
     }
 
     void _handleTapKarir() {
-      Navigator.of(context).push(MaterialPageRoute(
-          builder: ((context) => UserScaffold(
+      pushArticleStatesPage(
+          context: context,
+          states: [karirLokerArticleState, karirMagangArticleState],
+          title: "Title",
+          builder: (state) => UserScaffold(
               title: "Karir",
               onTapSearch: onTapSearch,
               child: ArticleTabView(
@@ -160,12 +169,15 @@ class KategoriPageContainer extends HookConsumerWidget {
                 onTapArticle: onTapArticle,
                 onSaveArticle: onSaveArticle,
                 onShareArticle: onShareArticle,
-              )))));
+              )));
     }
 
     void _handleTapLomba() {
-      Navigator.of(context).push(MaterialPageRoute(
-          builder: ((context) => UserScaffold(
+      pushArticleStatesPage(
+          context: context,
+          states: [lombaAkademikArticleState, lombaNonakademikArticleState],
+          title: "Title",
+          builder: (state) => UserScaffold(
               title: "Lomba",
               onTapSearch: onTapSearch,
               child: ArticleTabView(
@@ -175,7 +187,7 @@ class KategoriPageContainer extends HookConsumerWidget {
                 onTapArticle: onTapArticle,
                 onSaveArticle: onSaveArticle,
                 onShareArticle: onShareArticle,
-              )))));
+              )));
     }
 
     return KategoriPagePresentational(

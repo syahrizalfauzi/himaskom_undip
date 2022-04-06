@@ -14,14 +14,16 @@ abstract class ArticleState extends ChangeNotifier {
   Future<void> getAll() async {
     isLoading = true;
     notifyListeners();
-    final response = await http.get(Uri.parse(_baseUrl + fetchUrl));
-    final data = jsonDecode(response.body)["data"] as List?;
+    articles = articles.reversed.toList();
+    await Future.delayed(const Duration(seconds: 1));
+    // final response = await http.get(Uri.parse(_baseUrl + fetchUrl));
+    // final data = jsonDecode(response.body)["data"] as List?;
 
-    if (data == null) {
-      articles = [];
-    } else {
-      articles = data.map((e) => Article.fromJson(e)).toList();
-    }
+    // if (data == null) {
+    //   articles = [];
+    // } else {
+    //   articles = data.map((e) => Article.fromJson(e)).toList();
+    // }
     isLoading = false;
     notifyListeners();
   }

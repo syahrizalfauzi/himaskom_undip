@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:himaskom_undip/models/article.dart';
+import 'package:himaskom_undip/models/article_tab_item.dart';
+import 'package:himaskom_undip/widgets/article_list.dart';
+import 'package:himaskom_undip/widgets/item_grid.dart';
 
 class UserScaffold extends StatelessWidget {
   final String title;
@@ -31,6 +35,45 @@ class UserScaffold extends StatelessWidget {
       ),
       backgroundColor: Colors.white,
       body: child,
+    );
+  }
+
+  factory UserScaffold.withItemGrid({
+    required ArticleTabItem tabItem,
+    required void Function() onTapSearch,
+    required Function(Article) onTapItem,
+  }) {
+    return UserScaffold(
+      title: tabItem.title,
+      onTapSearch: onTapSearch,
+      child: ItemGrid(
+        articles: tabItem.articles,
+        onRefresh: tabItem.onRefresh,
+        isLoading: tabItem.isLoading,
+        onTapItem: onTapItem,
+      ),
+    );
+  }
+  factory UserScaffold.withArticleList({
+    required ArticleTabItem tabItem,
+    required void Function() onTapSearch,
+    required Function(Article) onTapArticle,
+    required Function(Article) onSaveArticle,
+    required Function(Article) onShareArticle,
+    bool firstHighlight = false,
+  }) {
+    return UserScaffold(
+      title: tabItem.title,
+      onTapSearch: onTapSearch,
+      child: ArticleList(
+        articles: tabItem.articles,
+        onRefresh: tabItem.onRefresh,
+        isLoading: tabItem.isLoading,
+        onTapArticle: onTapArticle,
+        onSaveArticle: onSaveArticle,
+        onShareArticle: onShareArticle,
+        firstHighlight: firstHighlight,
+      ),
     );
   }
 }
