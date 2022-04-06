@@ -7,7 +7,10 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:loop_page_view/loop_page_view.dart';
 
 class ArticleDetailPageContainer extends StatefulHookConsumerWidget {
-  const ArticleDetailPageContainer({Key? key}) : super(key: key);
+  final String id;
+
+  const ArticleDetailPageContainer({Key? key, required this.id})
+      : super(key: key);
 
   @override
   ConsumerState<ArticleDetailPageContainer> createState() =>
@@ -34,7 +37,7 @@ class _ArticleDetailPageContainerState
 
     Future<void> _fetch() async {
       _article.value = null;
-      _article.value = await _articleState.get("article-4q5RZwTn");
+      _article.value = await _articleState.get(widget.id);
     }
 
     void _handle() {}

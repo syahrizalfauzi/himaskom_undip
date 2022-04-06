@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:himaskom_undip/pages/article_detail_con.dart';
+import 'package:himaskom_undip/pages/user_con.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 void main() {
@@ -69,7 +69,7 @@ class MyApp extends StatelessWidget {
             ),
           ),
         ),
-        home: const ArticleDetailPageContainer(),
+        home: const UserContainer(),
       ),
     );
   }

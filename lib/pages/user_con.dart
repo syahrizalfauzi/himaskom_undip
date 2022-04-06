@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_advanced_drawer/flutter_advanced_drawer.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:himaskom_undip/models/article.dart';
+import 'package:himaskom_undip/pages/article_detail_con.dart';
+import 'package:himaskom_undip/pages/search_con.dart';
 import 'package:himaskom_undip/pages/user_pres.dart';
 
 class UserContainer extends StatefulHookWidget {
@@ -32,19 +34,28 @@ class _PageState extends State<UserContainer> {
         default:
           return "Beranda";
       }
-    }, [_currentPage]);
+    }, [_currentPage.value]);
 
     void _handleTapItem(Pages page) {
       _currentPage.value = page;
       _advancedDrawerController.hideDrawer();
     }
 
-    void _handleTapLogOut() {}
-    void _handleTapSearch() {}
-    void _handleTapArticle(Article article) {}
+    void _handleTapArticle(Article article) {
+      Navigator.of(context).push(MaterialPageRoute(
+          builder: (_) => ArticleDetailPageContainer(id: article.id)));
+    }
+
     void _handleShareArticle(Article article) {}
     void _handleSaveArticle(Article article) {}
     void _handleDeleteArticle(Article article) {}
+    void _handleTapLogOut() {}
+    void _handleTapSearch() {
+      Navigator.of(context).push(MaterialPageRoute(
+          builder: (_) => SearchPageContainer(
+                onTapArticle: _handleTapArticle,
+              )));
+    }
 
     return UserPresentational(
       drawerController: _advancedDrawerController,
@@ -57,6 +68,8 @@ class _PageState extends State<UserContainer> {
       onSaveArticle: _handleSaveArticle,
       onShareArticle: _handleShareArticle,
       onTapArticle: _handleTapArticle,
+      userEmail: 'syahrizal@email.com',
+      userName: 'Syahrizal Fauzi',
     );
   }
 }

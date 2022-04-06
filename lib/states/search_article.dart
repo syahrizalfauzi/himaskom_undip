@@ -8,11 +8,14 @@ class SearchArticleState extends ArticleState {
   @override
   final String fetchUrl = "articles/search";
 
-  Future<void> search(String keyword) async {
+  Future<List<Article>> search(String keyword) async {
     isLoading = true;
     notifyListeners();
     await Future.delayed(const Duration(seconds: 1));
-    articles = [
+    isLoading = false;
+    notifyListeners();
+
+    return [
       Article(
         id: "id-1",
         judul: keyword,
@@ -24,7 +27,5 @@ class SearchArticleState extends ArticleState {
         harga: 0,
       ),
     ];
-    isLoading = false;
-    notifyListeners();
   }
 }

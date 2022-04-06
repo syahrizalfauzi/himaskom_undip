@@ -21,6 +21,8 @@ class UserPresentational extends StatelessWidget {
   final Function(Article) onSaveArticle;
   final Function(Article) onShareArticle;
   final Function(Article) onDeleteArticle;
+  final String userName;
+  final String userEmail;
 
   const UserPresentational({
     Key? key,
@@ -34,6 +36,8 @@ class UserPresentational extends StatelessWidget {
     required this.onSaveArticle,
     required this.onShareArticle,
     required this.onDeleteArticle,
+    required this.userName,
+    required this.userEmail,
   }) : super(key: key);
 
   @override
@@ -125,8 +129,8 @@ class UserPresentational extends StatelessWidget {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: const [
-                      Text(
+                    children: [
+                      const Text(
                         'Hari yang baik,',
                         style: TextStyle(
                           color: Color(0xFFB4B3BA),
@@ -134,18 +138,18 @@ class UserPresentational extends StatelessWidget {
                           fontSize: 12,
                         ),
                       ),
-                      SizedBox(height: 12),
+                      const SizedBox(height: 12),
                       Text(
-                        'Syahrizal Fauzi',
-                        style: TextStyle(
+                        userName,
+                        style: const TextStyle(
                           fontWeight: FontWeight.w600,
                           fontSize: 18,
                         ),
                       ),
-                      SizedBox(height: 8),
+                      const SizedBox(height: 8),
                       Text(
-                        '21120118130066',
-                        style: TextStyle(
+                        userEmail,
+                        style: const TextStyle(
                           color: Color(0xFFB4B3BA),
                           fontWeight: FontWeight.w600,
                           fontSize: 12,

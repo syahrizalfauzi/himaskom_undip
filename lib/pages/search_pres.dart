@@ -9,6 +9,7 @@ class SearchPagePresentational extends StatelessWidget {
   final void Function(Article) onTapArticle;
   final void Function(String) onSubmit;
   final void Function() onClear;
+  final void Function() onBack;
   final TextEditingController controller;
 
   const SearchPagePresentational({
@@ -18,6 +19,7 @@ class SearchPagePresentational extends StatelessWidget {
     required this.onTapArticle,
     required this.onSubmit,
     required this.onClear,
+    required this.onBack,
     required this.controller,
   }) : super(key: key);
 
@@ -29,7 +31,7 @@ class SearchPagePresentational extends StatelessWidget {
         backgroundColor: Colors.transparent,
         automaticallyImplyLeading: false,
         leading: IconButton(
-          onPressed: onClear,
+          onPressed: onBack,
           icon: const Icon(Icons.arrow_back),
           color: Colors.black,
         ),
