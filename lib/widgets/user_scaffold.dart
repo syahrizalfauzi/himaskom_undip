@@ -40,23 +40,23 @@ class UserScaffold extends StatelessWidget {
   }
 
   factory UserScaffold.withItemGrid({
-    required ArticleStateItem tabItem,
+    required ArticleStateItem stateItem,
     required void Function() onTapSearch,
     required Function(Article) onTapItem,
   }) {
     return UserScaffold(
-      title: tabItem.title,
+      title: stateItem.title,
       onTapSearch: onTapSearch,
       child: ItemGrid(
-        articles: tabItem.articles,
-        onRefresh: tabItem.onRefresh,
-        isLoading: tabItem.isLoading,
+        articles: stateItem.articles,
+        onRefresh: stateItem.onRefresh,
+        isLoading: stateItem.isLoading,
         onTapItem: onTapItem,
       ),
     );
   }
   factory UserScaffold.withArticleList({
-    required ArticleStateItem tabItem,
+    required ArticleStateItem stateItem,
     required void Function() onTapSearch,
     required Function(Article) onTapArticle,
     required Function(Article) onSaveArticle,
@@ -64,12 +64,12 @@ class UserScaffold extends StatelessWidget {
     bool firstHighlight = false,
   }) {
     return UserScaffold(
-      title: tabItem.title,
+      title: stateItem.title,
       onTapSearch: onTapSearch,
       child: ArticleList(
-        articles: tabItem.articles,
-        onRefresh: tabItem.onRefresh,
-        isLoading: tabItem.isLoading,
+        articles: stateItem.articles,
+        onRefresh: stateItem.onRefresh,
+        isLoading: stateItem.isLoading,
         onTapArticle: onTapArticle,
         onSaveArticle: onSaveArticle,
         onShareArticle: onShareArticle,
@@ -80,7 +80,7 @@ class UserScaffold extends StatelessWidget {
 
   factory UserScaffold.withArticleTabView({
     required String title,
-    required List<ArticleStateItem> tabItems,
+    required List<ArticleStateItem> stateItems,
     required void Function() onTapSearch,
     required Function(Article) onTapArticle,
     required Function(Article) onSaveArticle,
@@ -93,7 +93,7 @@ class UserScaffold extends StatelessWidget {
         onTapArticle: onTapArticle,
         onSaveArticle: onSaveArticle,
         onShareArticle: onShareArticle,
-        items: tabItems,
+        items: stateItems,
       ),
     );
   }

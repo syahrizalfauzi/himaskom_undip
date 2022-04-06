@@ -38,7 +38,7 @@ class KategoriPageContainer extends StatelessWidget {
         context: context,
         states: [akademikArticleState],
         builder: (items) => UserScaffold.withArticleList(
-          tabItem: ArticleStateItem.fromArticleState(items[0]),
+          stateItem: ArticleStateItem.fromArticleState(items[0]),
           onTapSearch: onTapSearch,
           onTapArticle: onTapArticle,
           onSaveArticle: onSaveArticle,
@@ -53,7 +53,7 @@ class KategoriPageContainer extends StatelessWidget {
         context: context,
         states: [beasiswaArticleState],
         builder: (items) => UserScaffold.withArticleList(
-          tabItem: ArticleStateItem.fromArticleState(items[0]),
+          stateItem: ArticleStateItem.fromArticleState(items[0]),
           onTapSearch: onTapSearch,
           onTapArticle: onTapArticle,
           onSaveArticle: onSaveArticle,
@@ -68,7 +68,7 @@ class KategoriPageContainer extends StatelessWidget {
         context: context,
         states: [prestasiArticleState],
         builder: (items) => UserScaffold.withArticleList(
-          tabItem: ArticleStateItem.fromArticleState(items[0]),
+          stateItem: ArticleStateItem.fromArticleState(items[0]),
           onTapSearch: onTapSearch,
           onTapArticle: onTapArticle,
           onSaveArticle: onSaveArticle,
@@ -83,7 +83,7 @@ class KategoriPageContainer extends StatelessWidget {
         context: context,
         states: [sistoreArticleState],
         builder: (items) => UserScaffold.withArticleList(
-          tabItem: ArticleStateItem.fromArticleState(items[0]),
+          stateItem: ArticleStateItem.fromArticleState(items[0]),
           onTapSearch: onTapSearch,
           onTapArticle: onTapArticle,
           onSaveArticle: onSaveArticle,
@@ -98,7 +98,7 @@ class KategoriPageContainer extends StatelessWidget {
         context: context,
         states: [umumArticleState],
         builder: (items) => UserScaffold.withArticleList(
-          tabItem: ArticleStateItem.fromArticleState(items[0]),
+          stateItem: ArticleStateItem.fromArticleState(items[0]),
           onTapSearch: onTapSearch,
           onTapArticle: onTapArticle,
           onSaveArticle: onSaveArticle,
@@ -119,7 +119,7 @@ class KategoriPageContainer extends StatelessWidget {
         builder: (states) => UserScaffold.withArticleTabView(
           title: "Event",
           onTapSearch: onTapSearch,
-          tabItems:
+          stateItems:
               states.map((e) => ArticleStateItem.fromArticleState(e)).toList(),
           onTapArticle: onTapArticle,
           onSaveArticle: onSaveArticle,
@@ -135,7 +135,7 @@ class KategoriPageContainer extends StatelessWidget {
         builder: (states) => UserScaffold.withArticleTabView(
           title: "Karir",
           onTapSearch: onTapSearch,
-          tabItems:
+          stateItems:
               states.map((e) => ArticleStateItem.fromArticleState(e)).toList(),
           onTapArticle: onTapArticle,
           onSaveArticle: onSaveArticle,
@@ -151,7 +151,7 @@ class KategoriPageContainer extends StatelessWidget {
         builder: (states) => UserScaffold.withArticleTabView(
           title: "Lomba",
           onTapSearch: onTapSearch,
-          tabItems:
+          stateItems:
               states.map((e) => ArticleStateItem.fromArticleState(e)).toList(),
           onTapArticle: onTapArticle,
           onSaveArticle: onSaveArticle,

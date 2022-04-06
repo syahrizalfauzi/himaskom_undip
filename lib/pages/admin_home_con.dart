@@ -14,6 +14,8 @@ import 'package:himaskom_undip/states/lomba_nonakademik_article.dart';
 import 'package:himaskom_undip/states/prestasi_article.dart';
 import 'package:himaskom_undip/states/sistore_article.dart';
 import 'package:himaskom_undip/states/umum_article.dart';
+import 'package:himaskom_undip/utils/push_article_state_page.dart';
+import 'package:himaskom_undip/widgets/admin_scaffold.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class AdminHomePageContainer extends HookConsumerWidget {
@@ -46,17 +48,116 @@ class AdminHomePageContainer extends HookConsumerWidget {
       ref.watch(lombaAkademikArticleState),
       ref.watch(lombaNonakademikArticleState),
     ];
-
-    void _handleTapEvent() {}
-    void _handleTapSistore() {}
-    void _handleTapBeasiswa() {}
-    void _handleTapPrestasi() {}
-    void _handleTapAkademik() {}
-    void _handleTapKarir() {}
-    void _handleTapLomba() {}
-    void _handleTapUmum() {}
-
     void _handleLogOut() {}
+    void _handleTapAddArticle() {}
+
+    void _handleTapEvent() {
+      pushArticleStatesPage(
+        context: context,
+        states: [
+          eventAmArticleState,
+          eventHmArticleState,
+          eventUkmArticleState
+        ],
+        builder: (states) => AdminScaffold.withArticleShortList(
+          stateItem: ArticleStateItem.fromArticleStates(states, "Event"),
+          onTapAddArticle: _handleTapAddArticle,
+          onTapArticle: onTapArticle,
+          onDeleteArticle: onDeleteArticle,
+        ),
+      );
+    }
+
+    void _handleTapSistore() {
+      pushArticleStatesPage(
+        context: context,
+        states: [sistoreArticleState],
+        builder: (states) => AdminScaffold.withArticleShortList(
+          stateItem: ArticleStateItem.fromArticleStates(states, "Sistore"),
+          onTapAddArticle: _handleTapAddArticle,
+          onTapArticle: onTapArticle,
+          onDeleteArticle: onDeleteArticle,
+        ),
+      );
+    }
+
+    void _handleTapBeasiswa() {
+      pushArticleStatesPage(
+        context: context,
+        states: [beasiswaArticleState],
+        builder: (states) => AdminScaffold.withArticleShortList(
+          stateItem: ArticleStateItem.fromArticleStates(states, "Beasiswa"),
+          onTapAddArticle: _handleTapAddArticle,
+          onTapArticle: onTapArticle,
+          onDeleteArticle: onDeleteArticle,
+        ),
+      );
+    }
+
+    void _handleTapPrestasi() {
+      pushArticleStatesPage(
+        context: context,
+        states: [prestasiArticleState],
+        builder: (states) => AdminScaffold.withArticleShortList(
+          stateItem: ArticleStateItem.fromArticleStates(states, "Prestasi"),
+          onTapAddArticle: _handleTapAddArticle,
+          onTapArticle: onTapArticle,
+          onDeleteArticle: onDeleteArticle,
+        ),
+      );
+    }
+
+    void _handleTapAkademik() {
+      pushArticleStatesPage(
+        context: context,
+        states: [akademikArticleState],
+        builder: (states) => AdminScaffold.withArticleShortList(
+          stateItem: ArticleStateItem.fromArticleStates(states, "Akademik"),
+          onTapAddArticle: _handleTapAddArticle,
+          onTapArticle: onTapArticle,
+          onDeleteArticle: onDeleteArticle,
+        ),
+      );
+    }
+
+    void _handleTapKarir() {
+      pushArticleStatesPage(
+        context: context,
+        states: [karirLokerArticleState, karirMagangArticleState],
+        builder: (states) => AdminScaffold.withArticleShortList(
+          stateItem: ArticleStateItem.fromArticleStates(states, "Karir"),
+          onTapAddArticle: _handleTapAddArticle,
+          onTapArticle: onTapArticle,
+          onDeleteArticle: onDeleteArticle,
+        ),
+      );
+    }
+
+    void _handleTapLomba() {
+      pushArticleStatesPage(
+        context: context,
+        states: [lombaAkademikArticleState, lombaNonakademikArticleState],
+        builder: (states) => AdminScaffold.withArticleShortList(
+          stateItem: ArticleStateItem.fromArticleStates(states, "Lomba"),
+          onTapAddArticle: _handleTapAddArticle,
+          onTapArticle: onTapArticle,
+          onDeleteArticle: onDeleteArticle,
+        ),
+      );
+    }
+
+    void _handleTapUmum() {
+      pushArticleStatesPage(
+        context: context,
+        states: [umumArticleState],
+        builder: (states) => AdminScaffold.withArticleShortList(
+          stateItem: ArticleStateItem.fromArticleStates(states, "Umum"),
+          onTapAddArticle: _handleTapAddArticle,
+          onTapArticle: onTapArticle,
+          onDeleteArticle: onDeleteArticle,
+        ),
+      );
+    }
 
     return AdminHomePagePresentational(
       onLogOut: _handleLogOut,

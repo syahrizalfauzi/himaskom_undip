@@ -38,7 +38,7 @@ class ArticleShortList extends StatelessWidget {
                 top: 16,
                 left: 24,
                 right: 24,
-                bottom: index == 9 ? 16 : 0,
+                bottom: index == articles.length - 1 ? 16 : 0,
               ),
               child: ArticleShortItem(
                 article: articles[index],
