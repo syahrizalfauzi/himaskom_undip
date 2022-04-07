@@ -16,6 +16,7 @@ class CustomTextFormField extends HookWidget {
   final String? tipText;
   final void Function(String)? onChange;
   final TextEditingController? controller;
+  final bool useBorder;
 
   const CustomTextFormField({
     Key? key,
@@ -33,6 +34,7 @@ class CustomTextFormField extends HookWidget {
     this.tipText,
     this.onChange,
     this.controller,
+    this.useBorder = true,
   }) : super(key: key);
 
   @override
@@ -52,23 +54,35 @@ class CustomTextFormField extends HookWidget {
               Text(tipText!, style: Theme.of(context).textTheme.caption),
           ],
         ),
-        if (labelText != null || tipText != null) const SizedBox(height: 8),
+        if (labelText != null || tipText != null) const SizedBox(height: 18),
         TextFormField(
           decoration: InputDecoration(
+            filled: true,
             hintText: hintText,
+            fillColor: Colors.white,
             contentPadding:
                 dense ? const EdgeInsets.fromLTRB(8, 0, 8, 0) : null,
             hintStyle: TextStyle(
-                color: dense
+                color: dense || !useBorder
                     ? Theme.of(context).disabledColor
                     : const Color(0xFFB4C9E9)),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(4),
-              borderSide: const BorderSide(color: Color(0xFFDFE8F6)),
+              borderSide: BorderSide(
+                  color: dense
+                      ? Theme.of(context).disabledColor
+                      : useBorder
+                          ? const Color(0xFFDFE8F6)
+                          : Colors.transparent),
             ),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(4),
-              borderSide: const BorderSide(color: Color(0xFFDFE8F6)),
+              borderSide: BorderSide(
+                  color: dense
+                      ? Theme.of(context).disabledColor
+                      : useBorder
+                          ? const Color(0xFFDFE8F6)
+                          : Colors.transparent),
             ),
             errorBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(4),

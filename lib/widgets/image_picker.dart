@@ -95,7 +95,13 @@ class _ImagePickerState extends State<ImagePicker> {
               strokeWidth: 2,
               strokeCap: StrokeCap.round,
               dashPattern: const [2, 4],
-              child: const Center(child: Icon(Icons.add, size: 24)),
+              child: Center(
+                child: Icon(
+                  Icons.add,
+                  size: 24,
+                  color: Theme.of(context).disabledColor,
+                ),
+              ),
             ),
           );
         }

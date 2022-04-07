@@ -29,7 +29,7 @@ class TagPicker extends StatelessWidget {
               borderRadius: BorderRadius.circular(8),
               color: index == selectedIndex
                   ? Theme.of(context).primaryColor
-                  : Theme.of(context).disabledColor,
+                  : const Color(0xFFEEEEEE),
             ),
             padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
             child: Text(

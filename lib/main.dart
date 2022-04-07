@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:himaskom_undip/pages/admin_con.dart';
+import 'package:himaskom_undip/pages/article_editor_pres.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 void main() {
@@ -69,7 +69,7 @@ class MyApp extends StatelessWidget {
             ),
           ),
         ),
-        home: const AdminContainer(),
+        home: const ArticleEditorPagePresentational(),
       ),
     );
   }
