@@ -3,6 +3,8 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 
 class CustomTextFormField extends HookWidget {
   final bool dense;
+  final bool useBorder;
+  final bool disabled;
   final String? hintText;
   final bool? multiline;
   final int? minLength;
@@ -16,11 +18,13 @@ class CustomTextFormField extends HookWidget {
   final String? tipText;
   final void Function(String)? onChange;
   final TextEditingController? controller;
-  final bool useBorder;
+  final Widget? suffixIcon;
 
   const CustomTextFormField({
     Key? key,
     this.dense = false,
+    this.useBorder = true,
+    this.disabled = false,
     this.hintText,
     this.multiline,
     this.minLength,
@@ -34,7 +38,7 @@ class CustomTextFormField extends HookWidget {
     this.tipText,
     this.onChange,
     this.controller,
-    this.useBorder = true,
+    this.suffixIcon,
   }) : super(key: key);
 
   @override
@@ -57,6 +61,7 @@ class CustomTextFormField extends HookWidget {
         if (labelText != null || tipText != null) const SizedBox(height: 18),
         TextFormField(
           decoration: InputDecoration(
+            enabled: !disabled,
             filled: true,
             hintText: hintText,
             fillColor: Colors.white,
@@ -92,19 +97,21 @@ class CustomTextFormField extends HookWidget {
               borderRadius: BorderRadius.circular(4),
               borderSide: const BorderSide(color: Colors.red),
             ),
-            suffixIcon: textInputType == TextInputType.visiblePassword
-                ? IconButton(
-                    color: _obscureText.value
-                        ? const Color(0xFFB4C9E9)
-                        : const Color(0xFFB4C9E9),
-                    onPressed: () => _obscureText.value = !_obscureText.value,
-                    icon: Icon(
-                      _obscureText.value
-                          ? Icons.visibility_outlined
-                          : Icons.visibility_off_outlined,
-                    ),
-                  )
-                : null,
+            suffixIcon: suffixIcon ??
+                (textInputType == TextInputType.visiblePassword
+                    ? IconButton(
+                        color: _obscureText.value
+                            ? const Color(0xFFB4C9E9)
+                            : const Color(0xFFB4C9E9),
+                        onPressed: () =>
+                            _obscureText.value = !_obscureText.value,
+                        icon: Icon(
+                          _obscureText.value
+                              ? Icons.visibility_outlined
+                              : Icons.visibility_off_outlined,
+                        ),
+                      )
+                    : null),
           ),
           obscureText: textInputType == TextInputType.visiblePassword
               ? _obscureText.value

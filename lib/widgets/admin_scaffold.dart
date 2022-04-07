@@ -48,11 +48,11 @@ class AdminScaffold extends StatelessWidget {
     required ArticleStateItem stateItem,
     required Function(Article) onTapArticle,
     required Function(Article) onDeleteArticle,
-    required void Function() onTapAddArticle,
+    required void Function(ArticleStateItem) onTapAddArticle,
   }) {
     return AdminScaffold(
       title: stateItem.title,
-      onTapFab: onTapAddArticle,
+      onTapFab: () => onTapAddArticle(stateItem),
       child: ArticleShortList(
         articles: stateItem.articles,
         onRefresh: stateItem.onRefresh,

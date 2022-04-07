@@ -53,6 +53,7 @@ class Article {
   final List<String>? gambarUrl;
   final int? harga;
   final DateTime? createdAt;
+  final DateTime? tenggat;
   final String? deskripsi;
 
   Article({
@@ -60,6 +61,7 @@ class Article {
     required this.judul,
     required this.gambarUrl,
     required this.createdAt,
+    required this.tenggat,
     required this.jenis,
     required this.harga,
     this.deskripsi,
@@ -71,6 +73,7 @@ class Article {
       judul: json['judul'],
       gambarUrl: (json['gambarUrl'] as List).map((e) => e.toString()).toList(),
       createdAt: DateTime.parse(json['createdAt']),
+      tenggat: DateTime.parse(json['tenggat']),
       jenis: _parseCategory(json['jenis']),
       harga: json['harga'],
       deskripsi: json['deskripsi'],
@@ -116,10 +119,5 @@ class Article {
     } else {
       return PostVariant.article;
     }
-  }
-
-  @override
-  String toString() {
-    return 'Article(id: $id, judul: $judul, gambarUrl: $gambarUrl, jenis: $jenis, harga: $harga, createdAt: $createdAt, deskripsi: $deskripsi)';
   }
 }

@@ -1,51 +1,51 @@
 import 'package:himaskom_undip/models/article.dart';
 import 'package:himaskom_undip/models/article_state.dart';
-// import 'package:himaskom_undip/states/akademik_article.dart';
-// import 'package:himaskom_undip/states/beasiswa_article.dart';
-// import 'package:himaskom_undip/states/event_am_article.dart';
-// import 'package:himaskom_undip/states/event_hm_article.dart';
-// import 'package:himaskom_undip/states/event_ukm_article.dart';
-// import 'package:himaskom_undip/states/karir_loker_article.dart';
-// import 'package:himaskom_undip/states/karir_magang_article.dart';
-// import 'package:himaskom_undip/states/lomba_akademik_article.dart';
-// import 'package:himaskom_undip/states/lomba_nonakademik_article.dart';
-// import 'package:himaskom_undip/states/prestasi_article.dart';
-// import 'package:himaskom_undip/states/sistore_article.dart';
+import 'package:himaskom_undip/states/akademik_article.dart';
+import 'package:himaskom_undip/states/beasiswa_article.dart';
+import 'package:himaskom_undip/states/event_am_article.dart';
+import 'package:himaskom_undip/states/event_hm_article.dart';
+import 'package:himaskom_undip/states/event_ukm_article.dart';
+import 'package:himaskom_undip/states/karir_loker_article.dart';
+import 'package:himaskom_undip/states/karir_magang_article.dart';
+import 'package:himaskom_undip/states/lomba_akademik_article.dart';
+import 'package:himaskom_undip/states/lomba_nonakademik_article.dart';
+import 'package:himaskom_undip/states/prestasi_article.dart';
+import 'package:himaskom_undip/states/sistore_article.dart';
 
-// enum ArticleTabItemCategory {
-//   event,
-//   sistore,
-//   beasiswa,
-//   prestasi,
-//   akademik,
-//   karir,
-//   lomba,
-//   umum
-// }
+enum ArticleStateItemCategory {
+  event,
+  sistore,
+  beasiswa,
+  prestasi,
+  akademik,
+  karir,
+  lomba,
+  umum
+}
 
-// ArticleTabItemCategory getCategoryFromState(ArticleState state) {
-//   if (state is AkademikArticleState) {
-//     return ArticleTabItemCategory.akademik;
-//   } else if (state is BeasiswaArticleState) {
-//     return ArticleTabItemCategory.beasiswa;
-//   } else if (state is EventAmArticleState ||
-//       state is EventHmArticleState ||
-//       state is EventUkmArticleState) {
-//     return ArticleTabItemCategory.event;
-//   } else if (state is KarirLokerArticleState ||
-//       state is KarirMagangArticleState) {
-//     return ArticleTabItemCategory.karir;
-//   } else if (state is LombaAkademikArticleState ||
-//       state is LombaNonakademikArticleState) {
-//     return ArticleTabItemCategory.lomba;
-//   } else if (state is PrestasiArticleState) {
-//     return ArticleTabItemCategory.prestasi;
-//   } else if (state is SistoreArticleState) {
-//     return ArticleTabItemCategory.sistore;
-//   } else {
-//     return ArticleTabItemCategory.umum;
-//   }
-// }
+ArticleStateItemCategory getCategoryFromState(ArticleState state) {
+  if (state is AkademikArticleState) {
+    return ArticleStateItemCategory.akademik;
+  } else if (state is BeasiswaArticleState) {
+    return ArticleStateItemCategory.beasiswa;
+  } else if (state is EventAmArticleState ||
+      state is EventHmArticleState ||
+      state is EventUkmArticleState) {
+    return ArticleStateItemCategory.event;
+  } else if (state is KarirLokerArticleState ||
+      state is KarirMagangArticleState) {
+    return ArticleStateItemCategory.karir;
+  } else if (state is LombaAkademikArticleState ||
+      state is LombaNonakademikArticleState) {
+    return ArticleStateItemCategory.lomba;
+  } else if (state is PrestasiArticleState) {
+    return ArticleStateItemCategory.prestasi;
+  } else if (state is SistoreArticleState) {
+    return ArticleStateItemCategory.sistore;
+  } else {
+    return ArticleStateItemCategory.umum;
+  }
+}
 
 class ArticleStateItem {
   final List<Article> articles;
@@ -53,7 +53,7 @@ class ArticleStateItem {
   final bool isLoading;
   final Future<void> Function() onRefresh;
   final void Function()? onTap;
-  // final ArticleTabItemCategory category;
+  final ArticleStateItemCategory category;
 
   const ArticleStateItem({
     required this.articles,
@@ -61,7 +61,7 @@ class ArticleStateItem {
     required this.isLoading,
     required this.onRefresh,
     this.onTap,
-    // required this.category,
+    required this.category,
   });
 
   factory ArticleStateItem.fromArticleStates(
@@ -71,7 +71,7 @@ class ArticleStateItem {
       articles: states.map((e) => e.articles).reduce((a, b) => [...a, ...b]),
       title: title,
       isLoading: states.map((e) => e.isLoading).reduce((a, b) => a || b),
-      // category: getCategoryFromState(states[0]),
+      category: getCategoryFromState(states[0]),
       onTap: onTap,
       onRefresh: () async {
         await Future.wait(states.map((e) => e.getAll()));
@@ -85,9 +85,14 @@ class ArticleStateItem {
       articles: state.articles,
       title: state.title,
       isLoading: state.isLoading,
-      // category: getCategoryFromState(state),
+      category: getCategoryFromState(state),
       onTap: onTap,
       onRefresh: state.getAll,
     );
+  }
+
+  @override
+  String toString() {
+    return 'ArticleStateItem(articles: $articles, title: $title, isLoading: $isLoading, onRefresh: $onRefresh, onTap: $onTap, category: $category)';
   }
 }

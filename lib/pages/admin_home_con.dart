@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:himaskom_undip/models/article.dart';
 import 'package:himaskom_undip/models/article_state_item.dart';
 import 'package:himaskom_undip/pages/admin_home_pres.dart';
+import 'package:himaskom_undip/pages/article_editor_con.dart';
 import 'package:himaskom_undip/states/akademik_article.dart';
 import 'package:himaskom_undip/states/beasiswa_article.dart';
 import 'package:himaskom_undip/states/event_am_article.dart';
@@ -49,7 +50,16 @@ class AdminHomePageContainer extends HookConsumerWidget {
       ref.watch(lombaNonakademikArticleState),
     ];
     void _handleLogOut() {}
-    void _handleTapAddArticle() {}
+    void _handleTapAddArticle(ArticleStateItem stateItem) {
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (_) => AdminScaffold(
+            title: stateItem.title,
+            child: ArticleEditorPageContainer(stateItem: stateItem),
+          ),
+        ),
+      );
+    }
 
     void _handleTapEvent() {
       pushArticleStatesPage(

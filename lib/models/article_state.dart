@@ -43,6 +43,7 @@ abstract class ArticleState extends ChangeNotifier {
       createdAt: DateTime.now(),
       jenis: ArticleCategory.eventAm,
       harga: 120,
+      tenggat: null,
     );
 
     if (index == -1) {
@@ -65,6 +66,7 @@ final sampleArticles = [
     createdAt: DateTime.now(),
     jenis: ArticleCategory.akademik,
     harga: 0,
+    tenggat: null,
   ),
   Article(
     id: "id-2",
@@ -75,6 +77,7 @@ final sampleArticles = [
     createdAt: DateTime.now(),
     jenis: ArticleCategory.beasiswa,
     harga: 0,
+    tenggat: null,
   ),
   Article(
     id: "id-3",
@@ -85,5 +88,6 @@ final sampleArticles = [
     createdAt: DateTime.now(),
     jenis: ArticleCategory.eventAm,
     harga: 0,
+    tenggat: null,
   ),
 ];

@@ -9,9 +9,15 @@ import 'package:image_picker/image_picker.dart' as image_picker;
 // Stateful karena gridview-nya pakai builder
 class ImagePicker extends StatefulHookWidget {
   final List<String> initialImageUrls;
+  final void Function(List<ImageProvider>) onChange;
+  final void Function(int) onRemove;
 
-  const ImagePicker({Key? key, this.initialImageUrls = const []})
-      : super(key: key);
+  const ImagePicker({
+    Key? key,
+    this.initialImageUrls = const [],
+    required this.onChange,
+    required this.onRemove,
+  }) : super(key: key);
 
   @override
   State<ImagePicker> createState() => _ImagePickerState();
@@ -48,8 +54,12 @@ class _ImagePickerState extends State<ImagePicker> {
 
       _imageItems.value = newImages;
       setState(() {});
+      widget.onChange(
+        _imageItems.value.where((e) => e != null).map((e) => e!).toList(),
+      );
     }
 
+    //Also handles deletion
     Future<void> _handleViewImage(int index) async {
       final imageProvider = _imageItems.value[index]!;
 
@@ -70,6 +80,10 @@ class _ImagePickerState extends State<ImagePicker> {
 
       _imageItems.value = newImages;
       setState(() {});
+      widget.onChange(
+        _imageItems.value.where((e) => e != null).map((e) => e!).toList(),
+      );
+      widget.onRemove(index);
     }
 
     return GridView.builder(

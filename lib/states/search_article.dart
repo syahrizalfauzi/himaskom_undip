@@ -25,6 +25,7 @@ class SearchArticleState extends ArticleState {
         createdAt: DateTime.now(),
         jenis: ArticleCategory.akademik,
         harga: 0,
+        tenggat: null,
       ),
     ];
   }
