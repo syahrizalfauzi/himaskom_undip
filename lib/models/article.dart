@@ -50,8 +50,8 @@ class Article {
   final String id;
   final String judul;
   final ArticleCategory jenis;
+  final int harga;
   final List<String>? gambarUrl;
-  final int? harga;
   final DateTime? createdAt;
   final DateTime? tenggat;
   final String? deskripsi;
@@ -73,7 +73,7 @@ class Article {
       judul: json['judul'],
       gambarUrl: (json['gambarUrl'] as List).map((e) => e.toString()).toList(),
       createdAt: DateTime.parse(json['createdAt']),
-      tenggat: DateTime.parse(json['tenggat']),
+      tenggat: DateTime.tryParse(json['tenggat']),
       jenis: _parseCategory(json['jenis']),
       harga: json['harga'],
       deskripsi: json['deskripsi'],

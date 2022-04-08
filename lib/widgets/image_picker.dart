@@ -10,7 +10,7 @@ import 'package:image_picker/image_picker.dart' as image_picker;
 class ImagePicker extends StatefulHookWidget {
   final List<String> initialImageUrls;
   final void Function(List<ImageProvider>) onChange;
-  final void Function(int) onRemove;
+  final void Function(String) onRemove;
 
   const ImagePicker({
     Key? key,
@@ -83,7 +83,10 @@ class _ImagePickerState extends State<ImagePicker> {
       widget.onChange(
         _imageItems.value.where((e) => e != null).map((e) => e!).toList(),
       );
-      widget.onRemove(index);
+
+      if (imageProvider is NetworkImage) {
+        widget.onRemove(imageProvider.url);
+      }
     }
 
     return GridView.builder(

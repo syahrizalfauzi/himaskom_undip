@@ -48,11 +48,13 @@ abstract class ArticleState extends ChangeNotifier {
 
     if (index == -1) {
       articles.insert(0, article);
-    } else {
-      articles[index] = article;
     }
+    // UNCOMMENT FOR API FETCH
+    // else {
+    //   articles[index] = article;
+    // }
 
-    return article;
+    return articles[index];
   }
 }
 

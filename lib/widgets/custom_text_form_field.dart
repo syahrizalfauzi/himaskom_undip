@@ -11,7 +11,7 @@ class CustomTextFormField extends HookWidget {
   final int? maxLength;
   final void Function()? onTap;
   final void Function(String)? onSubmit;
-  final String? Function(String?)? validator;
+  final String? Function(String)? validator;
   final TextInputAction? textInputAction;
   final TextInputType? textInputType;
   final String? labelText;
@@ -65,6 +65,7 @@ class CustomTextFormField extends HookWidget {
             filled: true,
             hintText: hintText,
             fillColor: Colors.white,
+            counter: Container(),
             contentPadding:
                 dense ? const EdgeInsets.fromLTRB(8, 0, 8, 0) : null,
             hintStyle: TextStyle(
@@ -102,7 +103,7 @@ class CustomTextFormField extends HookWidget {
                     ? IconButton(
                         color: _obscureText.value
                             ? const Color(0xFFB4C9E9)
-                            : const Color(0xFFB4C9E9),
+                            : const Color.fromARGB(255, 151, 184, 233),
                         onPressed: () =>
                             _obscureText.value = !_obscureText.value,
                         icon: Icon(
@@ -126,12 +127,14 @@ class CustomTextFormField extends HookWidget {
           onFieldSubmitted: onSubmit,
           onChanged: onChange,
           controller: controller,
+          style: TextStyle(
+              color: disabled ? Theme.of(context).disabledColor : Colors.black),
           validator: (v) {
-            if (minLength != null && v != null && v.length < minLength!) {
+            if (minLength != null && v!.length < minLength!) {
               return 'Jumlah karakter kurang dari $minLength';
             }
             if (validator != null) {
-              return validator!(v);
+              return validator!(v!);
             }
 
             return null;

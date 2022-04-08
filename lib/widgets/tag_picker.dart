@@ -4,7 +4,7 @@ import 'package:himaskom_undip/models/tag.dart';
 class TagPicker extends StatelessWidget {
   final List<Tag> tags;
   final int selectedIndex;
-  final void Function(Tag, int) onTap;
+  final void Function(int) onTap;
 
   const TagPicker({
     Key? key,
@@ -23,7 +23,7 @@ class TagPicker extends StatelessWidget {
         shrinkWrap: true,
         separatorBuilder: (_, __) => const SizedBox(width: 16),
         itemBuilder: (_, index) => GestureDetector(
-          onTap: () => onTap(tags[index], index),
+          onTap: () => onTap(index),
           child: Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8),

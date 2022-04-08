@@ -9,18 +9,21 @@ class ArticleEditorPagePresentational extends StatelessWidget {
   final bool isLoading;
   final List<String> initialImageUrls;
   final void Function(List<ImageProvider>) onImageChange;
-  final void Function(int) onImageRemove;
-  final void Function(String) onJudulChange;
-  final void Function(String) onDeskripsiChange;
+  final void Function(String) onImageRemove;
+  final TextEditingController judulController;
+  final TextEditingController deskripsiController;
+  final String? Function(String) hargaValidator;
+  final String? Function(String) tenggatDateValidator;
+  final String? Function(String) tenggatTimeValidator;
   final void Function() onSubmit;
   final void Function()? onTenggatDateTap;
   final void Function()? onTenggatTimeTap;
   final TextEditingController? tenggatDateController;
   final TextEditingController? tenggatTimeController;
   final List<Tag>? tags;
-  final void Function(Tag, int)? onTagChange;
+  final void Function(int)? onTagChange;
   final int? selectedTagIndex;
-  final void Function(String)? onHargaChange;
+  final TextEditingController? hargaController;
 
   const ArticleEditorPagePresentational({
     Key? key,
@@ -28,8 +31,11 @@ class ArticleEditorPagePresentational extends StatelessWidget {
     required this.initialImageUrls,
     required this.onImageChange,
     required this.onImageRemove,
-    required this.onJudulChange,
-    required this.onDeskripsiChange,
+    required this.judulController,
+    required this.deskripsiController,
+    required this.hargaValidator,
+    required this.tenggatDateValidator,
+    required this.tenggatTimeValidator,
     required this.onSubmit,
     this.onTenggatDateTap,
     this.onTenggatTimeTap,
@@ -38,7 +44,7 @@ class ArticleEditorPagePresentational extends StatelessWidget {
     this.tags,
     this.onTagChange,
     this.selectedTagIndex,
-    this.onHargaChange,
+    this.hargaController,
   }) : super(key: key);
 
   @override
@@ -54,10 +60,13 @@ class ArticleEditorPagePresentational extends StatelessWidget {
                 style: Theme.of(context).textTheme.bodyLarge,
               ),
               const SizedBox(height: 16),
-              ImagePicker(
-                onChange: onImageChange,
-                onRemove: onImageRemove,
-                initialImageUrls: initialImageUrls,
+              AbsorbPointer(
+                absorbing: isLoading,
+                child: ImagePicker(
+                  onChange: onImageChange,
+                  onRemove: onImageRemove,
+                  initialImageUrls: initialImageUrls,
+                ),
               ),
               const SizedBox(height: 24),
               CustomTextFormField(
@@ -67,7 +76,9 @@ class ArticleEditorPagePresentational extends StatelessWidget {
                 tipText: "Max. 20 Karakter",
                 hintText: "Masukkan Judul",
                 textInputAction: TextInputAction.next,
-                onChange: onJudulChange,
+                controller: judulController,
+                minLength: 5,
+                maxLength: 20,
               ),
               if (tenggatDateController != null &&
                   onTenggatDateTap != null &&
@@ -89,18 +100,19 @@ class ArticleEditorPagePresentational extends StatelessWidget {
                         suffixIcon: const Icon(Icons.calendar_month_outlined),
                         controller: tenggatDateController,
                         onTap: onTenggatDateTap,
+                        validator: tenggatDateValidator,
                       ),
                     ),
                     const SizedBox(width: 18),
                     Expanded(
                       child: CustomTextFormField(
-                        disabled: isLoading,
-                        useBorder: false,
-                        hintText: "HH:MM",
-                        suffixIcon: const Icon(Icons.watch_later_outlined),
-                        controller: tenggatTimeController,
-                        onTap: onTenggatTimeTap,
-                      ),
+                          disabled: isLoading,
+                          useBorder: false,
+                          hintText: "HH:MM",
+                          suffixIcon: const Icon(Icons.watch_later_outlined),
+                          controller: tenggatTimeController,
+                          onTap: onTenggatTimeTap,
+                          validator: tenggatTimeValidator),
                     ),
                   ],
                 ),
@@ -114,10 +126,13 @@ class ArticleEditorPagePresentational extends StatelessWidget {
                   style: Theme.of(context).textTheme.bodyLarge,
                 ),
                 const SizedBox(height: 16),
-                TagPicker(
-                  tags: tags!,
-                  onTap: onTagChange!,
-                  selectedIndex: selectedTagIndex!,
+                AbsorbPointer(
+                  absorbing: isLoading,
+                  child: TagPicker(
+                    tags: tags!,
+                    onTap: onTagChange!,
+                    selectedIndex: selectedTagIndex!,
+                  ),
                 ),
               ],
               const SizedBox(height: 24),
@@ -128,18 +143,20 @@ class ArticleEditorPagePresentational extends StatelessWidget {
                 tipText: "Min. 20 Karakter",
                 multiline: true,
                 hintText: "Masukkan Deskripsi",
-                onChange: onDeskripsiChange,
+                controller: deskripsiController,
+                minLength: 20,
               ),
-              if (onHargaChange != null) ...[
+              if (hargaController != null) ...[
                 const SizedBox(height: 24),
                 CustomTextFormField(
+                  validator: hargaValidator,
                   disabled: isLoading,
                   useBorder: false,
                   labelText: "Tambahkan Harga",
                   hintText: "Masukkan Harga (IDR)",
                   textInputAction: TextInputAction.done,
                   textInputType: TextInputType.number,
-                  onChange: onHargaChange,
+                  controller: hargaController,
                 ),
               ],
             ],

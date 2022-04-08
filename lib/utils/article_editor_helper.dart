@@ -3,9 +3,9 @@ import 'package:himaskom_undip/models/article.dart';
 import 'package:himaskom_undip/models/article_state_item.dart';
 import 'package:himaskom_undip/models/tag.dart';
 
-void Function(String)? getHargaChange(
-        ArticleStateItem stateItem, void Function(String) callback) =>
-    stateItem.category == ArticleStateItemCategory.sistore ? callback : null;
+// void Function(String)? getHargaChange(
+//         ArticleStateItem stateItem, void Function(String) callback) =>
+//     stateItem.category == ArticleStateItemCategory.sistore ? callback : null;
 
 void Function()? getTenggatTap(
         ArticleStateItem stateItem, void Function() callback) =>
@@ -14,14 +14,17 @@ void Function()? getTenggatTap(
 TextEditingController? getTenggatController(
         ArticleStateItem stateItem, TextEditingController controller) =>
     stateItem.category == ArticleStateItemCategory.event ? controller : null;
+TextEditingController? getHargaController(
+        ArticleStateItem stateItem, TextEditingController controller) =>
+    stateItem.category == ArticleStateItemCategory.sistore ? controller : null;
 
 bool _isUsingTags(ArticleStateItem stateItem) =>
     stateItem.category == ArticleStateItemCategory.event ||
     stateItem.category == ArticleStateItemCategory.karir ||
     stateItem.category == ArticleStateItemCategory.lomba;
 
-void Function(Tag, int)? getTagChange(
-        ArticleStateItem stateItem, void Function(Tag, int) callback) =>
+void Function(int)? getTagChange(
+        ArticleStateItem stateItem, void Function(int) callback) =>
     _isUsingTags(stateItem) ? callback : null;
 
 int? getTagIndex(ArticleStateItem stateItem, int index) =>
