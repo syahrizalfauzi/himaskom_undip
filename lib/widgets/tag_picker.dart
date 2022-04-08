@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:himaskom_undip/models/tag.dart';
+import 'package:himaskom_undip/widgets/tag_chip.dart';
 
 class TagPicker extends StatelessWidget {
   final List<Tag> tags;
@@ -24,24 +25,9 @@ class TagPicker extends StatelessWidget {
         separatorBuilder: (_, __) => const SizedBox(width: 16),
         itemBuilder: (_, index) => GestureDetector(
           onTap: () => onTap(index),
-          child: Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(8),
-              color: index == selectedIndex
-                  ? Theme.of(context).primaryColor
-                  : const Color(0xFFEEEEEE),
-            ),
-            padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-            child: Text(
-              tags[index].title,
-              style: TextStyle(
-                fontWeight: FontWeight.w600,
-                fontSize: 12,
-                color: index == selectedIndex
-                    ? Colors.white
-                    : Theme.of(context).primaryColor,
-              ),
-            ),
+          child: TagChip(
+            title: tags[selectedIndex].title,
+            enabled: selectedIndex == index,
           ),
         ),
       ),

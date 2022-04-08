@@ -93,6 +93,9 @@ class ArticleDetailPagePresentational extends StatelessWidget {
                           child: LoopPageView.builder(
                             itemCount: article!.gambarUrl!.length,
                             controller: imageController,
+                            physics: article!.gambarUrl!.length > 1
+                                ? const AlwaysScrollableScrollPhysics()
+                                : const NeverScrollableScrollPhysics(),
                             itemBuilder: (_, index) {
                               return Image.network(
                                 article!.gambarUrl![index],

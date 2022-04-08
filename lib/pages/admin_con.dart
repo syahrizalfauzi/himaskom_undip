@@ -28,7 +28,33 @@ class AdminContainer extends ConsumerWidget {
       );
     }
 
-    void _handleDeleteArticle(Article article) {}
+    Future<void> _handleDeleteArticle(Article article) async {
+      final isDeleted = await showDialog(
+        context: context,
+        builder: (_) => AlertDialog(
+          title: const Text('Hapus Article / Item'),
+          content: Text(
+            'Yakin ingin menghapus article / item berjudul "${article.judul}"?\n\nID : ${article.id}',
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: Text(
+                'Batal',
+                style: TextStyle(color: Theme.of(context).disabledColor),
+              ),
+            ),
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: Text(
+                'Hapus',
+                style: TextStyle(color: Theme.of(context).errorColor),
+              ),
+            ),
+          ],
+        ),
+      );
+    }
 
     return AdminPresentational(
       onTapArticle: _handleTapArticle,

@@ -48,7 +48,7 @@ class _PageState extends State<UserContainer> {
 
     void _handleShareArticle(Article article) {}
     void _handleSaveArticle(Article article) {}
-    void _handleDeleteArticle(Article article) {}
+    Future<void> _handleDeleteArticle(Article article) async {}
     void _handleTapLogOut() {}
     void _handleTapSearch() {
       Navigator.of(context).push(MaterialPageRoute(

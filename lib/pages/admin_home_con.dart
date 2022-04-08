@@ -177,10 +177,22 @@ class AdminHomePageContainer extends HookConsumerWidget {
           'Event',
           _handleTapEvent,
         ),
-        ArticleStateItem.fromArticleState(_sistoreState, _handleTapSistore),
-        ArticleStateItem.fromArticleState(_beasiswaState, _handleTapBeasiswa),
-        ArticleStateItem.fromArticleState(_prestasiState, _handleTapPrestasi),
-        ArticleStateItem.fromArticleState(_akademikState, _handleTapAkademik),
+        ArticleStateItem.fromArticleState(
+          _sistoreState,
+          _handleTapSistore,
+        ),
+        ArticleStateItem.fromArticleState(
+          _beasiswaState,
+          _handleTapBeasiswa,
+        ),
+        ArticleStateItem.fromArticleState(
+          _prestasiState,
+          _handleTapPrestasi,
+        ),
+        ArticleStateItem.fromArticleState(
+          _akademikState,
+          _handleTapAkademik,
+        ),
         ArticleStateItem.fromArticleStates(
           _karirStates,
           'Karir',
@@ -191,7 +203,10 @@ class AdminHomePageContainer extends HookConsumerWidget {
           'Lomba',
           _handleTapLomba,
         ),
-        ArticleStateItem.fromArticleState(_umumState, _handleTapUmum),
+        ArticleStateItem.fromArticleState(
+          _umumState,
+          _handleTapUmum,
+        ),
       ],
     );
   }

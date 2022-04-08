@@ -3,10 +3,6 @@ import 'package:himaskom_undip/models/article.dart';
 import 'package:himaskom_undip/models/article_state_item.dart';
 import 'package:himaskom_undip/models/tag.dart';
 
-// void Function(String)? getHargaChange(
-//         ArticleStateItem stateItem, void Function(String) callback) =>
-//     stateItem.category == ArticleStateItemCategory.sistore ? callback : null;
-
 void Function()? getTenggatTap(
         ArticleStateItem stateItem, void Function() callback) =>
     stateItem.category == ArticleStateItemCategory.event ? callback : null;

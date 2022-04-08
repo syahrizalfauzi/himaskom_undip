@@ -54,7 +54,7 @@ abstract class ArticleState extends ChangeNotifier {
     //   articles[index] = article;
     // }
 
-    return articles[index];
+    return article;
   }
 }
 

@@ -125,8 +125,13 @@ class _ImagePickerState extends State<ImagePicker> {
 
         return GestureDetector(
           onTap: () => _handleViewImage(index),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(8),
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(
+                color: Theme.of(context).disabledColor.withOpacity(0.2),
+              ),
+            ),
             child: Image(
               image: imageItem,
             ),
