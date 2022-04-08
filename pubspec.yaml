@@ -47,6 +47,8 @@ dependencies:
   hooks_riverpod: ^1.0.3
   http: ^0.13.4
   loop_page_view: ^1.1.1
+  firebase_auth: ^3.3.13
+  firebase_core: ^1.14.0
 
 dependency_overrides:
   photo_view:

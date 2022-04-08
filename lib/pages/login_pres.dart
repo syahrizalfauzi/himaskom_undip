@@ -4,6 +4,7 @@ import 'package:himaskom_undip/widgets/custom_button.dart';
 import 'package:himaskom_undip/widgets/custom_text_form_field.dart';
 
 class LoginPagePresentational extends StatelessWidget {
+  final bool isLoading;
   final void Function(String) onEmailChange;
   final void Function(String) onPasswordChange;
   final String? Function(String?) emailValidator;
@@ -15,6 +16,7 @@ class LoginPagePresentational extends StatelessWidget {
 
   const LoginPagePresentational({
     Key? key,
+    required this.isLoading,
     required this.onEmailChange,
     required this.onPasswordChange,
     required this.onTapDaftar,
@@ -63,6 +65,7 @@ class LoginPagePresentational extends StatelessWidget {
                 textInputAction: TextInputAction.next,
                 onChange: onEmailChange,
                 validator: emailValidator,
+                disabled: isLoading,
               ),
               const SizedBox(height: 24),
               CustomTextFormField(
@@ -71,15 +74,17 @@ class LoginPagePresentational extends StatelessWidget {
                 textInputType: TextInputType.visiblePassword,
                 onChange: onPasswordChange,
                 validator: passwordValidator,
+                disabled: isLoading,
               ),
               const SizedBox(height: 24),
               CustomButton(
                 onTap: onTapMasuk,
                 text: "Masuk",
+                loading: isLoading,
               ),
               const SizedBox(height: 24),
               GestureDetector(
-                onTap: onTapForgot,
+                onTap: isLoading ? null : onTapForgot,
                 child: Text(
                   'Lupa password?',
                   style: Theme.of(context).textTheme.labelMedium,
@@ -122,7 +127,7 @@ class LoginPagePresentational extends StatelessWidget {
               Align(
                 alignment: Alignment.center,
                 child: InkWell(
-                  onTap: onTapGoogle,
+                  onTap: isLoading ? null : onTapGoogle,
                   borderRadius: BorderRadius.circular(24),
                   child: Container(
                     height: 48,
@@ -138,7 +143,7 @@ class LoginPagePresentational extends StatelessWidget {
               ),
               const SizedBox(height: 24),
               GestureDetector(
-                onTap: onTapDaftar,
+                onTap: isLoading ? null : onTapDaftar,
                 child: Text(
                   'Anda belum punya akun? Daftar',
                   style: Theme.of(context).textTheme.labelMedium,
