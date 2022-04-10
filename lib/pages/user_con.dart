@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced_drawer/flutter_advanced_drawer.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -19,6 +20,7 @@ class _PageState extends State<UserContainer> {
   @override
   Widget build(BuildContext context) {
     final _currentPage = useState(Pages.beranda);
+    final _user = useMemoized(() => FirebaseAuth.instance.currentUser!, []);
     final _appBarTitle = useMemoized(() {
       switch (_currentPage.value) {
         case Pages.beranda:
@@ -36,21 +38,25 @@ class _PageState extends State<UserContainer> {
       }
     }, [_currentPage.value]);
 
-    void _handleTapItem(Pages page) {
+    _handleTapItem(Pages page) {
       _currentPage.value = page;
       _advancedDrawerController.hideDrawer();
     }
 
-    void _handleTapArticle(Article article) {
+    _handleTapArticle(Article article) {
       Navigator.of(context).push(MaterialPageRoute(
           builder: (_) => ArticleDetailPageContainer(article: article)));
     }
 
-    void _handleShareArticle(Article article) {}
-    void _handleSaveArticle(Article article) {}
-    Future<void> _handleDeleteArticle(Article article) async {}
-    void _handleTapLogOut() {}
-    void _handleTapSearch() {
+    _handleShareArticle(Article article) {}
+    _handleSaveArticle(Article article) {}
+    _handleDeleteArticle(Article article) async {}
+    _handleTapLogOut() {
+      FirebaseAuth.instance.signOut();
+      //Unsub FCM
+    }
+
+    _handleTapSearch() {
       Navigator.of(context).push(MaterialPageRoute(
           builder: (_) => SearchPageContainer(
                 onTapArticle: _handleTapArticle,
@@ -68,8 +74,8 @@ class _PageState extends State<UserContainer> {
       onSaveArticle: _handleSaveArticle,
       onShareArticle: _handleShareArticle,
       onTapArticle: _handleTapArticle,
-      userEmail: 'syahrizal@email.com',
-      userName: 'Syahrizal Fauzi',
+      userEmail: _user.email!,
+      userName: _user.displayName!,
     );
   }
 }

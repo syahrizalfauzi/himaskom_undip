@@ -35,10 +35,12 @@ class _DaftarPageContainerState extends State<DaftarPageContainer> {
       }
       _isLoading.value = true;
       try {
-        await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        final credential =
+            await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: _email.value,
           password: _password.value,
         );
+        credential.user!.updateDisplayName(_nama.value);
         Navigator.of(context).pop();
       } on FirebaseAuthException catch (e) {
         String message = '';
