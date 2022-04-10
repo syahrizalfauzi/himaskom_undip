@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:himaskom_undip/pages/daftar_pres.dart';
 import 'package:himaskom_undip/widgets/custom_snackbar.dart';
 
@@ -68,6 +69,29 @@ class _DaftarPageContainerState extends State<DaftarPageContainer> {
       Navigator.of(context).pop();
     }
 
+    _handleTapGoogle() async {
+      _isLoading.value = true;
+
+      final googleUser = await GoogleSignIn().signIn();
+
+      if (googleUser == null) {
+        _isLoading.value = false;
+        return;
+      }
+
+      final GoogleSignInAuthentication googleAuth =
+          await googleUser.authentication;
+
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
+      await FirebaseAuth.instance.signInWithCredential(credential);
+      _isLoading.value = false;
+
+      Navigator.of(context).pop();
+    }
+
     return Form(
       key: _formKey,
       child: DaftarPagePresentational(
@@ -79,7 +103,7 @@ class _DaftarPageContainerState extends State<DaftarPageContainer> {
         namaValidator: _validateNotEmpty,
         emailValidator: _validateNotEmpty,
         passwordValidator: _validateNotEmpty,
-        onTapGoogle: () => debugPrint('Tap google'),
+        onTapGoogle: _handleTapGoogle,
         onTapMasuk: _handleTapMasuk,
       ),
     );

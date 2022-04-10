@@ -49,6 +49,7 @@ dependencies:
   loop_page_view: ^1.1.1
   firebase_auth: ^3.3.13
   firebase_core: ^1.14.0
+  google_sign_in: ^5.2.4
 
 dependency_overrides:
   photo_view:
