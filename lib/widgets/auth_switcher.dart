@@ -1,8 +1,9 @@
-import 'dart:convert';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:himaskom_undip/pages/admin_con.dart';
+import 'package:himaskom_undip/pages/login_con.dart';
+import 'package:himaskom_undip/pages/user_con.dart';
 
 enum AuthState { loading, admin, user, none }
 
@@ -17,37 +18,17 @@ class AuthSwitcher extends HookWidget {
     // final _userStream = useStream(FirebaseAuth.instance.userChanges().listen());
 
     useEffect(() {
-      // final sub =
-      //     FirebaseAuth.instance.userChanges().listen((_authState) async {
-      //   if (_authState != null) {
-      //     if (admins.contains(_authState.uid)) {
-      //       _widget.value = AdminHome();
-      //     } else {
-      //       await FirebaseMessaging.instance.subscribeToTopic('notification');
-      //       try {
-      //         // Bakal throw error kalo belum ada nama atau namanya masih string
-      //         final displayName = jsonDecode(_authState.displayName!);
-      //         final nama = displayName['nama'] as String;
-      //         final nim = displayName['nim'] as String;
-      //         final jurusan = displayName['jurusan'] as String;
-      //         if (nama.isNotEmpty && nim.isNotEmpty && jurusan.isNotEmpty) {
-      //           _widget.value = UserWrapper();
-      //         } else {
-      //           throw Error;
-      //         }
-      //       } catch (e) {
-      //         _widget.value = UserProfileInput(
-      //           name: _authState.displayName,
-      //         );
-      //       }
-      //     }
-      //   } else {
-      //     await FirebaseMessaging.instance.unsubscribeFromTopic('notification');
-      //     _widget.value = UserLogin();
-      //   }
-      // });
-
-      // return sub.cancel;
+      final subscription = FirebaseAuth.instance.userChanges().listen((user) {
+        if (user == null) {
+          _state.value = AuthState.none;
+        } else {
+          // if (user.uid == 'admin_uid') {
+          //   _state.value = AuthState.admin;
+          // }
+          _state.value = AuthState.user;
+        }
+      });
+      return subscription.cancel;
     }, []);
 
     return AnimatedSwitcher(
@@ -61,7 +42,18 @@ class AuthSwitcher extends HookWidget {
         ).animate(animation);
         return SlideTransition(position: offsetAnimation, child: child);
       },
-      child: null,
+      child: (() {
+        switch (_state.value) {
+          case AuthState.loading:
+            return const Center(child: CircularProgressIndicator());
+          case AuthState.admin:
+            return const AdminContainer();
+          case AuthState.user:
+            return const UserContainer();
+          case AuthState.none:
+            return const LoginPageContainer();
+        }
+      })(),
     );
   }
 }

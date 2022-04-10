@@ -5,6 +5,7 @@ class CustomTextFormField extends HookWidget {
   final bool dense;
   final bool useBorder;
   final bool disabled;
+  final bool filled;
   final String? hintText;
   final bool? multiline;
   final int? minLength;
@@ -25,6 +26,7 @@ class CustomTextFormField extends HookWidget {
     this.dense = false,
     this.useBorder = true,
     this.disabled = false,
+    this.filled = true,
     this.hintText,
     this.multiline,
     this.minLength,
@@ -62,7 +64,7 @@ class CustomTextFormField extends HookWidget {
         TextFormField(
           decoration: InputDecoration(
             enabled: !disabled,
-            filled: true,
+            filled: filled,
             hintText: hintText,
             fillColor: Colors.white,
             counter: Container(),

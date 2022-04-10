@@ -59,6 +59,7 @@ class LoginPagePresentational extends StatelessWidget {
               ),
               const SizedBox(height: 48),
               CustomTextFormField(
+                filled: false,
                 labelText: 'Alamat Email',
                 hintText: "Masukkan email anda",
                 textInputType: TextInputType.emailAddress,
@@ -69,6 +70,7 @@ class LoginPagePresentational extends StatelessWidget {
               ),
               const SizedBox(height: 24),
               CustomTextFormField(
+                filled: false,
                 labelText: 'Password',
                 hintText: "Masukkan password anda",
                 textInputType: TextInputType.visiblePassword,

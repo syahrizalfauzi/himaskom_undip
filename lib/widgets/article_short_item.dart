@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:himaskom_undip/models/article.dart';
 import 'package:himaskom_undip/utils/get_article_callback.dart';
-import 'package:himaskom_undip/utils/get_article_state.dart';
 import 'package:himaskom_undip/widgets/article_item_subtitle.dart';
-import 'package:intl/intl.dart';
 
 class ArticleShortItem extends StatelessWidget {
   final Article article;

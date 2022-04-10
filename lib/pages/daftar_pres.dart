@@ -4,6 +4,7 @@ import 'package:himaskom_undip/widgets/custom_button.dart';
 import 'package:himaskom_undip/widgets/custom_text_form_field.dart';
 
 class DaftarPagePresentational extends StatelessWidget {
+  final bool isLoading;
   final void Function(String) onNamaChange;
   final void Function(String) onEmailChange;
   final void Function(String) onPasswordChange;
@@ -16,6 +17,7 @@ class DaftarPagePresentational extends StatelessWidget {
 
   const DaftarPagePresentational({
     Key? key,
+    required this.isLoading,
     required this.onNamaChange,
     required this.onEmailChange,
     required this.onPasswordChange,
@@ -59,6 +61,8 @@ class DaftarPagePresentational extends StatelessWidget {
               ),
               const SizedBox(height: 48),
               CustomTextFormField(
+                filled: false,
+                disabled: isLoading,
                 labelText: 'Nama Lengkap',
                 hintText: "Masukkan nama lengkap",
                 textInputAction: TextInputAction.next,
@@ -67,6 +71,8 @@ class DaftarPagePresentational extends StatelessWidget {
               ),
               const SizedBox(height: 24),
               CustomTextFormField(
+                filled: false,
+                disabled: isLoading,
                 labelText: 'Alamat Email',
                 hintText: "Masukkan email anda",
                 textInputType: TextInputType.emailAddress,
@@ -76,6 +82,8 @@ class DaftarPagePresentational extends StatelessWidget {
               ),
               const SizedBox(height: 24),
               CustomTextFormField(
+                filled: false,
+                disabled: isLoading,
                 labelText: 'Password',
                 hintText: "Masukkan password anda",
                 textInputType: TextInputType.visiblePassword,
@@ -86,6 +94,7 @@ class DaftarPagePresentational extends StatelessWidget {
               CustomButton(
                 onTap: onTapDaftar,
                 text: "Daftar",
+                loading: isLoading,
               ),
               const SizedBox(height: 24),
               SizedBox(
@@ -123,7 +132,7 @@ class DaftarPagePresentational extends StatelessWidget {
               Align(
                 alignment: Alignment.center,
                 child: InkWell(
-                  onTap: onTapGoogle,
+                  onTap: isLoading ? null : onTapGoogle,
                   borderRadius: BorderRadius.circular(24),
                   child: Container(
                     height: 48,
@@ -139,7 +148,7 @@ class DaftarPagePresentational extends StatelessWidget {
               ),
               const SizedBox(height: 24),
               GestureDetector(
-                onTap: onTapMasuk,
+                onTap: isLoading ? null : onTapMasuk,
                 child: Text(
                   'Sudah punya akun? Masuk',
                   style: Theme.of(context).textTheme.labelMedium,
