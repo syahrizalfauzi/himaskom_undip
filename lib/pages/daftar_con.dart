@@ -22,14 +22,14 @@ class _DaftarPageContainerState extends State<DaftarPageContainer> {
     final _email = useState("");
     final _password = useState("");
 
-    _handleNamaChange(String newNama) => _nama.value = newNama;
-    _handleEmailChange(String newEmail) => _email.value = newEmail;
-    _handlePasswordChange(String newPassword) => _password.value = newPassword;
     _validateNotEmpty(String? text) => (text == null)
         ? "Tidak boleh kosong"
         : text.isEmpty
             ? "Tidak boleh kosong"
             : null;
+    _handleNamaChange(String newNama) => _nama.value = newNama;
+    _handleEmailChange(String newEmail) => _email.value = newEmail;
+    _handlePasswordChange(String newPassword) => _password.value = newPassword;
     _handleTapDaftar() async {
       if (!_formKey.currentState!.validate()) {
         return;
@@ -65,10 +65,6 @@ class _DaftarPageContainerState extends State<DaftarPageContainer> {
       _isLoading.value = false;
     }
 
-    _handleTapMasuk() {
-      Navigator.of(context).pop();
-    }
-
     _handleTapGoogle() async {
       _isLoading.value = true;
 
@@ -92,17 +88,21 @@ class _DaftarPageContainerState extends State<DaftarPageContainer> {
       Navigator.of(context).pop();
     }
 
+    _handleTapMasuk() {
+      Navigator.of(context).pop();
+    }
+
     return Form(
       key: _formKey,
       child: DaftarPagePresentational(
         isLoading: _isLoading.value,
+        namaValidator: _validateNotEmpty,
+        emailValidator: _validateNotEmpty,
+        passwordValidator: _validateNotEmpty,
         onNamaChange: _handleNamaChange,
         onEmailChange: _handleEmailChange,
         onPasswordChange: _handlePasswordChange,
         onTapDaftar: _handleTapDaftar,
-        namaValidator: _validateNotEmpty,
-        emailValidator: _validateNotEmpty,
-        passwordValidator: _validateNotEmpty,
         onTapGoogle: _handleTapGoogle,
         onTapMasuk: _handleTapMasuk,
       ),

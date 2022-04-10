@@ -41,10 +41,9 @@ class _ArticleEditorPageContainerState
     final _tenggatTime = useState<TimeOfDay?>(null);
     final _tagIndex = useState(0);
 
-    void _handleImageChange(List<ImageProvider> images) =>
-        _images.value = images;
-    void _handleImageRemove(String url) => _removedImageUrls.value.add(url);
-    void _handleTenggatDateTap() async {
+    _handleImageChange(List<ImageProvider> images) => _images.value = images;
+    _handleImageRemove(String url) => _removedImageUrls.value.add(url);
+    _handleTenggatDateTap() async {
       final date = await showDatePicker(
         context: context,
         initialDate: _tenggatDate.value ?? DateTime.now(),
@@ -59,7 +58,7 @@ class _ArticleEditorPageContainerState
       _tenggatDateController.text = DateFormat('dd/MM/yyyy').format(date);
     }
 
-    void _handleTenggatTimeTap() async {
+    _handleTenggatTimeTap() async {
       final time = await showTimePicker(
         context: context,
         initialTime: _tenggatTime.value ?? TimeOfDay.now(),
@@ -69,32 +68,9 @@ class _ArticleEditorPageContainerState
       _tenggatTimeController.text = time.format(context);
     }
 
-    void _handleTagChange(int index) => _tagIndex.value = index;
+    _handleTagChange(int index) => _tagIndex.value = index;
 
-    String? _hargaValidator(String harga) {
-      final hargaNumber = int.tryParse(harga);
-
-      if (hargaNumber == null) return "Harga harus berupa angka";
-      if (hargaNumber < 1) return "Harga harus lebih dari 0";
-
-      return null;
-    }
-
-    String? _tenggatDateValidator(String tenggatDate) {
-      if (_tenggatDate.value == null || tenggatDate.isEmpty) {
-        return 'Harus diisi';
-      }
-      return null;
-    }
-
-    String? _tenggatTimeValidator(String tenggatTime) {
-      if (_tenggatTime.value == null || tenggatTime.isEmpty) {
-        return 'Harus diisi';
-      }
-      return null;
-    }
-
-    Future<void> _handleFetch() async {
+    _handleFetch() async {
       _isLoading.value = true;
 
       final state =
@@ -122,7 +98,7 @@ class _ArticleEditorPageContainerState
       _isLoading.value = false;
     }
 
-    Future<void> _handleSubmit() async {
+    _handleSubmit() async {
       _isLoading.value = true;
       if (!_formKey.currentState!.validate()) {
         _isLoading.value = false;
@@ -176,6 +152,22 @@ class _ArticleEditorPageContainerState
       _isLoading.value = false;
     }
 
+    _hargaValidator(String harga) {
+      final hargaNumber = int.tryParse(harga);
+
+      if (hargaNumber == null) return "Harga harus berupa angka";
+      if (hargaNumber < 1) return "Harga harus lebih dari 0";
+
+      return null;
+    }
+
+    _tenggatValidator(String tenggatDate) {
+      if (_tenggatDate.value == null || tenggatDate.isEmpty) {
+        return 'Harus diisi';
+      }
+      return null;
+    }
+
     useEffect(() {
       if (widget.initialArticle != null) _handleFetch();
       return;
@@ -220,8 +212,8 @@ class _ArticleEditorPageContainerState
         ),
         onSubmit: _handleSubmit,
         hargaValidator: _hargaValidator,
-        tenggatDateValidator: _tenggatDateValidator,
-        tenggatTimeValidator: _tenggatTimeValidator,
+        tenggatDateValidator: _tenggatValidator,
+        tenggatTimeValidator: _tenggatValidator,
       ),
     );
   }

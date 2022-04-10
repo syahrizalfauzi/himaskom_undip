@@ -19,13 +19,13 @@ class SearchPageContainer extends HookConsumerWidget {
     final _articles = useState<List<Article>>([]);
     final _controller = useTextEditingController();
 
-    Future<void> _handleSubmit(String value) async {
+    _handleSubmit(String value) async {
       if (value.isEmpty) return;
       _articles.value = await _articleState.search(value);
     }
 
-    void _handleClear() => _controller.clear();
-    void _handleBack() => Navigator.of(context).pop();
+    _handleClear() => _controller.clear();
+    _handleBack() => Navigator.of(context).pop();
 
     return SearchPagePresentational(
       articles: _articles.value,

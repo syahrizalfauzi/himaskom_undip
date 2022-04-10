@@ -22,13 +22,13 @@ class _DaftarPageContainerState extends State<LoginPageContainer> {
     final _password = useState("");
     final _isLoading = useState(false);
 
-    _handleEmailChange(String newEmail) => _email.value = newEmail;
-    _handlePasswordChange(String newPassword) => _password.value = newPassword;
     _validateNotEmpty(String? text) => (text == null)
         ? "Tidak boleh kosong"
         : text.isEmpty
             ? "Tidak boleh kosong"
             : null;
+    _handleEmailChange(String newEmail) => _email.value = newEmail;
+    _handlePasswordChange(String newPassword) => _password.value = newPassword;
     _handleTapMasuk() async {
       if (!_formKey.currentState!.validate()) {
         return;
@@ -94,10 +94,10 @@ class _DaftarPageContainerState extends State<LoginPageContainer> {
       key: _formKey,
       child: LoginPagePresentational(
         isLoading: _isLoading.value,
-        onEmailChange: _handleEmailChange,
-        onPasswordChange: _handlePasswordChange,
         emailValidator: _validateNotEmpty,
         passwordValidator: _validateNotEmpty,
+        onEmailChange: _handleEmailChange,
+        onPasswordChange: _handlePasswordChange,
         onTapMasuk: _handleTapMasuk,
         onTapDaftar: _handleTapDaftar,
         onTapForgot: () => debugPrint('Tap forgot'),

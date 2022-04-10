@@ -12,7 +12,7 @@ class AdminContainer extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
-    void _handleTapArticle(Article article) {
+    _handleTapArticle(Article article) {
       final articleState = ref.read(getArticleStateFromArticle(article));
       final stateItem = ArticleStateItem.fromArticleState(articleState);
       Navigator.of(context).push(
@@ -28,7 +28,7 @@ class AdminContainer extends ConsumerWidget {
       );
     }
 
-    Future<void> _handleDeleteArticle(Article article) async {
+    _handleDeleteArticle(Article article) async {
       final isDeleted = await showDialog(
         context: context,
         builder: (_) => AlertDialog(

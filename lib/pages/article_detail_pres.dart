@@ -17,7 +17,6 @@ class ArticleDetailPagePresentational extends StatelessWidget {
   final void Function() onSimpan;
   final void Function() onBagikan;
   final void Function() onPengingat;
-  // final bool isLoading;
 
   const ArticleDetailPagePresentational({
     Key? key,
@@ -29,7 +28,6 @@ class ArticleDetailPagePresentational extends StatelessWidget {
     required this.onSimpan,
     required this.onBagikan,
     required this.onPengingat,
-    // required this.isLoading,
     this.article,
   }) : super(key: key);
 

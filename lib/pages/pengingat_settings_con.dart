@@ -9,8 +9,8 @@ class PengingatSettingsContainer extends HookWidget {
   Widget build(BuildContext context) {
     final _minute = useState(1440);
 
-    void _handleChange(int? value) => _minute.value = value ?? 1440;
-    void _handleSave() {
+    _handleChange(int? value) => _minute.value = value ?? 1440;
+    _handleSave() {
       debugPrint('Remind ${_minute.value} minutes before d-day');
       Navigator.of(context).pop();
     }

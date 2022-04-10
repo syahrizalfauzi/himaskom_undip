@@ -28,7 +28,7 @@ class _ArticleDetailPageContainerState
     final _currentImageIndex = useState(0.0);
     final _article = useState<Article?>(null);
 
-    void _handleTapIndicator(int index) {
+    _handleTapIndicator(int index) {
       _imageController.animateToPage(
         index,
         duration: const Duration(milliseconds: 500),
@@ -36,16 +36,20 @@ class _ArticleDetailPageContainerState
       );
     }
 
-    Future<void> _fetch() async {
-      _article.value = null;
-      _article.value = await _articleState.get(widget.article.id);
+    _handleBagikan() {}
+    _handleHubungi() {}
+    _handlePengingat() {
+      showDialog(
+        context: context,
+        builder: (_) => const PengingatSettingsContainer(),
+      );
     }
 
-    void _handle() {}
-    void _handleHubungi() {}
-    void _handlePengingat() {
-      showDialog(
-          context: context, builder: (_) => const PengingatSettingsContainer());
+    _handleSimpan() {}
+
+    _fetch() async {
+      _article.value = null;
+      _article.value = await _articleState.get(widget.article.id);
     }
 
     useEffect(() {
@@ -62,10 +66,10 @@ class _ArticleDetailPageContainerState
       currentImageIndex: _currentImageIndex.value,
       onTapIndicator: _handleTapIndicator,
       article: _article.value,
-      onBagikan: _handle,
+      onBagikan: _handleBagikan,
       onHubungi: _handleHubungi,
       onPengingat: _handlePengingat,
-      onSimpan: _handle,
+      onSimpan: _handleSimpan,
       onRefresh: _fetch,
     );
   }

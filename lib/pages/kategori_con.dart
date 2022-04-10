@@ -18,7 +18,7 @@ import 'package:himaskom_undip/utils/push_article_state_page.dart';
 import 'package:himaskom_undip/widgets/user_scaffold.dart';
 
 class KategoriPageContainer extends StatelessWidget {
-  final void Function() onTapSearch;
+  final Function() onTapSearch;
   final Function(Article) onTapArticle;
   final Function(Article) onSaveArticle;
   final Function(Article) onShareArticle;
@@ -33,7 +33,7 @@ class KategoriPageContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    void _handleTapAkademik() {
+    _handleTapAkademik() {
       pushArticleStatesPage(
         context: context,
         states: [akademikArticleState],
@@ -48,7 +48,7 @@ class KategoriPageContainer extends StatelessWidget {
       );
     }
 
-    void _handleTapBeasiswa() {
+    _handleTapBeasiswa() {
       pushArticleStatesPage(
         context: context,
         states: [beasiswaArticleState],
@@ -63,7 +63,7 @@ class KategoriPageContainer extends StatelessWidget {
       );
     }
 
-    void _handleTapPrestasi() {
+    _handleTapPrestasi() {
       pushArticleStatesPage(
         context: context,
         states: [prestasiArticleState],
@@ -78,7 +78,7 @@ class KategoriPageContainer extends StatelessWidget {
       );
     }
 
-    void _handleTapSistore() {
+    _handleTapSistore() {
       pushArticleStatesPage(
         context: context,
         states: [sistoreArticleState],
@@ -93,7 +93,7 @@ class KategoriPageContainer extends StatelessWidget {
       );
     }
 
-    void _handleTapUmum() {
+    _handleTapUmum() {
       pushArticleStatesPage(
         context: context,
         states: [umumArticleState],
@@ -108,7 +108,7 @@ class KategoriPageContainer extends StatelessWidget {
       );
     }
 
-    void _handleTapEvent() {
+    _handleTapEvent() {
       pushArticleStatesPage(
         context: context,
         states: [
@@ -128,7 +128,7 @@ class KategoriPageContainer extends StatelessWidget {
       );
     }
 
-    void _handleTapKarir() {
+    _handleTapKarir() {
       pushArticleStatesPage(
         context: context,
         states: [karirLokerArticleState, karirMagangArticleState],
@@ -144,7 +144,7 @@ class KategoriPageContainer extends StatelessWidget {
       );
     }
 
-    void _handleTapLomba() {
+    _handleTapLomba() {
       pushArticleStatesPage(
         context: context,
         states: [lombaAkademikArticleState, lombaNonakademikArticleState],

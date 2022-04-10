@@ -21,7 +21,7 @@ class NotifikasiPageContainer extends HookConsumerWidget {
     final _articleState = ref.watch(notifikasiArticleState);
     final _settingsSubstitle = useState("Semua Kategori");
 
-    Future<void> _handleTapSettings() async {
+    _handleTapSettings() async {
       final Map<String, bool>? result = await showDialog(
         context: context,
         builder: (context) => const NotifikasiSettingsContainer(),

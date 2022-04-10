@@ -49,8 +49,8 @@ class AdminHomePageContainer extends HookConsumerWidget {
       ref.watch(lombaAkademikArticleState),
       ref.watch(lombaNonakademikArticleState),
     ];
-    void _handleLogOut() {}
-    void _handleTapAddArticle(ArticleStateItem stateItem) {
+    _handleLogOut() {}
+    _handleTapAddArticle(ArticleStateItem stateItem) {
       Navigator.of(context).push(
         MaterialPageRoute(
           builder: (_) => AdminScaffold(
@@ -61,7 +61,7 @@ class AdminHomePageContainer extends HookConsumerWidget {
       );
     }
 
-    void _handleTapEvent() {
+    _handleTapEvent() {
       pushArticleStatesPage(
         context: context,
         states: [
@@ -78,7 +78,7 @@ class AdminHomePageContainer extends HookConsumerWidget {
       );
     }
 
-    void _handleTapSistore() {
+    _handleTapSistore() {
       pushArticleStatesPage(
         context: context,
         states: [sistoreArticleState],
@@ -91,7 +91,7 @@ class AdminHomePageContainer extends HookConsumerWidget {
       );
     }
 
-    void _handleTapBeasiswa() {
+    _handleTapBeasiswa() {
       pushArticleStatesPage(
         context: context,
         states: [beasiswaArticleState],
@@ -104,7 +104,7 @@ class AdminHomePageContainer extends HookConsumerWidget {
       );
     }
 
-    void _handleTapPrestasi() {
+    _handleTapPrestasi() {
       pushArticleStatesPage(
         context: context,
         states: [prestasiArticleState],
@@ -117,7 +117,7 @@ class AdminHomePageContainer extends HookConsumerWidget {
       );
     }
 
-    void _handleTapAkademik() {
+    _handleTapAkademik() {
       pushArticleStatesPage(
         context: context,
         states: [akademikArticleState],
@@ -130,7 +130,7 @@ class AdminHomePageContainer extends HookConsumerWidget {
       );
     }
 
-    void _handleTapKarir() {
+    _handleTapKarir() {
       pushArticleStatesPage(
         context: context,
         states: [karirLokerArticleState, karirMagangArticleState],
@@ -143,7 +143,7 @@ class AdminHomePageContainer extends HookConsumerWidget {
       );
     }
 
-    void _handleTapLomba() {
+    _handleTapLomba() {
       pushArticleStatesPage(
         context: context,
         states: [lombaAkademikArticleState, lombaNonakademikArticleState],
@@ -156,7 +156,7 @@ class AdminHomePageContainer extends HookConsumerWidget {
       );
     }
 
-    void _handleTapUmum() {
+    _handleTapUmum() {
       pushArticleStatesPage(
         context: context,
         states: [umumArticleState],

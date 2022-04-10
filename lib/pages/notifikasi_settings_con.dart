@@ -18,15 +18,15 @@ class NotifikasiSettingsContainer extends HookWidget {
       'Lomba': useState(false),
     };
 
-    void _handlePilihSemua(bool? value) {
+    _handlePilihSemua(bool? value) {
       _state.forEach((_, state) => state.value = value ?? false);
     }
 
-    void _handleChange(bool? value, String key) {
+    _handleChange(bool? value, String key) {
       _state[key]!.value = value ?? false;
     }
 
-    void _handleSave() {
+    _handleSave() {
       final result = _state.map((key, value) => MapEntry(key, value.value));
       Navigator.of(context).pop(result);
     }

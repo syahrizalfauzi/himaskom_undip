@@ -2,7 +2,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:himaskom_undip/pages/login_con.dart';
 import 'package:himaskom_undip/widgets/auth_switcher.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -23,6 +22,7 @@ class MyApp extends StatelessWidget {
         title: 'HIMASKOM UNDIP',
         localizationsDelegates: const [GlobalMaterialLocalizations.delegate],
         supportedLocales: const [Locale('id', "ID")],
+        home: const AuthSwitcher(),
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(
             seedColor: const Color(0xFF171936),
@@ -76,7 +76,6 @@ class MyApp extends StatelessWidget {
             ),
           ),
         ),
-        home: const AuthSwitcher(),
       ),
     );
   }
