@@ -12,8 +12,9 @@ class NotifikasiArticleState extends ArticleState {
   Future<void> getAll() async {
     isLoading = true;
     notifyListeners();
+    // FETCH FROM LOCAL STORAGE
     await Future.delayed(const Duration(seconds: 1));
-    articles = sampleArticles;
+    articles = [];
     isLoading = false;
     notifyListeners();
   }

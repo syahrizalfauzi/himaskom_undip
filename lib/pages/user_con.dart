@@ -53,7 +53,7 @@ class _PageState extends State<UserContainer> {
     _handleDeleteArticle(Article article) async {}
     _handleTapLogOut() {
       FirebaseAuth.instance.signOut();
-      //Unsub FCM
+      //Unsub FCM & clear local storage
     }
 
     _handleTapSearch() {

@@ -27,6 +27,10 @@ class ArticleShortList extends StatelessWidget {
       child = const Center(
         child: CircularProgressIndicator(),
       );
+    } else if (articles.isEmpty) {
+      child = const Center(
+        child: Text('Belum ada article / item'),
+      );
     } else {
       child = RefreshIndicator(
         onRefresh: onRefresh,
