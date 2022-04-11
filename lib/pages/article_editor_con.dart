@@ -35,13 +35,18 @@ class _ArticleEditorPageContainerState
     final _judulController = useTextEditingController();
     final _deskripsiController = useTextEditingController();
     final _hargaController = useTextEditingController();
+    final _isImageError = useState(false);
     final _removedImageUrls = useState<List<String>>([]);
     final _images = useState<List<ImageProvider>>([]);
     final _tenggatDate = useState<DateTime?>(null);
     final _tenggatTime = useState<TimeOfDay?>(null);
     final _tagIndex = useState(0);
 
-    _handleImageChange(List<ImageProvider> images) => _images.value = images;
+    _handleImageChange(List<ImageProvider> images) {
+      _isImageError.value = false;
+      _images.value = images;
+    }
+
     _handleImageRemove(String url) => _removedImageUrls.value.add(url);
     _handleTenggatDateTap() async {
       final date = await showDatePicker(
@@ -99,11 +104,14 @@ class _ArticleEditorPageContainerState
     }
 
     _handleSubmit() async {
-      _isLoading.value = true;
-      if (!_formKey.currentState!.validate()) {
-        _isLoading.value = false;
+      _isImageError.value = false;
+      if (!_formKey.currentState!.validate() || _images.value.isEmpty) {
+        if (_images.value.isEmpty) {
+          _isImageError.value = true;
+        }
         return;
       }
+      _isLoading.value = true;
       await Future.delayed(const Duration(seconds: 1));
 
       for (var image in _images.value) {
@@ -177,6 +185,7 @@ class _ArticleEditorPageContainerState
       key: _formKey,
       child: ArticleEditorPagePresentational(
         isLoading: _isLoading.value,
+        isImageError: _isImageError.value,
         initialImageUrls: widget.initialArticle?.gambarUrl ?? [],
         onImageChange: _handleImageChange,
         onImageRemove: _handleImageRemove,

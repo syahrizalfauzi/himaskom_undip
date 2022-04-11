@@ -10,6 +10,7 @@ class ArticleEditorPagePresentational extends StatelessWidget {
   final List<String> initialImageUrls;
   final void Function(List<ImageProvider>) onImageChange;
   final void Function(String) onImageRemove;
+  final bool isImageError;
   final TextEditingController judulController;
   final TextEditingController deskripsiController;
   final String? Function(String) hargaValidator;
@@ -31,6 +32,7 @@ class ArticleEditorPagePresentational extends StatelessWidget {
     required this.initialImageUrls,
     required this.onImageChange,
     required this.onImageRemove,
+    required this.isImageError,
     required this.judulController,
     required this.deskripsiController,
     required this.hargaValidator,
@@ -66,8 +68,16 @@ class ArticleEditorPagePresentational extends StatelessWidget {
                   onChange: onImageChange,
                   onRemove: onImageRemove,
                   initialImageUrls: initialImageUrls,
+                  isError: isImageError,
                 ),
               ),
+              if (isImageError) ...[
+                const SizedBox(height: 8),
+                Text(
+                  'Harus diisi',
+                  style: TextStyle(color: Theme.of(context).errorColor),
+                ),
+              ],
               const SizedBox(height: 24),
               CustomTextFormField(
                 disabled: isLoading,

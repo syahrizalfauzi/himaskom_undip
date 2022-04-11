@@ -11,12 +11,14 @@ class ImagePicker extends StatefulHookWidget {
   final List<String> initialImageUrls;
   final void Function(List<ImageProvider>) onChange;
   final void Function(String) onRemove;
+  final bool isError;
 
   const ImagePicker({
     Key? key,
     this.initialImageUrls = const [],
     required this.onChange,
     required this.onRemove,
+    required this.isError,
   }) : super(key: key);
 
   @override
@@ -108,7 +110,9 @@ class _ImagePickerState extends State<ImagePicker> {
             child: DottedBorder(
               borderType: BorderType.RRect,
               radius: const Radius.circular(8),
-              color: Theme.of(context).disabledColor,
+              color: widget.isError
+                  ? Theme.of(context).errorColor
+                  : Theme.of(context).disabledColor,
               strokeWidth: 2,
               strokeCap: StrokeCap.round,
               dashPattern: const [2, 4],
@@ -116,7 +120,9 @@ class _ImagePickerState extends State<ImagePicker> {
                 child: Icon(
                   Icons.add,
                   size: 24,
-                  color: Theme.of(context).disabledColor,
+                  color: widget.isError
+                      ? Theme.of(context).errorColor
+                      : Theme.of(context).disabledColor,
                 ),
               ),
             ),

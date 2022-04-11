@@ -67,7 +67,6 @@ class CustomTextFormField extends HookWidget {
             filled: filled,
             hintText: hintText,
             fillColor: Colors.white,
-            counter: Container(),
             contentPadding:
                 dense ? const EdgeInsets.fromLTRB(8, 0, 8, 0) : null,
             hintStyle: TextStyle(
