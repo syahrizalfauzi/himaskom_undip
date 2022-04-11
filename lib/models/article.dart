@@ -73,7 +73,8 @@ class Article {
       judul: json['judul'],
       gambarUrl: (json['gambarUrl'] as List).map((e) => e.toString()).toList(),
       createdAt: DateTime.parse(json['createdAt']),
-      tenggat: DateTime.tryParse(json['tenggat']),
+      tenggat:
+          json['tenggat'] == null ? null : DateTime.tryParse(json['tenggat']),
       jenis: _parseCategory(json['jenis']),
       harga: json['harga'],
       deskripsi: json['deskripsi'],

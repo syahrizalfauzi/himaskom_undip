@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:himaskom_undip/models/article.dart';
 import 'package:himaskom_undip/widgets/article_card.dart';
 import 'package:himaskom_undip/widgets/article_list_item.dart';
+import 'package:himaskom_undip/widgets/empty_article_widget.dart';
 
 class ArticleList extends StatelessWidget {
   final List<Article> articles;
@@ -26,15 +27,12 @@ class ArticleList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Widget child;
-
     if (isLoading) {
       child = const Center(
         child: CircularProgressIndicator(),
       );
     } else if (articles.isEmpty) {
-      child = const Center(
-        child: Text('Belum ada article / item'),
-      );
+      child = EmptyArticleWidget(onRefresh: onRefresh);
     } else {
       child = ListView.builder(
         itemCount: articles.length,

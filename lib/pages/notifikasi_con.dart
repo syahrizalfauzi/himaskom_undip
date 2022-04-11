@@ -29,6 +29,11 @@ class NotifikasiPageContainer extends HookConsumerWidget {
       debugPrint(result.toString());
     }
 
+    useEffect(() {
+      _articleState.getAll(false);
+      return;
+    }, []);
+
     return NotifikasiPagePresentational(
       articles: _articleState.articles,
       onRefresh: _articleState.getAll,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:himaskom_undip/models/article.dart';
 import 'package:himaskom_undip/pages/beranda_pres.dart';
 import 'package:himaskom_undip/states/beranda_article.dart';
@@ -18,15 +19,20 @@ class BerandaPageContainer extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
-    final _berandaArticle = ref.watch(berandaArticleState);
+    final _articleState = ref.watch(berandaArticleState);
+
+    useEffect(() {
+      _articleState.getAll(false);
+      return;
+    }, []);
 
     return BerandaPagePresentational(
       onSaveArticle: onSaveArticle,
       onShareArticle: onShareArticle,
       onTapArticle: onTapArticle,
-      articles: _berandaArticle.articles,
-      isLoading: _berandaArticle.isLoading,
-      onRefresh: _berandaArticle.getAll,
+      articles: _articleState.articles,
+      isLoading: _articleState.isLoading,
+      onRefresh: _articleState.getAll,
     );
   }
 }

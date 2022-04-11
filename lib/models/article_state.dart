@@ -9,11 +9,13 @@ abstract class ArticleState extends ChangeNotifier {
   final String fetchUrl = "";
   final String title = "Articles";
   List<Article> articles = [];
-  bool isLoading = false;
+  bool isLoading = true;
 
-  Future<void> getAll() async {
-    isLoading = true;
-    notifyListeners();
+  Future<void> getAll([bool notify = true]) async {
+    if (notify) {
+      isLoading = true;
+      notifyListeners();
+    }
     final response = await http.get(Uri.parse(baseUrl + fetchUrl));
     final data = jsonDecode(response.body)["data"] as List?;
 
@@ -22,6 +24,7 @@ abstract class ArticleState extends ChangeNotifier {
     } else if (data != null) {
       articles = data.map((e) => Article.fromJson(e)).toList();
     }
+
     isLoading = false;
     notifyListeners();
   }

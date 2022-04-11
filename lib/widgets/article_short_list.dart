@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:himaskom_undip/models/article.dart';
 import 'package:himaskom_undip/widgets/article_short_item.dart';
+import 'package:himaskom_undip/widgets/empty_article_widget.dart';
 
 class ArticleShortList extends StatelessWidget {
   final List<Article> articles;
@@ -28,9 +29,7 @@ class ArticleShortList extends StatelessWidget {
         child: CircularProgressIndicator(),
       );
     } else if (articles.isEmpty) {
-      child = const Center(
-        child: Text('Belum ada article / item'),
-      );
+      child = EmptyArticleWidget(onRefresh: onRefresh);
     } else {
       child = RefreshIndicator(
         onRefresh: onRefresh,

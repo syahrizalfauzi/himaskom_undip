@@ -16,8 +16,9 @@ import 'package:himaskom_undip/states/sistore_article.dart';
 import 'package:himaskom_undip/states/umum_article.dart';
 import 'package:himaskom_undip/utils/push_article_state_page.dart';
 import 'package:himaskom_undip/widgets/user_scaffold.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class KategoriPageContainer extends StatelessWidget {
+class KategoriPageContainer extends HookConsumerWidget {
   final Function() onTapSearch;
   final Function(Article) onTapArticle;
   final Function(Article) onSaveArticle;
@@ -32,8 +33,9 @@ class KategoriPageContainer extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, ref) {
     _handleTapAkademik() {
+      ref.read(akademikArticleState).getAll(false);
       pushArticleStatesPage(
         context: context,
         states: [akademikArticleState],
@@ -49,6 +51,7 @@ class KategoriPageContainer extends StatelessWidget {
     }
 
     _handleTapBeasiswa() {
+      ref.read(beasiswaArticleState).getAll(false);
       pushArticleStatesPage(
         context: context,
         states: [beasiswaArticleState],
@@ -64,6 +67,7 @@ class KategoriPageContainer extends StatelessWidget {
     }
 
     _handleTapPrestasi() {
+      ref.read(prestasiArticleState).getAll(false);
       pushArticleStatesPage(
         context: context,
         states: [prestasiArticleState],
@@ -79,6 +83,7 @@ class KategoriPageContainer extends StatelessWidget {
     }
 
     _handleTapSistore() {
+      ref.read(sistoreArticleState).getAll(false);
       pushArticleStatesPage(
         context: context,
         states: [sistoreArticleState],
@@ -94,6 +99,7 @@ class KategoriPageContainer extends StatelessWidget {
     }
 
     _handleTapUmum() {
+      ref.read(umumArticleState).getAll(false);
       pushArticleStatesPage(
         context: context,
         states: [umumArticleState],
@@ -109,13 +115,18 @@ class KategoriPageContainer extends StatelessWidget {
     }
 
     _handleTapEvent() {
+      final states = [
+        eventAmArticleState,
+        eventHmArticleState,
+        eventUkmArticleState
+      ];
+
+      for (final e in states) {
+        ref.read(e).getAll(false);
+      }
       pushArticleStatesPage(
         context: context,
-        states: [
-          eventAmArticleState,
-          eventHmArticleState,
-          eventUkmArticleState
-        ],
+        states: states,
         builder: (states) => UserScaffold.withArticleTabView(
           title: "Event",
           onTapSearch: onTapSearch,
@@ -129,9 +140,14 @@ class KategoriPageContainer extends StatelessWidget {
     }
 
     _handleTapKarir() {
+      final states = [karirLokerArticleState, karirMagangArticleState];
+
+      for (final e in states) {
+        ref.read(e).getAll(false);
+      }
       pushArticleStatesPage(
         context: context,
-        states: [karirLokerArticleState, karirMagangArticleState],
+        states: states,
         builder: (states) => UserScaffold.withArticleTabView(
           title: "Karir",
           onTapSearch: onTapSearch,
@@ -145,9 +161,14 @@ class KategoriPageContainer extends StatelessWidget {
     }
 
     _handleTapLomba() {
+      final states = [lombaAkademikArticleState, lombaNonakademikArticleState];
+
+      for (final e in states) {
+        ref.read(e).getAll(false);
+      }
       pushArticleStatesPage(
         context: context,
-        states: [lombaAkademikArticleState, lombaNonakademikArticleState],
+        states: states,
         builder: (states) => UserScaffold.withArticleTabView(
           title: "Lomba",
           onTapSearch: onTapSearch,

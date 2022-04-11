@@ -9,9 +9,11 @@ class NotifikasiArticleState extends ArticleState {
   final String title = "Notifikasi";
 
   @override
-  Future<void> getAll() async {
-    isLoading = true;
-    notifyListeners();
+  Future<void> getAll([bool notify = true]) async {
+    if (notify) {
+      isLoading = true;
+      notifyListeners();
+    }
     // FETCH FROM LOCAL STORAGE
     await Future.delayed(const Duration(seconds: 1));
     articles = [];

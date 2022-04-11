@@ -62,6 +62,9 @@ class AdminHomePageContainer extends HookConsumerWidget {
     }
 
     _handleTapEvent() {
+      for (final e in _eventStates) {
+        e.getAll(false);
+      }
       pushArticleStatesPage(
         context: context,
         states: [
@@ -79,6 +82,7 @@ class AdminHomePageContainer extends HookConsumerWidget {
     }
 
     _handleTapSistore() {
+      _sistoreState.getAll(false);
       pushArticleStatesPage(
         context: context,
         states: [sistoreArticleState],
@@ -92,6 +96,7 @@ class AdminHomePageContainer extends HookConsumerWidget {
     }
 
     _handleTapBeasiswa() {
+      _beasiswaState.getAll(false);
       pushArticleStatesPage(
         context: context,
         states: [beasiswaArticleState],
@@ -105,6 +110,7 @@ class AdminHomePageContainer extends HookConsumerWidget {
     }
 
     _handleTapPrestasi() {
+      _prestasiState.getAll(false);
       pushArticleStatesPage(
         context: context,
         states: [prestasiArticleState],
@@ -118,6 +124,7 @@ class AdminHomePageContainer extends HookConsumerWidget {
     }
 
     _handleTapAkademik() {
+      _akademikState.getAll(false);
       pushArticleStatesPage(
         context: context,
         states: [akademikArticleState],
@@ -131,6 +138,9 @@ class AdminHomePageContainer extends HookConsumerWidget {
     }
 
     _handleTapKarir() {
+      for (final e in _karirStates) {
+        e.getAll(false);
+      }
       pushArticleStatesPage(
         context: context,
         states: [karirLokerArticleState, karirMagangArticleState],
@@ -144,6 +154,9 @@ class AdminHomePageContainer extends HookConsumerWidget {
     }
 
     _handleTapLomba() {
+      for (final e in _lombaStates) {
+        e.getAll(false);
+      }
       pushArticleStatesPage(
         context: context,
         states: [lombaAkademikArticleState, lombaNonakademikArticleState],
@@ -157,6 +170,7 @@ class AdminHomePageContainer extends HookConsumerWidget {
     }
 
     _handleTapUmum() {
+      _umumState.getAll(false);
       pushArticleStatesPage(
         context: context,
         states: [umumArticleState],

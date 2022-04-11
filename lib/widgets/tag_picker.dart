@@ -26,7 +26,7 @@ class TagPicker extends StatelessWidget {
         itemBuilder: (_, index) => GestureDetector(
           onTap: () => onTap(index),
           child: TagChip(
-            title: tags[selectedIndex].title,
+            title: tags[index].title,
             enabled: selectedIndex == index,
           ),
         ),

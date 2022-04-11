@@ -22,10 +22,11 @@ class AuthSwitcher extends HookWidget {
         if (user == null) {
           _state.value = AuthState.none;
         } else {
-          // if (user.uid == 'admin_uid') {
-          //   _state.value = AuthState.admin;
-          // }
-          _state.value = AuthState.user;
+          if (user.uid == 'bBWpeRswZyPn5j0SKEiQ28Pz84W2') {
+            _state.value = AuthState.admin;
+          } else {
+            _state.value = AuthState.user;
+          }
         }
       });
       return subscription.cancel;
