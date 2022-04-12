@@ -4,6 +4,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:himaskom_undip/pages/daftar_con.dart';
 import 'package:himaskom_undip/pages/login_pres.dart';
+import 'package:himaskom_undip/pages/lupapassword_con.dart';
 import 'package:himaskom_undip/widgets/custom_snackbar.dart';
 
 class LoginPageContainer extends StatefulHookWidget {
@@ -64,10 +65,11 @@ class _DaftarPageContainerState extends State<LoginPageContainer> {
       _isLoading.value = false;
     }
 
-    _handleTapDaftar() {
-      Navigator.of(context)
-          .push(MaterialPageRoute(builder: (_) => const DaftarPageContainer()));
-    }
+    _handleTapDaftar() => Navigator.of(context)
+        .push(MaterialPageRoute(builder: (_) => const DaftarPageContainer()));
+
+    _handleTapForgot() => Navigator.of(context).push(
+        MaterialPageRoute(builder: (_) => const LupaPasswordPageContainer()));
 
     _handleTapGoogle() async {
       _isLoading.value = true;
@@ -100,7 +102,7 @@ class _DaftarPageContainerState extends State<LoginPageContainer> {
         onPasswordChange: _handlePasswordChange,
         onTapMasuk: _handleTapMasuk,
         onTapDaftar: _handleTapDaftar,
-        onTapForgot: () => debugPrint('Tap forgot'),
+        onTapForgot: _handleTapForgot,
         onTapGoogle: _handleTapGoogle,
       ),
     );

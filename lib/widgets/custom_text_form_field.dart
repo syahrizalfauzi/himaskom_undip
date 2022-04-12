@@ -65,14 +65,23 @@ class CustomTextFormField extends HookWidget {
           decoration: InputDecoration(
             enabled: !disabled,
             filled: filled,
-            hintText: hintText,
             fillColor: Colors.white,
+            hintText: hintText,
             contentPadding:
                 dense ? const EdgeInsets.fromLTRB(8, 0, 8, 0) : null,
             hintStyle: TextStyle(
-                color: dense || !useBorder
+                color: dense || !useBorder || disabled
                     ? Theme.of(context).disabledColor
                     : const Color(0xFFB4C9E9)),
+            disabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(4),
+              borderSide: BorderSide(
+                  color: dense
+                      ? Theme.of(context).disabledColor
+                      : useBorder
+                          ? const Color(0xFFDFE8F6)
+                          : Colors.transparent),
+            ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(4),
               borderSide: BorderSide(
@@ -102,9 +111,11 @@ class CustomTextFormField extends HookWidget {
             suffixIcon: suffixIcon ??
                 (textInputType == TextInputType.visiblePassword
                     ? IconButton(
-                        color: _obscureText.value
-                            ? const Color(0xFFB4C9E9)
-                            : const Color.fromARGB(255, 151, 184, 233),
+                        color: disabled
+                            ? Theme.of(context).disabledColor
+                            : _obscureText.value
+                                ? const Color(0xFFB4C9E9)
+                                : const Color.fromARGB(255, 151, 184, 233),
                         onPressed: () =>
                             _obscureText.value = !_obscureText.value,
                         icon: Icon(

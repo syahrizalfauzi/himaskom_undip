@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:himaskom_undip/models/article.dart';
 import 'package:himaskom_undip/models/article_state_item.dart';
@@ -49,7 +50,8 @@ class AdminHomePageContainer extends HookConsumerWidget {
       ref.watch(lombaAkademikArticleState),
       ref.watch(lombaNonakademikArticleState),
     ];
-    _handleLogOut() {}
+    _handleLogOut() => FirebaseAuth.instance.signOut();
+
     _handleTapAddArticle(ArticleStateItem stateItem) {
       Navigator.of(context).push(
         MaterialPageRoute(
