@@ -5,12 +5,10 @@ import 'package:himaskom_undip/widgets/custom_text_form_field.dart';
 
 class DaftarPagePresentational extends StatelessWidget {
   final bool isLoading;
-  final void Function(String) onNamaChange;
-  final void Function(String) onEmailChange;
-  final void Function(String) onPasswordChange;
-  final String? Function(String?) namaValidator;
-  final String? Function(String?) emailValidator;
-  final String? Function(String?) passwordValidator;
+  final TextEditingController namaController;
+  final TextEditingController emailController;
+  final TextEditingController passwordController;
+  final String? Function(String) validator;
   final Function() onTapDaftar;
   final Function() onTapGoogle;
   final Function() onTapMasuk;
@@ -18,15 +16,13 @@ class DaftarPagePresentational extends StatelessWidget {
   const DaftarPagePresentational({
     Key? key,
     required this.isLoading,
-    required this.onNamaChange,
-    required this.onEmailChange,
-    required this.onPasswordChange,
+    required this.namaController,
+    required this.emailController,
+    required this.passwordController,
     required this.onTapDaftar,
     required this.onTapGoogle,
     required this.onTapMasuk,
-    required this.namaValidator,
-    required this.emailValidator,
-    required this.passwordValidator,
+    required this.validator,
   }) : super(key: key);
 
   @override
@@ -66,8 +62,8 @@ class DaftarPagePresentational extends StatelessWidget {
                   labelText: 'Nama Lengkap',
                   hintText: "Masukkan nama lengkap",
                   textInputAction: TextInputAction.next,
-                  onChange: onNamaChange,
-                  validator: namaValidator,
+                  controller: namaController,
+                  validator: validator,
                 ),
                 const SizedBox(height: 24),
                 CustomTextFormField(
@@ -77,8 +73,8 @@ class DaftarPagePresentational extends StatelessWidget {
                   hintText: "Masukkan email anda",
                   textInputType: TextInputType.emailAddress,
                   textInputAction: TextInputAction.next,
-                  onChange: onEmailChange,
-                  validator: emailValidator,
+                  controller: emailController,
+                  validator: validator,
                 ),
                 const SizedBox(height: 24),
                 CustomTextFormField(
@@ -87,8 +83,8 @@ class DaftarPagePresentational extends StatelessWidget {
                   labelText: 'Password',
                   hintText: "Masukkan password anda",
                   textInputType: TextInputType.visiblePassword,
-                  onChange: onPasswordChange,
-                  validator: passwordValidator,
+                  controller: passwordController,
+                  validator: validator,
                 ),
                 const SizedBox(height: 24),
                 CustomButton(

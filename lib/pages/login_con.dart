@@ -19,27 +19,22 @@ class _DaftarPageContainerState extends State<LoginPageContainer> {
 
   @override
   Widget build(BuildContext context) {
-    final _email = useState("");
-    final _password = useState("");
     final _isLoading = useState(false);
+    final _emailController = useTextEditingController();
+    final _passwordController = useTextEditingController();
 
-    _validateNotEmpty(String? text) => (text == null)
-        ? "Tidak boleh kosong"
-        : text.isEmpty
-            ? "Tidak boleh kosong"
-            : null;
-    _handleEmailChange(String newEmail) => _email.value = newEmail;
-    _handlePasswordChange(String newPassword) => _password.value = newPassword;
+    _validator(String email) => email.isEmpty ? "Harus diisi" : null;
     _handleTapMasuk() async {
       if (!_formKey.currentState!.validate()) {
         return;
       }
 
       _isLoading.value = true;
+
       try {
         await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: _email.value,
-          password: _password.value,
+          email: _emailController.text,
+          password: _passwordController.text,
         );
       } on FirebaseAuthException catch (e) {
         String message = '';
@@ -62,6 +57,7 @@ class _DaftarPageContainerState extends State<LoginPageContainer> {
         }
         ScaffoldMessenger.of(context).showSnackBar(CustomSnackbar(message));
       }
+
       _isLoading.value = false;
     }
 
@@ -75,7 +71,6 @@ class _DaftarPageContainerState extends State<LoginPageContainer> {
       _isLoading.value = true;
 
       final googleUser = await GoogleSignIn().signIn();
-
       if (googleUser == null) {
         _isLoading.value = false;
         return;
@@ -83,11 +78,11 @@ class _DaftarPageContainerState extends State<LoginPageContainer> {
 
       final GoogleSignInAuthentication googleAuth =
           await googleUser.authentication;
-
       final credential = GoogleAuthProvider.credential(
         accessToken: googleAuth.accessToken,
         idToken: googleAuth.idToken,
       );
+
       await FirebaseAuth.instance.signInWithCredential(credential);
       _isLoading.value = false;
     }
@@ -96,10 +91,9 @@ class _DaftarPageContainerState extends State<LoginPageContainer> {
       key: _formKey,
       child: LoginPagePresentational(
         isLoading: _isLoading.value,
-        emailValidator: _validateNotEmpty,
-        passwordValidator: _validateNotEmpty,
-        onEmailChange: _handleEmailChange,
-        onPasswordChange: _handlePasswordChange,
+        emailController: _emailController,
+        passwordController: _passwordController,
+        validator: _validator,
         onTapMasuk: _handleTapMasuk,
         onTapDaftar: _handleTapDaftar,
         onTapForgot: _handleTapForgot,

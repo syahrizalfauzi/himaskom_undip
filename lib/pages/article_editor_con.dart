@@ -75,7 +75,7 @@ class _ArticleEditorPageContainerState
 
     _handleTagChange(int index) => _tagIndex.value = index;
 
-    _handleFetch() async {
+    _fetch() async {
       _isLoading.value = true;
 
       final state =
@@ -177,7 +177,7 @@ class _ArticleEditorPageContainerState
     }
 
     useEffect(() {
-      if (widget.initialArticle != null) _handleFetch();
+      if (widget.initialArticle != null) _fetch();
       return;
     }, []);
 

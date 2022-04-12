@@ -5,10 +5,9 @@ import 'package:himaskom_undip/widgets/custom_text_form_field.dart';
 
 class LoginPagePresentational extends StatelessWidget {
   final bool isLoading;
-  final void Function(String) onEmailChange;
-  final void Function(String) onPasswordChange;
-  final String? Function(String?) emailValidator;
-  final String? Function(String?) passwordValidator;
+  final TextEditingController emailController;
+  final TextEditingController passwordController;
+  final String? Function(String) validator;
   final Function() onTapMasuk;
   final Function() onTapForgot;
   final Function() onTapGoogle;
@@ -17,13 +16,12 @@ class LoginPagePresentational extends StatelessWidget {
   const LoginPagePresentational({
     Key? key,
     required this.isLoading,
-    required this.onEmailChange,
-    required this.onPasswordChange,
+    required this.emailController,
+    required this.passwordController,
     required this.onTapDaftar,
     required this.onTapGoogle,
     required this.onTapMasuk,
-    required this.emailValidator,
-    required this.passwordValidator,
+    required this.validator,
     required this.onTapForgot,
   }) : super(key: key);
 
@@ -64,8 +62,8 @@ class LoginPagePresentational extends StatelessWidget {
                   hintText: "Masukkan email anda",
                   textInputType: TextInputType.emailAddress,
                   textInputAction: TextInputAction.next,
-                  onChange: onEmailChange,
-                  validator: emailValidator,
+                  controller: emailController,
+                  validator: validator,
                   disabled: isLoading,
                 ),
                 const SizedBox(height: 24),
@@ -74,8 +72,8 @@ class LoginPagePresentational extends StatelessWidget {
                   labelText: 'Password',
                   hintText: "Masukkan password anda",
                   textInputType: TextInputType.visiblePassword,
-                  onChange: onPasswordChange,
-                  validator: passwordValidator,
+                  controller: passwordController,
+                  validator: validator,
                   disabled: isLoading,
                 ),
                 const SizedBox(height: 24),

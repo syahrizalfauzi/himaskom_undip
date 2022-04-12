@@ -18,18 +18,11 @@ class _DaftarPageContainerState extends State<DaftarPageContainer> {
   @override
   Widget build(BuildContext context) {
     final _isLoading = useState(false);
-    final _nama = useState("");
-    final _email = useState("");
-    final _password = useState("");
+    final _namaController = useTextEditingController();
+    final _emailController = useTextEditingController();
+    final _passwordController = useTextEditingController();
 
-    _validateNotEmpty(String? text) => (text == null)
-        ? "Tidak boleh kosong"
-        : text.isEmpty
-            ? "Tidak boleh kosong"
-            : null;
-    _handleNamaChange(String newNama) => _nama.value = newNama;
-    _handleEmailChange(String newEmail) => _email.value = newEmail;
-    _handlePasswordChange(String newPassword) => _password.value = newPassword;
+    _validator(String email) => email.isEmpty ? "Harus diisi" : null;
     _handleTapDaftar() async {
       if (!_formKey.currentState!.validate()) {
         return;
@@ -38,10 +31,10 @@ class _DaftarPageContainerState extends State<DaftarPageContainer> {
       try {
         final credential =
             await FirebaseAuth.instance.createUserWithEmailAndPassword(
-          email: _email.value,
-          password: _password.value,
+          email: _emailController.text,
+          password: _passwordController.text,
         );
-        credential.user!.updateDisplayName(_nama.value);
+        credential.user!.updateDisplayName(_namaController.text);
         Navigator.of(context).pop();
       } on FirebaseAuthException catch (e) {
         String message = '';
@@ -69,7 +62,6 @@ class _DaftarPageContainerState extends State<DaftarPageContainer> {
       _isLoading.value = true;
 
       final googleUser = await GoogleSignIn().signIn();
-
       if (googleUser == null) {
         _isLoading.value = false;
         return;
@@ -77,11 +69,11 @@ class _DaftarPageContainerState extends State<DaftarPageContainer> {
 
       final GoogleSignInAuthentication googleAuth =
           await googleUser.authentication;
-
       final credential = GoogleAuthProvider.credential(
         accessToken: googleAuth.accessToken,
         idToken: googleAuth.idToken,
       );
+
       await FirebaseAuth.instance.signInWithCredential(credential);
       _isLoading.value = false;
 
@@ -96,12 +88,10 @@ class _DaftarPageContainerState extends State<DaftarPageContainer> {
       key: _formKey,
       child: DaftarPagePresentational(
         isLoading: _isLoading.value,
-        namaValidator: _validateNotEmpty,
-        emailValidator: _validateNotEmpty,
-        passwordValidator: _validateNotEmpty,
-        onNamaChange: _handleNamaChange,
-        onEmailChange: _handleEmailChange,
-        onPasswordChange: _handlePasswordChange,
+        emailController: _emailController,
+        namaController: _namaController,
+        passwordController: _passwordController,
+        validator: _validator,
         onTapDaftar: _handleTapDaftar,
         onTapGoogle: _handleTapGoogle,
         onTapMasuk: _handleTapMasuk,

@@ -25,6 +25,7 @@ class _LupaPasswordPageContainerState extends State<LupaPasswordPageContainer> {
       if (!_formKey.currentState!.validate()) return;
 
       _isLoading.value = true;
+
       try {
         await FirebaseAuth.instance
             .sendPasswordResetEmail(email: _emailController.text);
@@ -45,6 +46,7 @@ class _LupaPasswordPageContainerState extends State<LupaPasswordPageContainer> {
         }
         ScaffoldMessenger.of(context).showSnackBar(CustomSnackbar(message));
       }
+
       _isLoading.value = false;
     }
 
