@@ -17,7 +17,6 @@ class CustomTextFormField extends HookWidget {
   final TextInputType? textInputType;
   final String? labelText;
   final String? tipText;
-  final void Function(String)? onChange;
   final TextEditingController? controller;
   final Widget? suffixIcon;
 
@@ -38,7 +37,6 @@ class CustomTextFormField extends HookWidget {
     this.textInputType,
     this.labelText,
     this.tipText,
-    this.onChange,
     this.controller,
     this.suffixIcon,
   }) : super(key: key);
@@ -137,7 +135,6 @@ class CustomTextFormField extends HookWidget {
           readOnly: onTap != null,
           onTap: onTap,
           onFieldSubmitted: onSubmit,
-          onChanged: onChange,
           controller: controller,
           style: TextStyle(
               color: disabled ? Theme.of(context).disabledColor : Colors.black),
