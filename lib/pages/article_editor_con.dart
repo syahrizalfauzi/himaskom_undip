@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -6,6 +7,9 @@ import 'package:himaskom_undip/models/article_state_item.dart';
 import 'package:himaskom_undip/pages/article_editor_pres.dart';
 import 'package:himaskom_undip/utils/article_editor_helper.dart';
 import 'package:himaskom_undip/utils/get_article_state.dart';
+import 'package:himaskom_undip/utils/get_random_string.dart';
+import 'package:himaskom_undip/utils/parse_article_category.dart';
+import 'package:himaskom_undip/widgets/custom_snackbar.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 
@@ -105,13 +109,22 @@ class _ArticleEditorPageContainerState
     }
 
     _handleSubmit() async {
+      final user = FirebaseAuth.instance.currentUser;
+
       _isImageError.value = false;
-      if (!_formKey.currentState!.validate() || _images.value.isEmpty) {
-        if (_images.value.isEmpty) {
-          _isImageError.value = true;
-        }
+      if (!_formKey.currentState!.validate()) {
         return;
       }
+      if (_images.value.isEmpty) {
+        _isImageError.value = true;
+        return;
+      }
+
+      if (user == null) {
+        ScaffoldMessenger.of(context).showSnackBar(
+            CustomSnackbar("Sesi user tidak valid, silahkan log in kembali"));
+      }
+
       _isLoading.value = true;
       await Future.delayed(const Duration(seconds: 1));
 
@@ -125,23 +138,22 @@ class _ArticleEditorPageContainerState
 
       debugPrint(_removedImageUrls.value.toString());
 
-      // final gambarUrl = [
-      //   'https://upload.wikimedia.org/wikipedia/commons/e/ee/Sample_abc.jpg'
-      // ];
       final gambarUrl = await Future.wait(
         _images.value.whereType<FileImage>().map((e) => FirebaseStorage.instance
             .ref()
+            .child(getRandomString(20))
             .putFile((e).file)
             .then((s) => s.ref.getDownloadURL())),
       );
 
-      String jenis;
+      ArticleCategory jenis;
       if (widget.stateItem.category == ArticleStateItemCategory.event ||
           widget.stateItem.category == ArticleStateItemCategory.karir ||
           widget.stateItem.category == ArticleStateItemCategory.lomba) {
-        jenis = getTags(widget.stateItem.category)![_tagIndex.value].name;
+        jenis = parseArticleCategory(
+            getTags(widget.stateItem.category)![_tagIndex.value].name);
       } else {
-        jenis = widget.stateItem.category.name;
+        jenis = parseArticleCategory(widget.stateItem.category.name);
       }
 
       DateTime? tenggat;
@@ -154,18 +166,33 @@ class _ArticleEditorPageContainerState
         );
       }
 
-      final data = {
-        'judul': _judulController.text,
-        'gambarUrl': gambarUrl,
-        'createdAt': DateTime.now().toString(),
-        'harga': int.tryParse(_hargaController.text) ?? 0,
-        'deskripsi': _deskripsiController.text,
-        'jenis': jenis,
-        'tenggat': tenggat,
-      };
+      final article = Article(
+        id: widget.initialArticle?.id,
+        judul: _judulController.text,
+        gambarUrl: gambarUrl,
+        tenggat: tenggat,
+        jenis: jenis,
+        harga: int.tryParse(_hargaController.text) ?? 0,
+        deskripsi: _deskripsiController.text,
+      );
 
-      debugPrint(data.toString());
+      final state = ref.read(getArticleStateFromArticle(article));
+      final token = await user!.getIdToken();
+
+      String? result;
+      if (widget.initialArticle == null) {
+        result = await state.add(article: article, token: token);
+      } else {
+        result = await state.update(article: article, token: token);
+      }
+
+      ScaffoldMessenger.of(context).showSnackBar(
+          CustomSnackbar(result ?? "Berhasil menyimpan article / item"));
+
       _isLoading.value = false;
+      if (result == null) {
+        Navigator.of(context).pop();
+      }
     }
 
     _hargaValidator(String harga) {

@@ -44,15 +44,21 @@ abstract class ArticleState extends ChangeNotifier {
     return article;
   }
 
-  Future<String?> upsert({
+  Future<String?> add({
     required Article article,
     required String token,
   }) async {
+    isLoading = true;
+    notifyListeners();
+
     final response = await http.post(
       Uri.parse(
-        '$baseUrl/articles${(article.id != null ? '/${article.id!}' : "")}',
+        '$baseUrl/articles',
       ),
-      headers: {'Authorization': 'Bearer $token'},
+      headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': 'Bearer $token',
+      },
       body: jsonEncode(article.toJson),
     );
 
@@ -64,6 +70,52 @@ abstract class ArticleState extends ChangeNotifier {
       case 500:
         return "Gagal menghubungi server, silahkan coba lagi";
     }
+
+    final id = jsonDecode(response.body)["data"]["id"] as String;
+    if (articles.isEmpty) {
+      articles.add(article.copyWith(id: id));
+    } else {
+      articles.insert(articles.length - 1, article.copyWith(id: id));
+    }
+    isLoading = false;
+    notifyListeners();
+    return null;
+  }
+
+  Future<String?> update({
+    required Article article,
+    required String token,
+  }) async {
+    isLoading = true;
+    notifyListeners();
+
+    if (article.id == null) return "ID Kosong";
+
+    final response = await http.post(
+      Uri.parse(
+        '$baseUrl/articles/${article.id!}',
+      ),
+      headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': 'Bearer $token',
+      },
+      body: jsonEncode(article.toJson),
+    );
+
+    switch (response.statusCode) {
+      case 400:
+        return "Data tidak lengkap, mohon cek ulang";
+      case 403:
+        return "Token tidak valid, silahkan log in kembali";
+      case 404:
+        return "Article / item tidak ditemukan";
+      case 500:
+        return "Gagal menghubungi server, silahkan coba lagi";
+    }
+
+    articles[articles.indexWhere((e) => e.id == article.id)] = article;
+    isLoading = false;
+    notifyListeners();
     return null;
   }
 }

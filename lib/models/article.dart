@@ -1,3 +1,5 @@
+import 'package:himaskom_undip/utils/parse_article_category.dart';
+
 enum ArticleCategory {
   umum,
   eventHm,
@@ -15,37 +17,6 @@ enum ArticleCategory {
 
 enum PostVariant { article, item, event }
 
-ArticleCategory _parseCategory(String jenis) {
-  switch (jenis) {
-    case "umum":
-      return ArticleCategory.umum;
-    case "event_hm":
-      return ArticleCategory.eventHm;
-    case "event_am":
-      return ArticleCategory.eventAm;
-    case "event_ukm":
-      return ArticleCategory.eventUkm;
-    case "sistore":
-      return ArticleCategory.sistore;
-    case "beasiswa":
-      return ArticleCategory.beasiswa;
-    case "prestasi":
-      return ArticleCategory.prestasi;
-    case "akademik":
-      return ArticleCategory.akademik;
-    case "karir_loker":
-      return ArticleCategory.karirLoker;
-    case "karir_magang":
-      return ArticleCategory.karirMagang;
-    case "lomba_akademik":
-      return ArticleCategory.lombaAkademik;
-    case "lomba_nonakademik":
-      return ArticleCategory.lombaNonakademik;
-    default:
-      return ArticleCategory.umum;
-  }
-}
-
 class Article {
   final String? id;
   final String judul;
@@ -57,13 +28,13 @@ class Article {
   final String? deskripsi;
 
   Article({
-    required this.id,
     required this.judul,
     required this.gambarUrl,
-    required this.createdAt,
-    required this.tenggat,
     required this.jenis,
     required this.harga,
+    required this.tenggat,
+    this.id,
+    this.createdAt,
     this.deskripsi,
   });
 
@@ -75,20 +46,26 @@ class Article {
       createdAt: DateTime.parse(json['createdAt']),
       tenggat:
           json['tenggat'] == null ? null : DateTime.tryParse(json['tenggat']),
-      jenis: _parseCategory(json['jenis']),
+      jenis: parseArticleCategory(json['jenis']),
       harga: json['harga'],
       deskripsi: json['deskripsi'],
     );
   }
 
-  Map get toJson => {
-        'judul': judul,
-        'gambarUrl': gambarUrl,
-        'tenggat': tenggat.toString(),
-        'jenisId': jenis.index,
-        'harga': harga,
-        'deskripsi': deskripsi,
-      };
+  Map<String, dynamic> get toJson {
+    final map = {
+      'judul': judul,
+      'gambarUrl': gambarUrl,
+      'jenisId': jenis.index,
+      'harga': harga,
+      'deskripsi': deskripsi,
+    };
+    if (tenggat != null) {
+      map.addEntries({'tenggat': tenggat.toString()}.entries);
+    }
+
+    return map;
+  }
 
   String get jenisString {
     switch (jenis) {
@@ -129,5 +106,27 @@ class Article {
     } else {
       return PostVariant.article;
     }
+  }
+
+  Article copyWith({
+    String? id,
+    String? judul,
+    ArticleCategory? jenis,
+    int? harga,
+    List<String>? gambarUrl,
+    DateTime? createdAt,
+    DateTime? tenggat,
+    String? deskripsi,
+  }) {
+    return Article(
+      id: id ?? this.id,
+      judul: judul ?? this.judul,
+      jenis: jenis ?? this.jenis,
+      harga: harga ?? this.harga,
+      gambarUrl: gambarUrl ?? this.gambarUrl,
+      createdAt: createdAt ?? this.createdAt,
+      tenggat: tenggat ?? this.tenggat,
+      deskripsi: deskripsi ?? this.deskripsi,
+    );
   }
 }
