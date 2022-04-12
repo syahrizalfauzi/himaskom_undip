@@ -47,7 +47,7 @@ ArticleCategory _parseCategory(String jenis) {
 }
 
 class Article {
-  final String id;
+  final String? id;
   final String judul;
   final ArticleCategory jenis;
   final int harga;
@@ -80,6 +80,15 @@ class Article {
       deskripsi: json['deskripsi'],
     );
   }
+
+  Map get toJson => {
+        'judul': judul,
+        'gambarUrl': gambarUrl,
+        'tenggat': tenggat.toString(),
+        'jenisId': jenis.index,
+        'harga': harga,
+        'deskripsi': deskripsi,
+      };
 
   String get jenisString {
     switch (jenis) {

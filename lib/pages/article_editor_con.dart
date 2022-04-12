@@ -1,3 +1,4 @@
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:himaskom_undip/models/article.dart';
@@ -80,7 +81,7 @@ class _ArticleEditorPageContainerState
 
       final state =
           ref.read(getArticleStateFromArticle(widget.initialArticle!));
-      final article = await state.get(widget.initialArticle!.id);
+      final article = await state.get(widget.initialArticle!.id!);
       final tagPair = getTagFromArticle(article);
 
       _images.value =
@@ -121,11 +122,18 @@ class _ArticleEditorPageContainerState
           debugPrint(image.url);
         }
       }
+
       debugPrint(_removedImageUrls.value.toString());
 
-      final gambarUrl = [
-        'https://upload.wikimedia.org/wikipedia/commons/e/ee/Sample_abc.jpg'
-      ];
+      // final gambarUrl = [
+      //   'https://upload.wikimedia.org/wikipedia/commons/e/ee/Sample_abc.jpg'
+      // ];
+      final gambarUrl = await Future.wait(
+        _images.value.whereType<FileImage>().map((e) => FirebaseStorage.instance
+            .ref()
+            .putFile((e).file)
+            .then((s) => s.ref.getDownloadURL())),
+      );
 
       String jenis;
       if (widget.stateItem.category == ArticleStateItemCategory.event ||

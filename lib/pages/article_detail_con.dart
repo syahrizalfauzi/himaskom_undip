@@ -49,7 +49,7 @@ class _ArticleDetailPageContainerState
 
     _fetch() async {
       _article.value = null;
-      _article.value = await _articleState.get(widget.article.id);
+      _article.value = await _articleState.get(widget.article.id!);
     }
 
     useEffect(() {
