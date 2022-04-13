@@ -12,7 +12,7 @@ class PenyimpananArticleState extends ArticleState {
   @override
   final String title = "Penyimpanan";
   @override
-  final String fetchUrl = "articles/saved/";
+  final String fetchUrl = "articles/saved";
   String? _uid;
   set uid(String uid) => _uid = uid;
   @override
@@ -36,6 +36,27 @@ class PenyimpananArticleState extends ArticleState {
     } else if (data != null) {
       articles = data.map((e) => Article.fromJson(e)).toList();
     }
+    isLoading = false;
+    notifyListeners();
+  }
+
+  Future<void> save({required Article article, required String token}) async {
+    isLoading = true;
+    notifyListeners();
+
+    await http.post(
+      Uri.parse(
+        '$baseUrl/$fetchUrl/$_uid',
+      ),
+      headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': 'Bearer $token',
+      },
+      body: jsonEncode(article.toJson),
+    );
+
+    articles.insert(articles.length - 1, article);
+
     isLoading = false;
     notifyListeners();
   }

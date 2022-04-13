@@ -6,21 +6,24 @@ import 'package:himaskom_undip/models/article.dart';
 import 'package:himaskom_undip/pages/article_detail_con.dart';
 import 'package:himaskom_undip/pages/search_con.dart';
 import 'package:himaskom_undip/pages/user_pres.dart';
+import 'package:himaskom_undip/states/penyimpanan_article.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class UserContainer extends StatefulHookWidget {
+class UserContainer extends StatefulHookConsumerWidget {
   const UserContainer({Key? key}) : super(key: key);
 
   @override
-  State<UserContainer> createState() => _PageState();
+  ConsumerState<UserContainer> createState() => _PageState();
 }
 
-class _PageState extends State<UserContainer> {
+class _PageState extends ConsumerState<UserContainer> {
   final _advancedDrawerController = AdvancedDrawerController();
 
   @override
   Widget build(BuildContext context) {
     final _currentPage = useState(Pages.beranda);
     final _user = useMemoized(() => FirebaseAuth.instance.currentUser!, []);
+    final _penyimpananArticleState = ref.read(penyimpananArticleState);
     final _appBarTitle = useMemoized(() {
       switch (_currentPage.value) {
         case Pages.beranda:
@@ -49,7 +52,13 @@ class _PageState extends State<UserContainer> {
     }
 
     _handleShareArticle(Article article) {}
-    _handleSaveArticle(Article article) {}
+    _handleSaveArticle(Article article) async {
+      final token = await FirebaseAuth.instance.currentUser!.getIdToken();
+      await _penyimpananArticleState.save(article: article, token: token);
+
+      //Add to the corresponding state
+    }
+
     _handleDeleteArticle(Article article) async {}
     _handleTapLogOut() {
       FirebaseAuth.instance.signOut();
@@ -62,6 +71,12 @@ class _PageState extends State<UserContainer> {
                 onTapArticle: _handleTapArticle,
               )));
     }
+
+    useEffect(() {
+      _penyimpananArticleState.uid = FirebaseAuth.instance.currentUser!.uid;
+
+      return;
+    }, []);
 
     return UserPresentational(
       drawerController: _advancedDrawerController,
