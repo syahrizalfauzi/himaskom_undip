@@ -91,7 +91,7 @@ abstract class ArticleState extends ChangeNotifier {
 
     if (article.id == null) return "ID Kosong";
 
-    final response = await http.post(
+    final response = await http.put(
       Uri.parse(
         '$baseUrl/articles/${article.id!}',
       ),

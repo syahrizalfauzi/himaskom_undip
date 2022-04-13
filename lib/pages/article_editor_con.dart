@@ -126,22 +126,22 @@ class _ArticleEditorPageContainerState
       }
 
       _isLoading.value = true;
-      await Future.delayed(const Duration(seconds: 1));
 
-      for (var image in _images.value) {
-        if (image is FileImage) {
-          debugPrint(image.file.path);
-        } else if (image is NetworkImage) {
-          debugPrint(image.url);
+      final gambarUrlDeletion = _removedImageUrls.value;
+      if (gambarUrlDeletion.isNotEmpty) {
+        try {
+          await Future.wait(gambarUrlDeletion.map(
+            (e) => FirebaseStorage.instance.refFromURL(e).delete(),
+          ));
+        } catch (e) {
+          debugPrint(e.toString());
         }
       }
-
-      debugPrint(_removedImageUrls.value.toString());
 
       final gambarUrl = await Future.wait(
         _images.value.whereType<FileImage>().map((e) => FirebaseStorage.instance
             .ref()
-            .child(getRandomString(20))
+            .child(DateTime.now().toIso8601String() + '_' + getRandomString(20))
             .putFile((e).file)
             .then((s) => s.ref.getDownloadURL())),
       );
