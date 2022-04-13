@@ -7,6 +7,7 @@ import 'package:himaskom_undip/pages/article_detail_con.dart';
 import 'package:himaskom_undip/pages/search_con.dart';
 import 'package:himaskom_undip/pages/user_pres.dart';
 import 'package:himaskom_undip/states/penyimpanan_article.dart';
+import 'package:himaskom_undip/widgets/custom_snackbar.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class UserContainer extends StatefulHookConsumerWidget {
@@ -55,8 +56,8 @@ class _PageState extends ConsumerState<UserContainer> {
     _handleSaveArticle(Article article) async {
       final token = await FirebaseAuth.instance.currentUser!.getIdToken();
       await _penyimpananArticleState.save(article: article, token: token);
-
-      //Add to the corresponding state
+      ScaffoldMessenger.of(context).showSnackBar(
+          CustomSnackbar('Berhasil menyimpan article "${article.judul}"'));
     }
 
     _handleDeleteArticle(Article article) async {}

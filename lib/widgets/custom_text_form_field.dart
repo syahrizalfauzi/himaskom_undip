@@ -6,6 +6,7 @@ class CustomTextFormField extends HookWidget {
   final bool useBorder;
   final bool disabled;
   final bool filled;
+  final bool autofocus;
   final String? hintText;
   final bool? multiline;
   final int? minLength;
@@ -26,6 +27,7 @@ class CustomTextFormField extends HookWidget {
     this.useBorder = true,
     this.disabled = false,
     this.filled = true,
+    this.autofocus = false,
     this.hintText,
     this.multiline,
     this.minLength,
@@ -60,6 +62,16 @@ class CustomTextFormField extends HookWidget {
         ),
         if (labelText != null || tipText != null) const SizedBox(height: 18),
         TextFormField(
+          textInputAction: textInputAction,
+          keyboardType: textInputType,
+          minLines: (multiline ?? false) ? 3 : 1,
+          maxLines: (multiline ?? false) ? 5 : 1,
+          maxLength: maxLength,
+          readOnly: onTap != null,
+          onTap: onTap,
+          onFieldSubmitted: onSubmit,
+          controller: controller,
+          autofocus: autofocus,
           decoration: InputDecoration(
             enabled: !disabled,
             filled: filled,
@@ -127,15 +139,6 @@ class CustomTextFormField extends HookWidget {
           obscureText: textInputType == TextInputType.visiblePassword
               ? _obscureText.value
               : false,
-          textInputAction: textInputAction,
-          keyboardType: textInputType,
-          minLines: (multiline ?? false) ? 3 : 1,
-          maxLines: (multiline ?? false) ? 5 : 1,
-          maxLength: maxLength,
-          readOnly: onTap != null,
-          onTap: onTap,
-          onFieldSubmitted: onSubmit,
-          controller: controller,
           style: TextStyle(
               color: disabled ? Theme.of(context).disabledColor : Colors.black),
           validator: (v) {

@@ -40,6 +40,7 @@ class SearchPagePresentational extends StatelessWidget {
           onSubmit: onSubmit,
           controller: controller,
           dense: true,
+          autofocus: true,
         ),
         actions: [
           IconButton(

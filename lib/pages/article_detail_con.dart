@@ -1,9 +1,12 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:himaskom_undip/models/article.dart';
 import 'package:himaskom_undip/pages/article_detail_pres.dart';
 import 'package:himaskom_undip/pages/pengingat_settings_con.dart';
+import 'package:himaskom_undip/states/penyimpanan_article.dart';
 import 'package:himaskom_undip/utils/get_article_state.dart';
+import 'package:himaskom_undip/widgets/custom_snackbar.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:loop_page_view/loop_page_view.dart';
 
@@ -25,6 +28,7 @@ class _ArticleDetailPageContainerState
   @override
   Widget build(BuildContext context) {
     final _articleState = ref.watch(getArticleStateFromArticle(widget.article));
+    final _penyimpananArticleState = ref.read(penyimpananArticleState);
     final _currentImageIndex = useState(0.0);
     final _article = useState<Article?>(null);
 
@@ -45,7 +49,15 @@ class _ArticleDetailPageContainerState
       );
     }
 
-    _handleSimpan() {}
+    _handleSimpan() async {
+      final token = await FirebaseAuth.instance.currentUser!.getIdToken();
+      await _penyimpananArticleState.save(
+        article: _article.value!,
+        token: token,
+      );
+      ScaffoldMessenger.of(context).showSnackBar(CustomSnackbar(
+          'Berhasil menyimpan article "${_article.value!.judul}"'));
+    }
 
     _fetch() async {
       _article.value = null;

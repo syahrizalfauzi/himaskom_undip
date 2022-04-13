@@ -131,8 +131,12 @@ class ArticleDetailPagePresentational extends StatelessWidget {
                     ],
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 24, vertical: 18),
+                    padding: EdgeInsets.symmetric(
+                        horizontal: 24,
+                        vertical: (article!.variant == PostVariant.article ||
+                                article!.variant == PostVariant.event)
+                            ? 0
+                            : 18),
                     child: Row(
                       mainAxisAlignment: article!.variant == PostVariant.item
                           ? MainAxisAlignment.spaceBetween

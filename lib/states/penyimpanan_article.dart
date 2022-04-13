@@ -28,7 +28,7 @@ class PenyimpananArticleState extends ArticleState {
       isLoading = true;
       notifyListeners();
     }
-    final response = await http.get(Uri.parse(baseUrl + fetchUrl + _uid!));
+    final response = await http.get(Uri.parse('$baseUrl/$fetchUrl/$_uid'));
     final data = jsonDecode(response.body)["data"] as List?;
 
     if (response.statusCode == 404) {
@@ -52,10 +52,16 @@ class PenyimpananArticleState extends ArticleState {
         'Content-Type': 'application/json; charset=UTF-8',
         'Authorization': 'Bearer $token',
       },
-      body: jsonEncode(article.toJson),
+      body: jsonEncode({'articleId': article.id!}),
     );
 
-    articles.insert(articles.length - 1, article);
+    if (articles.isEmpty) {
+      articles.add(article);
+    } else {
+      if (!articles.any((e) => e.id == article.id)) {
+        articles.insert(articles.length - 1, article);
+      }
+    }
 
     isLoading = false;
     notifyListeners();

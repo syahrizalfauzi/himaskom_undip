@@ -64,17 +64,27 @@ class ArticleCard extends StatelessWidget {
                   Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      GestureDetector(
-                        onTap: getArticleCallback(onSave, article),
-                        child: Icon(
+                      IconButton(
+                        onPressed: getArticleCallback(onSave, article),
+                        padding: const EdgeInsets.all(0),
+                        constraints: const BoxConstraints.tightFor(
+                          height: 27,
+                          width: 27,
+                        ),
+                        icon: Icon(
                           Icons.bookmark_outline,
                           color: Theme.of(context).disabledColor,
                         ),
                       ),
                       const SizedBox(width: 12),
-                      GestureDetector(
-                        onTap: getArticleCallback(onShare, article),
-                        child: Icon(
+                      IconButton(
+                        onPressed: getArticleCallback(onShare, article),
+                        padding: const EdgeInsets.all(0),
+                        constraints: const BoxConstraints.tightFor(
+                          height: 27,
+                          width: 27,
+                        ),
+                        icon: Icon(
                           Icons.ios_share,
                           color: Theme.of(context).disabledColor,
                         ),
