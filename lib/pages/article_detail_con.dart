@@ -55,13 +55,22 @@ class _ArticleDetailPageContainerState
         article: _article.value!,
         token: token,
       );
+
+      final article = _article.value!;
+      final isSaved = _penyimpananArticleState.checkSavedSingle(article);
+
+      _article.value = article.copyWith(isSaved: isSaved);
       ScaffoldMessenger.of(context).showSnackBar(CustomSnackbar(
           'Berhasil menyimpan article "${_article.value!.judul}"'));
     }
 
     _fetch() async {
       _article.value = null;
-      _article.value = await _articleState.get(widget.article.id!);
+      final article = await _articleState.get(widget.article.id!);
+      _articleState.checkSaved(_penyimpananArticleState.articles);
+      final isSaved = _penyimpananArticleState.checkSavedSingle(article);
+
+      _article.value = article.copyWith(isSaved: isSaved);
     }
 
     useEffect(() {

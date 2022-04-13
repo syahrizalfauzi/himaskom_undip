@@ -17,7 +17,10 @@ class AdminContainer extends ConsumerWidget {
   Widget build(BuildContext context, ref) {
     _handleTapArticle(Article article) {
       final articleState = ref.read(getArticleStateFromArticle(article));
-      final stateItem = ArticleStateItem.fromArticleState(articleState);
+      final stateItem = ArticleStateItem.fromArticleState(
+        state: articleState,
+        onRefresh: articleState.getAll,
+      );
       Navigator.of(context).push(
         MaterialPageRoute(
           builder: (_) => AdminScaffold(

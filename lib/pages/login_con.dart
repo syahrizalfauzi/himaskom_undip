@@ -70,20 +70,25 @@ class _DaftarPageContainerState extends State<LoginPageContainer> {
     _handleTapGoogle() async {
       _isLoading.value = true;
 
-      final googleUser = await GoogleSignIn().signIn();
-      if (googleUser == null) {
-        _isLoading.value = false;
-        return;
+      try {
+        final googleUser = await GoogleSignIn().signIn();
+        if (googleUser == null) {
+          _isLoading.value = false;
+          return;
+        }
+
+        final GoogleSignInAuthentication googleAuth =
+            await googleUser.authentication;
+        final credential = GoogleAuthProvider.credential(
+          accessToken: googleAuth.accessToken,
+          idToken: googleAuth.idToken,
+        );
+
+        await FirebaseAuth.instance.signInWithCredential(credential);
+      } catch (e) {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(CustomSnackbar("Gagal masuk, silahkan coba lagi"));
       }
-
-      final GoogleSignInAuthentication googleAuth =
-          await googleUser.authentication;
-      final credential = GoogleAuthProvider.credential(
-        accessToken: googleAuth.accessToken,
-        idToken: googleAuth.idToken,
-      );
-
-      await FirebaseAuth.instance.signInWithCredential(credential);
       _isLoading.value = false;
     }
 

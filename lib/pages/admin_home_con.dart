@@ -75,7 +75,10 @@ class AdminHomePageContainer extends HookConsumerWidget {
           eventUkmArticleState
         ],
         builder: (states) => AdminScaffold.withArticleShortList(
-          stateItem: ArticleStateItem.fromArticleStates(states, "Event"),
+          stateItem: ArticleStateItem.fromArticleStates(
+            states: states,
+            title: "Event",
+          ),
           onTapAddArticle: _handleTapAddArticle,
           onTapArticle: onTapArticle,
           onDeleteArticle: onDeleteArticle,
@@ -89,7 +92,10 @@ class AdminHomePageContainer extends HookConsumerWidget {
         context: context,
         states: [sistoreArticleState],
         builder: (states) => AdminScaffold.withArticleShortList(
-          stateItem: ArticleStateItem.fromArticleStates(states, "Sistore"),
+          stateItem: ArticleStateItem.fromArticleStates(
+            states: states,
+            title: "Sistore",
+          ),
           onTapAddArticle: _handleTapAddArticle,
           onTapArticle: onTapArticle,
           onDeleteArticle: onDeleteArticle,
@@ -103,7 +109,10 @@ class AdminHomePageContainer extends HookConsumerWidget {
         context: context,
         states: [beasiswaArticleState],
         builder: (states) => AdminScaffold.withArticleShortList(
-          stateItem: ArticleStateItem.fromArticleStates(states, "Beasiswa"),
+          stateItem: ArticleStateItem.fromArticleStates(
+            states: states,
+            title: "Beasiswa",
+          ),
           onTapAddArticle: _handleTapAddArticle,
           onTapArticle: onTapArticle,
           onDeleteArticle: onDeleteArticle,
@@ -117,7 +126,10 @@ class AdminHomePageContainer extends HookConsumerWidget {
         context: context,
         states: [prestasiArticleState],
         builder: (states) => AdminScaffold.withArticleShortList(
-          stateItem: ArticleStateItem.fromArticleStates(states, "Prestasi"),
+          stateItem: ArticleStateItem.fromArticleStates(
+            states: states,
+            title: "Prestasi",
+          ),
           onTapAddArticle: _handleTapAddArticle,
           onTapArticle: onTapArticle,
           onDeleteArticle: onDeleteArticle,
@@ -131,7 +143,10 @@ class AdminHomePageContainer extends HookConsumerWidget {
         context: context,
         states: [akademikArticleState],
         builder: (states) => AdminScaffold.withArticleShortList(
-          stateItem: ArticleStateItem.fromArticleStates(states, "Akademik"),
+          stateItem: ArticleStateItem.fromArticleStates(
+            states: states,
+            title: "Akademik",
+          ),
           onTapAddArticle: _handleTapAddArticle,
           onTapArticle: onTapArticle,
           onDeleteArticle: onDeleteArticle,
@@ -147,7 +162,10 @@ class AdminHomePageContainer extends HookConsumerWidget {
         context: context,
         states: [karirLokerArticleState, karirMagangArticleState],
         builder: (states) => AdminScaffold.withArticleShortList(
-          stateItem: ArticleStateItem.fromArticleStates(states, "Karir"),
+          stateItem: ArticleStateItem.fromArticleStates(
+            states: states,
+            title: "Karir",
+          ),
           onTapAddArticle: _handleTapAddArticle,
           onTapArticle: onTapArticle,
           onDeleteArticle: onDeleteArticle,
@@ -163,7 +181,10 @@ class AdminHomePageContainer extends HookConsumerWidget {
         context: context,
         states: [lombaAkademikArticleState, lombaNonakademikArticleState],
         builder: (states) => AdminScaffold.withArticleShortList(
-          stateItem: ArticleStateItem.fromArticleStates(states, "Lomba"),
+          stateItem: ArticleStateItem.fromArticleStates(
+            states: states,
+            title: "Lomba",
+          ),
           onTapAddArticle: _handleTapAddArticle,
           onTapArticle: onTapArticle,
           onDeleteArticle: onDeleteArticle,
@@ -177,7 +198,10 @@ class AdminHomePageContainer extends HookConsumerWidget {
         context: context,
         states: [umumArticleState],
         builder: (states) => AdminScaffold.withArticleShortList(
-          stateItem: ArticleStateItem.fromArticleStates(states, "Umum"),
+          stateItem: ArticleStateItem.fromArticleStates(
+            states: states,
+            title: "Umum",
+          ),
           onTapAddArticle: _handleTapAddArticle,
           onTapArticle: onTapArticle,
           onDeleteArticle: onDeleteArticle,
@@ -189,39 +213,44 @@ class AdminHomePageContainer extends HookConsumerWidget {
       onLogOut: _handleLogOut,
       items: [
         ArticleStateItem.fromArticleStates(
-          _eventStates,
-          'Event',
-          _handleTapEvent,
+          states: _eventStates,
+          title: 'Event',
+          onTap: _handleTapEvent,
         ),
         ArticleStateItem.fromArticleState(
-          _sistoreState,
-          _handleTapSistore,
+          state: _sistoreState,
+          onTap: _handleTapSistore,
+          onRefresh: _sistoreState.getAll,
         ),
         ArticleStateItem.fromArticleState(
-          _beasiswaState,
-          _handleTapBeasiswa,
+          state: _beasiswaState,
+          onTap: _handleTapBeasiswa,
+          onRefresh: _beasiswaState.getAll,
         ),
         ArticleStateItem.fromArticleState(
-          _prestasiState,
-          _handleTapPrestasi,
+          state: _prestasiState,
+          onTap: _handleTapPrestasi,
+          onRefresh: _prestasiState.getAll,
         ),
         ArticleStateItem.fromArticleState(
-          _akademikState,
-          _handleTapAkademik,
+          state: _akademikState,
+          onTap: _handleTapAkademik,
+          onRefresh: _akademikState.getAll,
         ),
         ArticleStateItem.fromArticleStates(
-          _karirStates,
-          'Karir',
-          _handleTapKarir,
+          states: _karirStates,
+          title: 'Karir',
+          onTap: _handleTapKarir,
         ),
         ArticleStateItem.fromArticleStates(
-          _lombaStates,
-          'Lomba',
-          _handleTapLomba,
+          states: _lombaStates,
+          title: 'Lomba',
+          onTap: _handleTapLomba,
         ),
         ArticleStateItem.fromArticleState(
-          _umumState,
-          _handleTapUmum,
+          state: _umumState,
+          onTap: _handleTapUmum,
+          onRefresh: _umumState.getAll,
         ),
       ],
     );

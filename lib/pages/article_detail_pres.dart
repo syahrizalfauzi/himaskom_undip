@@ -145,7 +145,9 @@ class ArticleDetailPagePresentational extends StatelessWidget {
                         if (article!.variant == PostVariant.article ||
                             article!.variant == PostVariant.event) ...[
                           LabeledIcon(
-                            icon: Icons.bookmark_border,
+                            icon: article!.isSaved
+                                ? Icons.bookmark
+                                : Icons.bookmark_border,
                             label: "Simpan",
                             onTap: onSimpan,
                           ),

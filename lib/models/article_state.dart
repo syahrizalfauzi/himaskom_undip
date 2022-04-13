@@ -138,4 +138,24 @@ abstract class ArticleState extends ChangeNotifier {
     isLoading = false;
     notifyListeners();
   }
+
+  @nonVirtual
+  void checkSaved(List<Article> savedArticles) {
+    articles = articles.map((article) {
+      final index = savedArticles.indexWhere((e) => e.id == article.id);
+
+      return article.copyWith(isSaved: index == -1 ? false : true);
+    }).toList();
+    notifyListeners();
+  }
+
+  @nonVirtual
+  void setIsSaved(Article article, bool isSaved) {
+    final index = articles.indexWhere((e) => e.id == article.id);
+
+    if (index != -1) {
+      articles[index] = articles[index].copyWith(isSaved: isSaved);
+      notifyListeners();
+    }
+  }
 }

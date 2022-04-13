@@ -72,7 +72,9 @@ class ArticleCard extends StatelessWidget {
                           width: 27,
                         ),
                         icon: Icon(
-                          Icons.bookmark_outline,
+                          article.isSaved
+                              ? Icons.bookmark
+                              : Icons.bookmark_outline,
                           color: Theme.of(context).disabledColor,
                         ),
                       ),

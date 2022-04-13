@@ -7,6 +7,7 @@ import 'package:himaskom_undip/pages/article_detail_con.dart';
 import 'package:himaskom_undip/pages/search_con.dart';
 import 'package:himaskom_undip/pages/user_pres.dart';
 import 'package:himaskom_undip/states/penyimpanan_article.dart';
+import 'package:himaskom_undip/utils/get_article_state.dart';
 import 'package:himaskom_undip/widgets/custom_snackbar.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -24,6 +25,7 @@ class _PageState extends ConsumerState<UserContainer> {
   Widget build(BuildContext context) {
     final _currentPage = useState(Pages.beranda);
     final _user = useMemoized(() => FirebaseAuth.instance.currentUser!, []);
+    final _isLoading = useState(true);
     final _penyimpananArticleState = ref.read(penyimpananArticleState);
     final _appBarTitle = useMemoized(() {
       switch (_currentPage.value) {
@@ -48,6 +50,7 @@ class _PageState extends ConsumerState<UserContainer> {
     }
 
     _handleTapArticle(Article article) {
+      debugPrint(article.toString());
       Navigator.of(context).push(MaterialPageRoute(
           builder: (_) => ArticleDetailPageContainer(article: article)));
     }
@@ -55,12 +58,14 @@ class _PageState extends ConsumerState<UserContainer> {
     _handleShareArticle(Article article) {}
     _handleSaveArticle(Article article) async {
       final token = await FirebaseAuth.instance.currentUser!.getIdToken();
+
       await _penyimpananArticleState.save(article: article, token: token);
+      ref.read(getArticleStateFromArticle(article)).setIsSaved(article, true);
+
       ScaffoldMessenger.of(context).showSnackBar(
           CustomSnackbar('Berhasil menyimpan article "${article.judul}"'));
     }
 
-    _handleDeleteArticle(Article article) async {}
     _handleTapLogOut() {
       FirebaseAuth.instance.signOut();
       //Unsub FCM & clear local storage
@@ -74,19 +79,23 @@ class _PageState extends ConsumerState<UserContainer> {
     }
 
     useEffect(() {
-      _penyimpananArticleState.uid = FirebaseAuth.instance.currentUser!.uid;
+      (() async {
+        _penyimpananArticleState.uid = FirebaseAuth.instance.currentUser!.uid;
+        await _penyimpananArticleState.getAll(false);
+        _isLoading.value = false;
+      })();
 
       return;
     }, []);
 
     return UserPresentational(
+      isLoading: _isLoading.value,
       drawerController: _advancedDrawerController,
       appBarTitle: _appBarTitle,
       currentPage: _currentPage.value,
       onChangePage: _handleTapItem,
       onTapLogOut: _handleTapLogOut,
       onTapSearch: _handleTapSearch,
-      onDeleteArticle: _handleDeleteArticle,
       onSaveArticle: _handleSaveArticle,
       onShareArticle: _handleShareArticle,
       onTapArticle: _handleTapArticle,

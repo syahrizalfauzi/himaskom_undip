@@ -18,10 +18,11 @@ enum ArticleCategory {
 enum PostVariant { article, item, event }
 
 class Article {
-  final String? id;
   final String judul;
   final ArticleCategory jenis;
   final int harga;
+  final bool isSaved;
+  final String? id;
   final List<String>? gambarUrl;
   final DateTime? createdAt;
   final DateTime? tenggat;
@@ -33,6 +34,7 @@ class Article {
     required this.jenis,
     required this.harga,
     required this.tenggat,
+    this.isSaved = false,
     this.id,
     this.createdAt,
     this.deskripsi,
@@ -117,6 +119,7 @@ class Article {
     DateTime? createdAt,
     DateTime? tenggat,
     String? deskripsi,
+    bool? isSaved,
   }) {
     return Article(
       id: id ?? this.id,
@@ -127,12 +130,13 @@ class Article {
       createdAt: createdAt ?? this.createdAt,
       tenggat: tenggat ?? this.tenggat,
       deskripsi: deskripsi ?? this.deskripsi,
+      isSaved: isSaved ?? this.isSaved,
     );
   }
 
   @override
   String toString() {
-    return 'Article(id: $id, judul: $judul, jenis: $jenis, harga: $harga, gambarUrl: $gambarUrl, createdAt: $createdAt, tenggat: $tenggat, deskripsi: $deskripsi)';
+    return 'Article(judul: $judul, jenis: $jenis, harga: $harga, isSaved: $isSaved, id: $id, gambarUrl: $gambarUrl, createdAt: $createdAt, tenggat: $tenggat, deskripsi: $deskripsi)';
   }
 }
 

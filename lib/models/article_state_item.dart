@@ -64,9 +64,11 @@ class ArticleStateItem {
     required this.category,
   });
 
-  factory ArticleStateItem.fromArticleStates(
-      List<ArticleState> states, String title,
-      [void Function()? onTap]) {
+  factory ArticleStateItem.fromArticleStates({
+    required List<ArticleState> states,
+    required String title,
+    void Function()? onTap,
+  }) {
     return ArticleStateItem(
       articles: states.map((e) => e.articles).reduce((a, b) => [...a, ...b]),
       title: title,
@@ -79,15 +81,18 @@ class ArticleStateItem {
     );
   }
 
-  factory ArticleStateItem.fromArticleState(ArticleState state,
-      [void Function()? onTap]) {
+  factory ArticleStateItem.fromArticleState({
+    required ArticleState state,
+    required Future<void> Function() onRefresh,
+    void Function()? onTap,
+  }) {
     return ArticleStateItem(
       articles: state.articles,
       title: state.title,
       isLoading: state.isLoading,
       category: getCategoryFromState(state),
       onTap: onTap,
-      onRefresh: state.getAll,
+      onRefresh: onRefresh,
     );
   }
 

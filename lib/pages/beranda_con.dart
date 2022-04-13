@@ -3,6 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:himaskom_undip/models/article.dart';
 import 'package:himaskom_undip/pages/beranda_pres.dart';
 import 'package:himaskom_undip/states/beranda_article.dart';
+import 'package:himaskom_undip/states/penyimpanan_article.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class BerandaPageContainer extends HookConsumerWidget {
@@ -19,10 +20,16 @@ class BerandaPageContainer extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
-    final _articleState = ref.watch(berandaArticleState);
+    final _berandaArticleState = ref.watch(berandaArticleState);
+
+    _handleRefresh() async {
+      await _berandaArticleState.getAll(false);
+      _berandaArticleState
+          .checkSaved(ref.read(penyimpananArticleState).articles);
+    }
 
     useEffect(() {
-      _articleState.getAll(false);
+      _handleRefresh();
       return;
     }, []);
 
@@ -30,9 +37,9 @@ class BerandaPageContainer extends HookConsumerWidget {
       onSaveArticle: onSaveArticle,
       onShareArticle: onShareArticle,
       onTapArticle: onTapArticle,
-      articles: _articleState.articles,
-      isLoading: _articleState.isLoading,
-      onRefresh: _articleState.getAll,
+      articles: _berandaArticleState.articles,
+      isLoading: _berandaArticleState.isLoading,
+      onRefresh: _handleRefresh,
     );
   }
 }

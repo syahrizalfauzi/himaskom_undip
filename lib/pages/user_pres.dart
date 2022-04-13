@@ -11,6 +11,7 @@ import 'package:himaskom_undip/widgets/drawer_item.dart';
 enum Pages { beranda, notifikasi, semuakategori, penyimpanan, profile }
 
 class UserPresentational extends StatelessWidget {
+  final bool isLoading;
   final AdvancedDrawerController drawerController;
   final String appBarTitle;
   final Pages currentPage;
@@ -20,12 +21,12 @@ class UserPresentational extends StatelessWidget {
   final Function(Article) onTapArticle;
   final Function(Article) onSaveArticle;
   final Function(Article) onShareArticle;
-  final Function(Article) onDeleteArticle;
   final String userName;
   final String userEmail;
 
   const UserPresentational({
     Key? key,
+    required this.isLoading,
     required this.drawerController,
     required this.appBarTitle,
     required this.currentPage,
@@ -35,7 +36,6 @@ class UserPresentational extends StatelessWidget {
     required this.onTapArticle,
     required this.onSaveArticle,
     required this.onShareArticle,
-    required this.onDeleteArticle,
     required this.userName,
     required this.userEmail,
   }) : super(key: key);
@@ -88,6 +88,10 @@ class UserPresentational extends StatelessWidget {
           ),
           backgroundColor: Colors.white,
           body: (() {
+            if (isLoading) {
+              return const Center(child: CircularProgressIndicator());
+            }
+
             switch (currentPage) {
               case Pages.beranda:
                 return BerandaPageContainer(
@@ -98,7 +102,6 @@ class UserPresentational extends StatelessWidget {
               case Pages.notifikasi:
                 return NotifikasiPageContainer(
                   onTapArticle: onTapArticle,
-                  onDeleteArticle: onDeleteArticle,
                 );
               case Pages.semuakategori:
                 return KategoriPageContainer(

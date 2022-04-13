@@ -34,7 +34,8 @@ class PenyimpananArticleState extends ArticleState {
     if (response.statusCode == 404) {
       articles = [];
     } else if (data != null) {
-      articles = data.map((e) => Article.fromJson(e)).toList();
+      articles =
+          data.map((e) => Article.fromJson(e).copyWith(isSaved: true)).toList();
     }
     isLoading = false;
     notifyListeners();
@@ -56,14 +57,18 @@ class PenyimpananArticleState extends ArticleState {
     );
 
     if (articles.isEmpty) {
-      articles.add(article);
+      articles.add(article.copyWith(isSaved: true));
     } else {
       if (!articles.any((e) => e.id == article.id)) {
-        articles.insert(articles.length - 1, article);
+        articles.insert(articles.length - 1, article.copyWith(isSaved: true));
       }
     }
 
     isLoading = false;
     notifyListeners();
+  }
+
+  bool checkSavedSingle(Article article) {
+    return articles.indexWhere((e) => article.id == e.id) != -1;
   }
 }

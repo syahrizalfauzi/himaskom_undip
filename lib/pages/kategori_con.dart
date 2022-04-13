@@ -11,6 +11,7 @@ import 'package:himaskom_undip/states/karir_loker_article.dart';
 import 'package:himaskom_undip/states/karir_magang_article.dart';
 import 'package:himaskom_undip/states/lomba_akademik_article.dart';
 import 'package:himaskom_undip/states/lomba_nonakademik_article.dart';
+import 'package:himaskom_undip/states/penyimpanan_article.dart';
 import 'package:himaskom_undip/states/prestasi_article.dart';
 import 'package:himaskom_undip/states/sistore_article.dart';
 import 'package:himaskom_undip/states/umum_article.dart';
@@ -35,12 +36,22 @@ class KategoriPageContainer extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, ref) {
     _handleTapAkademik() {
-      ref.read(akademikArticleState).getAll(false);
+      handleRefresh() async {
+        final articleState = ref.read(akademikArticleState);
+        await articleState.getAll(false);
+        articleState.checkSaved(ref.read(penyimpananArticleState).articles);
+      }
+
+      handleRefresh();
+
       pushArticleStatesPage(
         context: context,
         states: [akademikArticleState],
         builder: (items) => UserScaffold.withArticleList(
-          stateItem: ArticleStateItem.fromArticleState(items[0]),
+          stateItem: ArticleStateItem.fromArticleState(
+            state: items[0],
+            onRefresh: handleRefresh,
+          ),
           onTapSearch: onTapSearch,
           onTapArticle: onTapArticle,
           onSaveArticle: onSaveArticle,
@@ -51,12 +62,22 @@ class KategoriPageContainer extends HookConsumerWidget {
     }
 
     _handleTapBeasiswa() {
-      ref.read(beasiswaArticleState).getAll(false);
+      handleRefresh() async {
+        final articleState = ref.read(beasiswaArticleState);
+        await articleState.getAll(false);
+        articleState.checkSaved(ref.read(penyimpananArticleState).articles);
+      }
+
+      handleRefresh();
+
       pushArticleStatesPage(
         context: context,
         states: [beasiswaArticleState],
         builder: (items) => UserScaffold.withArticleList(
-          stateItem: ArticleStateItem.fromArticleState(items[0]),
+          stateItem: ArticleStateItem.fromArticleState(
+            state: items[0],
+            onRefresh: handleRefresh,
+          ),
           onTapSearch: onTapSearch,
           onTapArticle: onTapArticle,
           onSaveArticle: onSaveArticle,
@@ -67,12 +88,22 @@ class KategoriPageContainer extends HookConsumerWidget {
     }
 
     _handleTapPrestasi() {
-      ref.read(prestasiArticleState).getAll(false);
+      handleRefresh() async {
+        final articleState = ref.read(prestasiArticleState);
+        await articleState.getAll(false);
+        articleState.checkSaved(ref.read(penyimpananArticleState).articles);
+      }
+
+      handleRefresh();
+
       pushArticleStatesPage(
         context: context,
         states: [prestasiArticleState],
         builder: (items) => UserScaffold.withArticleList(
-          stateItem: ArticleStateItem.fromArticleState(items[0]),
+          stateItem: ArticleStateItem.fromArticleState(
+            state: items[0],
+            onRefresh: handleRefresh,
+          ),
           onTapSearch: onTapSearch,
           onTapArticle: onTapArticle,
           onSaveArticle: onSaveArticle,
@@ -83,12 +114,22 @@ class KategoriPageContainer extends HookConsumerWidget {
     }
 
     _handleTapSistore() {
-      ref.read(sistoreArticleState).getAll(false);
+      handleRefresh() async {
+        final articleState = ref.read(sistoreArticleState);
+        await articleState.getAll(false);
+        articleState.checkSaved(ref.read(penyimpananArticleState).articles);
+      }
+
+      handleRefresh();
+
       pushArticleStatesPage(
         context: context,
         states: [sistoreArticleState],
         builder: (items) => UserScaffold.withArticleList(
-          stateItem: ArticleStateItem.fromArticleState(items[0]),
+          stateItem: ArticleStateItem.fromArticleState(
+            state: items[0],
+            onRefresh: handleRefresh,
+          ),
           onTapSearch: onTapSearch,
           onTapArticle: onTapArticle,
           onSaveArticle: onSaveArticle,
@@ -99,12 +140,22 @@ class KategoriPageContainer extends HookConsumerWidget {
     }
 
     _handleTapUmum() {
-      ref.read(umumArticleState).getAll(false);
+      handleRefresh() async {
+        final articleState = ref.read(umumArticleState);
+        await articleState.getAll(false);
+        articleState.checkSaved(ref.read(penyimpananArticleState).articles);
+      }
+
+      handleRefresh();
+
       pushArticleStatesPage(
         context: context,
         states: [umumArticleState],
         builder: (items) => UserScaffold.withArticleList(
-          stateItem: ArticleStateItem.fromArticleState(items[0]),
+          stateItem: ArticleStateItem.fromArticleState(
+            state: items[0],
+            onRefresh: handleRefresh,
+          ),
           onTapSearch: onTapSearch,
           onTapArticle: onTapArticle,
           onSaveArticle: onSaveArticle,
@@ -121,17 +172,29 @@ class KategoriPageContainer extends HookConsumerWidget {
         eventUkmArticleState
       ];
 
-      for (final e in states) {
-        ref.read(e).getAll(false);
+      handleRefresh() async {
+        await Future.wait(states.map((e) async {
+          final state = ref.read(e);
+
+          await state.getAll(false);
+          state.checkSaved(ref.read(penyimpananArticleState).articles);
+        }));
       }
+
+      handleRefresh();
+
       pushArticleStatesPage(
         context: context,
         states: states,
         builder: (states) => UserScaffold.withArticleTabView(
           title: "Event",
           onTapSearch: onTapSearch,
-          stateItems:
-              states.map((e) => ArticleStateItem.fromArticleState(e)).toList(),
+          stateItems: states
+              .map((e) => ArticleStateItem.fromArticleState(
+                    state: e,
+                    onRefresh: handleRefresh,
+                  ))
+              .toList(),
           onTapArticle: onTapArticle,
           onSaveArticle: onSaveArticle,
           onShareArticle: onShareArticle,
@@ -142,17 +205,29 @@ class KategoriPageContainer extends HookConsumerWidget {
     _handleTapKarir() {
       final states = [karirLokerArticleState, karirMagangArticleState];
 
-      for (final e in states) {
-        ref.read(e).getAll(false);
+      handleRefresh() async {
+        await Future.wait(states.map((e) async {
+          final state = ref.read(e);
+
+          await state.getAll(false);
+          state.checkSaved(ref.read(penyimpananArticleState).articles);
+        }));
       }
+
+      handleRefresh();
+
       pushArticleStatesPage(
         context: context,
         states: states,
         builder: (states) => UserScaffold.withArticleTabView(
           title: "Karir",
           onTapSearch: onTapSearch,
-          stateItems:
-              states.map((e) => ArticleStateItem.fromArticleState(e)).toList(),
+          stateItems: states
+              .map((e) => ArticleStateItem.fromArticleState(
+                    state: e,
+                    onRefresh: handleRefresh,
+                  ))
+              .toList(),
           onTapArticle: onTapArticle,
           onSaveArticle: onSaveArticle,
           onShareArticle: onShareArticle,
@@ -163,17 +238,29 @@ class KategoriPageContainer extends HookConsumerWidget {
     _handleTapLomba() {
       final states = [lombaAkademikArticleState, lombaNonakademikArticleState];
 
-      for (final e in states) {
-        ref.read(e).getAll(false);
+      handleRefresh() async {
+        await Future.wait(states.map((e) async {
+          final state = ref.read(e);
+
+          await state.getAll(false);
+          state.checkSaved(ref.read(penyimpananArticleState).articles);
+        }));
       }
+
+      handleRefresh();
+
       pushArticleStatesPage(
         context: context,
         states: states,
         builder: (states) => UserScaffold.withArticleTabView(
           title: "Lomba",
           onTapSearch: onTapSearch,
-          stateItems:
-              states.map((e) => ArticleStateItem.fromArticleState(e)).toList(),
+          stateItems: states
+              .map((e) => ArticleStateItem.fromArticleState(
+                    state: e,
+                    onRefresh: handleRefresh,
+                  ))
+              .toList(),
           onTapArticle: onTapArticle,
           onSaveArticle: onSaveArticle,
           onShareArticle: onShareArticle,

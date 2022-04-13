@@ -8,12 +8,10 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class NotifikasiPageContainer extends HookConsumerWidget {
   final Function(Article) onTapArticle;
-  final Function(Article) onDeleteArticle;
 
   const NotifikasiPageContainer({
     Key? key,
     required this.onTapArticle,
-    required this.onDeleteArticle,
   }) : super(key: key);
 
   @override
@@ -29,6 +27,8 @@ class NotifikasiPageContainer extends HookConsumerWidget {
       debugPrint(result.toString());
     }
 
+    _handleDeleteArticle(Article article) async {}
+
     useEffect(() {
       _articleState.getAll(false);
       return;
@@ -40,7 +40,7 @@ class NotifikasiPageContainer extends HookConsumerWidget {
       isLoading: _articleState.isLoading,
       settingsSubtitle: _settingsSubstitle.value,
       onTapArticle: onTapArticle,
-      onDeleteArticle: onDeleteArticle,
+      onDeleteArticle: _handleDeleteArticle,
       onTapSettings: _handleTapSettings,
     );
   }
