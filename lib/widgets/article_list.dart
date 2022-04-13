@@ -12,6 +12,7 @@ class ArticleList extends StatelessWidget {
   final Function(Article)? onShareArticle;
   final bool isLoading;
   final bool firstHighlight;
+  final bool showEmpty;
 
   const ArticleList({
     Key? key,
@@ -22,6 +23,7 @@ class ArticleList extends StatelessWidget {
     this.onSaveArticle,
     this.onShareArticle,
     this.firstHighlight = false,
+    this.showEmpty = true,
   }) : super(key: key);
 
   @override
@@ -31,7 +33,7 @@ class ArticleList extends StatelessWidget {
       child = const Center(
         child: CircularProgressIndicator(),
       );
-    } else if (articles.isEmpty) {
+    } else if (articles.isEmpty && showEmpty) {
       child = EmptyArticleWidget(onRefresh: onRefresh);
     } else {
       child = ListView.builder(

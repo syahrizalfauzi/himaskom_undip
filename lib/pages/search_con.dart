@@ -16,19 +16,24 @@ class SearchPageContainer extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, ref) {
     final _articleState = ref.watch(searchArticleState);
-    final _articles = useState<List<Article>>([]);
-    final _controller = useTextEditingController();
+    final _controller =
+        useTextEditingController(text: _articleState.searchQuery);
 
     _handleSubmit(String value) async {
       if (value.isEmpty) return;
-      _articles.value = await _articleState.search(value);
+
+      await _articleState.search(value);
     }
 
-    _handleClear() => _controller.clear();
+    _handleClear() {
+      _controller.clear();
+      _articleState.clearArticles();
+    }
+
     _handleBack() => Navigator.of(context).pop();
 
     return SearchPagePresentational(
-      articles: _articles.value,
+      articles: _articleState.articles,
       isLoading: _articleState.isLoading,
       onTapArticle: onTapArticle,
       onSubmit: _handleSubmit,

@@ -49,11 +49,26 @@ class SearchPagePresentational extends StatelessWidget {
           )
         ],
       ),
-      body: ArticleList(
-        articles: articles,
-        isLoading: isLoading,
-        onTapArticle: onTapArticle,
-      ),
+      body: isLoading
+          ? const Center(
+              child: CircularProgressIndicator(),
+            )
+          : controller.text.isNotEmpty && articles.isEmpty
+              ? Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Text(
+                      'Tidak ditemukan article / item dengan keyword\n"${controller.text}"',
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                )
+              : ArticleList(
+                  articles: articles,
+                  isLoading: isLoading,
+                  onTapArticle: onTapArticle,
+                  showEmpty: false,
+                ),
     );
   }
 }

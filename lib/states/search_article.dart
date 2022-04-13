@@ -1,32 +1,45 @@
+import 'dart:convert';
+
+import 'package:flutter/material.dart';
 import 'package:himaskom_undip/models/article.dart';
 import 'package:himaskom_undip/models/article_state.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:http/http.dart' as http;
 
 final searchArticleState = ChangeNotifierProvider((_) => SearchArticleState());
 
 class SearchArticleState extends ArticleState {
   @override
-  final String fetchUrl = "articles/search";
+  final String fetchUrl = "search-article";
 
-  Future<List<Article>> search(String keyword) async {
-    isLoading = true;
-    notifyListeners();
-    await Future.delayed(const Duration(seconds: 1));
+  @override
+  bool isLoading = false;
+
+  String searchQuery = "";
+
+  void clearArticles() {
+    articles = [];
     isLoading = false;
     notifyListeners();
+  }
 
-    return [
-      Article(
-        id: "id-1",
-        judul: keyword,
-        gambarUrl: [
-          'https://upload.wikimedia.org/wikipedia/commons/e/ee/Sample_abc.jpg'
-        ],
-        createdAt: DateTime.now(),
-        jenis: ArticleCategory.akademik,
-        harga: 0,
-        tenggat: null,
-      ),
-    ];
+  Future<void> search(String keyword) async {
+    isLoading = true;
+    searchQuery = keyword;
+    notifyListeners();
+
+    final response =
+        await http.get(Uri.parse('$baseUrl/$fetchUrl?query=$keyword'));
+    final data = jsonDecode(response.body)["data"] as List?;
+
+    if (response.statusCode == 404) {
+      articles = [];
+    } else if (data != null) {
+      articles = data.map((e) => Article.fromJson(e)).toList();
+    }
+    debugPrint(articles.toString());
+
+    isLoading = false;
+    notifyListeners();
   }
 }
