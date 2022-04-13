@@ -129,4 +129,12 @@ class Article {
       deskripsi: deskripsi ?? this.deskripsi,
     );
   }
+
+  @override
+  String toString() {
+    return 'Article(id: $id, judul: $judul, jenis: $jenis, harga: $harga, gambarUrl: $gambarUrl, createdAt: $createdAt, tenggat: $tenggat, deskripsi: $deskripsi)';
+  }
 }
+
+
+// https://cdn.discordapp.com/attachments/340561913710772225/963622211204304976/unknown.png

@@ -139,11 +139,19 @@ class _ArticleEditorPageContainerState
       }
 
       final gambarUrl = await Future.wait(
-        _images.value.whereType<FileImage>().map((e) => FirebaseStorage.instance
-            .ref()
-            .child(DateTime.now().toIso8601String() + '_' + getRandomString(20))
-            .putFile((e).file)
-            .then((s) => s.ref.getDownloadURL())),
+        _images.value.map((e) {
+          if (e is FileImage) {
+            return FirebaseStorage.instance
+                .ref()
+                .child(DateTime.now().toIso8601String() +
+                    '_' +
+                    getRandomString(20))
+                .putFile((e).file)
+                .then((s) => s.ref.getDownloadURL());
+          }
+
+          return Future.value((e as NetworkImage).url);
+        }),
       );
 
       ArticleCategory jenis;
@@ -186,8 +194,8 @@ class _ArticleEditorPageContainerState
         result = await state.update(article: article, token: token);
       }
 
-      ScaffoldMessenger.of(context).showSnackBar(
-          CustomSnackbar(result ?? "Berhasil menyimpan article / item"));
+      ScaffoldMessenger.of(context).showSnackBar(CustomSnackbar(result ??
+          "Berhasil menyimpan ${widget.initialArticle == null ? _judulController.text : widget.initialArticle!.id}"));
 
       _isLoading.value = false;
       if (result == null) {

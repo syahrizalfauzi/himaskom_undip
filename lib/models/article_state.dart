@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:himaskom_undip/models/article.dart';
 import 'package:http/http.dart' as http;
 
@@ -44,6 +44,7 @@ abstract class ArticleState extends ChangeNotifier {
     return article;
   }
 
+  @nonVirtual
   Future<String?> add({
     required Article article,
     required String token,
@@ -82,6 +83,7 @@ abstract class ArticleState extends ChangeNotifier {
     return null;
   }
 
+  @nonVirtual
   Future<String?> update({
     required Article article,
     required String token,
@@ -117,5 +119,23 @@ abstract class ArticleState extends ChangeNotifier {
     isLoading = false;
     notifyListeners();
     return null;
+  }
+
+  @nonVirtual
+  Future<void> delete({required Article article, required String token}) async {
+    isLoading = true;
+    notifyListeners();
+
+    await http.delete(
+      Uri.parse('$baseUrl/articles/${article.id}'),
+      headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': 'Bearer $token',
+      },
+    );
+
+    articles.removeWhere((e) => e.id == article.id);
+    isLoading = false;
+    notifyListeners();
   }
 }
