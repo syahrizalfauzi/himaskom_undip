@@ -136,7 +136,7 @@ class Article {
 
   @override
   String toString() {
-    return 'Article(judul: $judul, jenis: $jenis, harga: $harga, isSaved: $isSaved, id: $id, gambarUrl: $gambarUrl, createdAt: $createdAt, tenggat: $tenggat, deskripsi: $deskripsi)';
+    return 'Article(judul: $judul, isSaved: $isSaved)';
   }
 }
 

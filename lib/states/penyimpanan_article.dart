@@ -68,6 +68,26 @@ class PenyimpananArticleState extends ArticleState {
     notifyListeners();
   }
 
+  Future<void> unsave({required Article article, required String token}) async {
+    isLoading = true;
+    notifyListeners();
+
+    await http.delete(
+      Uri.parse(
+        '$baseUrl/$fetchUrl/$_uid/${article.id}',
+      ),
+      headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': 'Bearer $token',
+      },
+    );
+
+    articles.removeWhere((e) => e.id == article.id);
+
+    isLoading = false;
+    notifyListeners();
+  }
+
   bool checkSavedSingle(Article article) {
     return articles.indexWhere((e) => article.id == e.id) != -1;
   }

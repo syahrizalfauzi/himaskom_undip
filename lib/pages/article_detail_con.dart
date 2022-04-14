@@ -4,6 +4,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:himaskom_undip/models/article.dart';
 import 'package:himaskom_undip/pages/article_detail_pres.dart';
 import 'package:himaskom_undip/pages/pengingat_settings_con.dart';
+import 'package:himaskom_undip/states/beranda_article.dart';
 import 'package:himaskom_undip/states/penyimpanan_article.dart';
 import 'package:himaskom_undip/utils/get_article_state.dart';
 import 'package:himaskom_undip/widgets/custom_snackbar.dart';
@@ -51,17 +52,28 @@ class _ArticleDetailPageContainerState
 
     _handleSimpan() async {
       final token = await FirebaseAuth.instance.currentUser!.getIdToken();
-      await _penyimpananArticleState.save(
-        article: _article.value!,
-        token: token,
-      );
-
+      String snackbarMessage;
       final article = _article.value!;
-      final isSaved = _penyimpananArticleState.checkSavedSingle(article);
 
+      if (!article.isSaved) {
+        await _penyimpananArticleState.save(article: article, token: token);
+        snackbarMessage = 'Berhasil menyimpan article "${article.judul}"';
+      } else {
+        await _penyimpananArticleState.unsave(article: article, token: token);
+        snackbarMessage =
+            'Berhasil menghapus simpanan article "${article.judul}"';
+      }
+
+      final isSaved = _penyimpananArticleState.checkSavedSingle(article);
       _article.value = article.copyWith(isSaved: isSaved);
-      ScaffoldMessenger.of(context).showSnackBar(CustomSnackbar(
-          'Berhasil menyimpan article "${_article.value!.judul}"'));
+
+      ref
+          .read(getArticleStateFromArticle(article))
+          .setIsSaved(article, !article.isSaved);
+      ref.read(berandaArticleState).setIsSaved(article, !article.isSaved);
+
+      ScaffoldMessenger.of(context)
+          .showSnackBar(CustomSnackbar(snackbarMessage));
     }
 
     _fetch() async {

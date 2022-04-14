@@ -6,6 +6,7 @@ import 'package:himaskom_undip/models/article.dart';
 import 'package:himaskom_undip/pages/article_detail_con.dart';
 import 'package:himaskom_undip/pages/search_con.dart';
 import 'package:himaskom_undip/pages/user_pres.dart';
+import 'package:himaskom_undip/states/beranda_article.dart';
 import 'package:himaskom_undip/states/penyimpanan_article.dart';
 import 'package:himaskom_undip/utils/get_article_state.dart';
 import 'package:himaskom_undip/widgets/custom_snackbar.dart';
@@ -50,7 +51,6 @@ class _PageState extends ConsumerState<UserContainer> {
     }
 
     _handleTapArticle(Article article) {
-      debugPrint(article.toString());
       Navigator.of(context).push(MaterialPageRoute(
           builder: (_) => ArticleDetailPageContainer(article: article)));
     }
@@ -58,12 +58,23 @@ class _PageState extends ConsumerState<UserContainer> {
     _handleShareArticle(Article article) {}
     _handleSaveArticle(Article article) async {
       final token = await FirebaseAuth.instance.currentUser!.getIdToken();
+      String snackbarMessage;
 
-      await _penyimpananArticleState.save(article: article, token: token);
-      ref.read(getArticleStateFromArticle(article)).setIsSaved(article, true);
+      if (!article.isSaved) {
+        await _penyimpananArticleState.save(article: article, token: token);
+        snackbarMessage = 'Berhasil menyimpan article "${article.judul}"';
+      } else {
+        await _penyimpananArticleState.unsave(article: article, token: token);
+        snackbarMessage =
+            'Berhasil menghapus simpanan article "${article.judul}"';
+      }
+      ref
+          .read(getArticleStateFromArticle(article))
+          .setIsSaved(article, !article.isSaved);
+      ref.read(berandaArticleState).setIsSaved(article, !article.isSaved);
 
-      ScaffoldMessenger.of(context).showSnackBar(
-          CustomSnackbar('Berhasil menyimpan article "${article.judul}"'));
+      ScaffoldMessenger.of(context)
+          .showSnackBar(CustomSnackbar(snackbarMessage));
     }
 
     _handleTapLogOut() {
