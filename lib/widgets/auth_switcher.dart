@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:himaskom_undip/models/article.dart';
 import 'package:himaskom_undip/pages/admin_con.dart';
 import 'package:himaskom_undip/pages/login_con.dart';
 import 'package:himaskom_undip/pages/user_con.dart';
@@ -22,6 +24,11 @@ class AuthSwitcher extends HookWidget {
         if (user == null) {
           _state.value = AuthState.none;
         } else {
+          Future.wait(ArticleCategory.values.map((e) => FirebaseMessaging
+              .instance
+              .unsubscribeFromTopic(e.index.toString())));
+          (() async {})();
+
           if (user.uid == 'bBWpeRswZyPn5j0SKEiQ28Pz84W2') {
             _state.value = AuthState.admin;
           } else {

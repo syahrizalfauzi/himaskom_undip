@@ -3,20 +3,17 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:himaskom_undip/pages/notifikasi_settings_pres.dart';
 
 class NotifikasiSettingsContainer extends HookWidget {
-  const NotifikasiSettingsContainer({Key? key}) : super(key: key);
+  final Map<String, bool> initialPreferences;
+
+  const NotifikasiSettingsContainer({
+    Key? key,
+    required this.initialPreferences,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final _state = {
-      'Umum': useState(true),
-      'Event': useState(false),
-      'Sistore': useState(false),
-      'Beasiswa': useState(false),
-      'Prestasi': useState(false),
-      'Akademik': useState(false),
-      'Karir': useState(false),
-      'Lomba': useState(false),
-    };
+    final _state = Map.fromEntries(initialPreferences.entries
+        .map((e) => MapEntry(e.key, useState(e.value))));
 
     _handlePilihSemua(bool? value) {
       _state.forEach((_, state) => state.value = value ?? false);
