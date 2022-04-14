@@ -151,7 +151,8 @@ class ArticleDetailPagePresentational extends StatelessWidget {
                             label: "Simpan",
                             onTap: onSimpan,
                           ),
-                          if (article!.variant == PostVariant.event)
+                          if (article!.variant == PostVariant.event &&
+                              article!.tenggat!.isAfter(DateTime.now()))
                             LabeledIcon(
                               icon: Icons.watch_later_outlined,
                               label: "Pengingat",

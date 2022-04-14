@@ -1,3 +1,4 @@
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -8,6 +9,22 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  await AwesomeNotifications().initialize(null, [
+    NotificationChannel(
+      channelKey: 'lainnya',
+      channelName: 'Notifikasi',
+      channelDescription: 'Notifikasi saat ada article / item terbaru',
+      ledColor: Colors.white,
+      playSound: true,
+    ),
+    NotificationChannel(
+      channelKey: 'reminder',
+      channelName: 'Pengingat',
+      channelDescription: 'Notifikasi pengingat untuk event',
+      ledColor: Colors.white,
+      playSound: true,
+    ),
+  ]);
   runApp(const MyApp());
 }
 
