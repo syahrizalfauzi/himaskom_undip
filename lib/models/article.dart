@@ -54,6 +54,18 @@ class Article {
     );
   }
 
+  factory Article.fromNotifJson(Map<String, dynamic> notifJson) {
+    return Article(
+      id: notifJson['id'],
+      judul: notifJson['judul'],
+      gambarUrl:
+          (notifJson['gambarUrl'] as List).map((e) => e.toString()).toList(),
+      jenis: ArticleCategory.values[notifJson['jenisId']],
+      harga: 0,
+      tenggat: null,
+    );
+  }
+
   Map<String, dynamic> get toJson {
     final map = {
       'judul': judul,
@@ -67,6 +79,15 @@ class Article {
     }
 
     return map;
+  }
+
+  Map<String, dynamic> get toNotifJson {
+    return {
+      'id': id,
+      'judul': judul,
+      'gambarUrl': gambarUrl,
+      'jenisId': jenis.index,
+    };
   }
 
   String get jenisString {

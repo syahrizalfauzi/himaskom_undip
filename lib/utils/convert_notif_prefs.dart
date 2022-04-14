@@ -1,4 +1,4 @@
-Map<String, bool> stateMapFromPrefsMap(Map<String, bool> map) {
+Map<String, bool> statePrefsFromStoredPrefs(Map<String, bool> map) {
   return {
     'Umum': map['0']!,
     'Event': map['1']! && map['2']! && map['3']!,
@@ -11,7 +11,7 @@ Map<String, bool> stateMapFromPrefsMap(Map<String, bool> map) {
   };
 }
 
-Map<String, bool> prefsMapFromStateMap(Map<String, bool> map) {
+Map<String, bool> storedPrefsFromStatePrefs(Map<String, bool> map) {
   return {
     '0': map['Umum'] ?? false,
     '1': map['Event'] ?? false,

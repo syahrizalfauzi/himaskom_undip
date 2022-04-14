@@ -1,7 +1,10 @@
 import 'dart:convert';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/material.dart';
+import 'package:himaskom_undip/models/article.dart';
 import 'package:himaskom_undip/models/article_state.dart';
+import 'package:himaskom_undip/utils/convert_notif_article.dart';
 import 'package:himaskom_undip/utils/convert_notif_prefs.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -30,9 +33,36 @@ class NotifikasiArticleState extends ArticleState {
       isLoading = true;
       notifyListeners();
     }
-    // FETCH FROM LOCAL STORAGE
-    await Future.delayed(const Duration(seconds: 1));
-    articles = [];
+
+    final sharedPrefs = await SharedPreferences.getInstance();
+
+    try {
+      articles = articleListFromEncodedArticles(
+          sharedPrefs.getStringList('notifarticles')!);
+    } catch (e) {
+      debugPrint(e.toString());
+      articles = [];
+    }
+
+    isLoading = false;
+    notifyListeners();
+  }
+
+  @override
+  Future<void> delete({
+    required Article article,
+    String token = "",
+  }) async {
+    isLoading = true;
+    notifyListeners();
+
+    final sharedPrefs = await SharedPreferences.getInstance();
+
+    articles.removeWhere((e) => e.id == article.id);
+
+    sharedPrefs.setStringList(
+        'notifarticles', encodedArticlesFromArticleList(articles));
+
     isLoading = false;
     notifyListeners();
   }
@@ -46,17 +76,8 @@ class NotifikasiArticleState extends ArticleState {
         .join(', ');
   }
 
-  Map<String, bool> get prefsMap => prefsMapFromStateMap(notifPrefs);
+  Map<String, bool> get prefsMap => storedPrefsFromStatePrefs(notifPrefs);
 
-  // void setPreference(String key, bool value) {
-  //   notifPrefs.update(key, (v) => value);
-  //   notifyListeners();
-  // }
-
-  // void setAllPreferences(bool value) {
-  //   notifPrefs.updateAll((k, v) => v = value);
-  //   notifyListeners();
-  // }
   void setPreferences(Map<String, bool> preferences) {
     notifPrefs = preferences;
     notifyListeners();
@@ -66,7 +87,7 @@ class NotifikasiArticleState extends ArticleState {
     final sharedPrefs = await SharedPreferences.getInstance();
 
     try {
-      notifPrefs = stateMapFromPrefsMap(
+      notifPrefs = statePrefsFromStoredPrefs(
           Map.from(jsonDecode(sharedPrefs.getString('notifprefs')!)));
     } catch (e) {
       notifPrefs = {

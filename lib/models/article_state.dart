@@ -44,6 +44,23 @@ abstract class ArticleState extends ChangeNotifier {
     return article;
   }
 
+  Future<void> delete({required Article article, required String token}) async {
+    isLoading = true;
+    notifyListeners();
+
+    await http.delete(
+      Uri.parse('$baseUrl/articles/${article.id}'),
+      headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': 'Bearer $token',
+      },
+    );
+
+    articles.removeWhere((e) => e.id == article.id);
+    isLoading = false;
+    notifyListeners();
+  }
+
   @nonVirtual
   Future<String?> add({
     required Article article,
@@ -119,24 +136,6 @@ abstract class ArticleState extends ChangeNotifier {
     isLoading = false;
     notifyListeners();
     return null;
-  }
-
-  @nonVirtual
-  Future<void> delete({required Article article, required String token}) async {
-    isLoading = true;
-    notifyListeners();
-
-    await http.delete(
-      Uri.parse('$baseUrl/articles/${article.id}'),
-      headers: {
-        'Content-Type': 'application/json; charset=UTF-8',
-        'Authorization': 'Bearer $token',
-      },
-    );
-
-    articles.removeWhere((e) => e.id == article.id);
-    isLoading = false;
-    notifyListeners();
   }
 
   @nonVirtual
