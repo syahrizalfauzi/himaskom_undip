@@ -5,6 +5,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:himaskom_undip/pages/daftar_con.dart';
 import 'package:himaskom_undip/pages/login_pres.dart';
 import 'package:himaskom_undip/pages/lupapassword_con.dart';
+import 'package:himaskom_undip/utils/set_notification_preferences.dart';
 import 'package:himaskom_undip/widgets/custom_snackbar.dart';
 
 class LoginPageContainer extends StatefulHookWidget {
@@ -58,6 +59,9 @@ class _DaftarPageContainerState extends State<LoginPageContainer> {
         ScaffoldMessenger.of(context).showSnackBar(CustomSnackbar(message));
       }
 
+      if (_emailController.text != "admin@himaskomapp.com") {
+        await setNotificationPreferences(true);
+      }
       _isLoading.value = false;
     }
 
@@ -84,7 +88,11 @@ class _DaftarPageContainerState extends State<LoginPageContainer> {
           idToken: googleAuth.idToken,
         );
 
-        await FirebaseAuth.instance.signInWithCredential(credential);
+        final user =
+            await FirebaseAuth.instance.signInWithCredential(credential);
+        if (user.user!.uid != "bBWpeRswZyPn5j0SKEiQ28Pz84W2") {
+          await setNotificationPreferences(true);
+        }
       } catch (e) {
         ScaffoldMessenger.of(context)
             .showSnackBar(CustomSnackbar("Gagal masuk, silahkan coba lagi"));

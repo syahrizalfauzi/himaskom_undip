@@ -7,8 +7,10 @@ import 'package:himaskom_undip/pages/article_detail_con.dart';
 import 'package:himaskom_undip/pages/search_con.dart';
 import 'package:himaskom_undip/pages/user_pres.dart';
 import 'package:himaskom_undip/states/beranda_article.dart';
+import 'package:himaskom_undip/states/notifikasi_article.dart';
 import 'package:himaskom_undip/states/penyimpanan_article.dart';
 import 'package:himaskom_undip/utils/get_article_state.dart';
+import 'package:himaskom_undip/utils/set_notification_preferences.dart';
 import 'package:himaskom_undip/widgets/custom_snackbar.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -77,9 +79,9 @@ class _PageState extends ConsumerState<UserContainer> {
           .showSnackBar(CustomSnackbar(snackbarMessage));
     }
 
-    _handleTapLogOut() {
-      FirebaseAuth.instance.signOut();
-      //Unsub FCM & clear local storage
+    _handleTapLogOut() async {
+      await setNotificationPreferences(false);
+      await FirebaseAuth.instance.signOut();
     }
 
     _handleTapSearch() {
@@ -93,6 +95,7 @@ class _PageState extends ConsumerState<UserContainer> {
       (() async {
         _penyimpananArticleState.uid = FirebaseAuth.instance.currentUser!.uid;
         await _penyimpananArticleState.getAll(false);
+        await ref.read(notifikasiArticleState).getPreferences();
         _isLoading.value = false;
       })();
 

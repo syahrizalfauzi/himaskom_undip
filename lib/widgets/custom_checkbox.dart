@@ -4,18 +4,20 @@ class CustomCheckBox extends StatelessWidget {
   final void Function(bool?) onChange;
   final bool value;
   final String title;
+  final bool disabled;
 
   const CustomCheckBox({
     Key? key,
     required this.onChange,
     required this.value,
     required this.title,
+    required this.disabled,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => onChange(!value),
+      onTap: disabled ? null : () => onChange(!value),
       child: Container(
         height: 36,
         color: Colors.transparent,
@@ -24,13 +26,21 @@ class CustomCheckBox extends StatelessWidget {
           children: [
             Checkbox(
               value: value,
-              onChanged: onChange,
-              activeColor: Theme.of(context).primaryColor,
+              onChanged: disabled ? null : onChange,
+              activeColor: disabled
+                  ? Theme.of(context).disabledColor
+                  : Theme.of(context).primaryColor,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(4),
               ),
             ),
-            Text(title),
+            Text(
+              title,
+              style: TextStyle(
+                  color: disabled
+                      ? Theme.of(context).disabledColor
+                      : Colors.black),
+            ),
           ],
         ),
       ),

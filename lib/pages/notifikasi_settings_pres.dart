@@ -15,6 +15,7 @@ class CheckBoxItem {
 }
 
 class NotifikasiSettingsPresentational extends StatelessWidget {
+  final bool isLoading;
   final void Function(bool?) onPilihSemua;
   final void Function() onSave;
   final bool pilihSemua;
@@ -22,6 +23,7 @@ class NotifikasiSettingsPresentational extends StatelessWidget {
 
   const NotifikasiSettingsPresentational({
     Key? key,
+    required this.isLoading,
     required this.onPilihSemua,
     required this.onSave,
     required this.pilihSemua,
@@ -44,11 +46,16 @@ class NotifikasiSettingsPresentational extends StatelessWidget {
             onChange: onPilihSemua,
             value: pilihSemua,
             title: "Pilih Semua",
+            disabled: isLoading,
           ),
           const SizedBox(height: 12),
           ...items.map(
             (e) => CustomCheckBox(
-                onChange: e.onChange, value: e.value, title: e.title),
+              onChange: e.onChange,
+              value: e.value,
+              title: e.title,
+              disabled: isLoading,
+            ),
           ),
         ],
       ),
@@ -57,6 +64,7 @@ class NotifikasiSettingsPresentational extends StatelessWidget {
           onTap: onSave,
           text: "Simpan",
           dense: true,
+          loading: isLoading,
         ),
       ],
     );
