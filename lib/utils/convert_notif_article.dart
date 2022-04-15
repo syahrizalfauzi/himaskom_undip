@@ -13,5 +13,9 @@ List<String> encodedArticlesFromArticleList(List<Article> articleList) {
 }
 
 String encodedArticleFromNotifJson(Map<String, dynamic> notifJson) {
-  return jsonEncode(notifJson);
+  return jsonEncode({
+    'id': notifJson['id'],
+    'judul': notifJson['judul'],
+    'jenisId': notifJson['jenisId'].toString(),
+  });
 }

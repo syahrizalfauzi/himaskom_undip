@@ -58,9 +58,8 @@ class Article {
     return Article(
       id: notifJson['id'],
       judul: notifJson['judul'],
-      gambarUrl:
-          (notifJson['gambarUrl'] as List).map((e) => e.toString()).toList(),
-      jenis: ArticleCategory.values[notifJson['jenisId']],
+      jenis: ArticleCategory.values[int.parse(notifJson['jenisId'])],
+      gambarUrl: [],
       harga: 0,
       tenggat: null,
     );
@@ -85,7 +84,6 @@ class Article {
     return {
       'id': id,
       'judul': judul,
-      'gambarUrl': gambarUrl,
       'jenisId': jenis.index,
     };
   }

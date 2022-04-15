@@ -134,25 +134,32 @@ class _ArticleEditorPageContainerState
             (e) => FirebaseStorage.instance.refFromURL(e).delete(),
           ));
         } catch (e) {
+          debugPrint("=========gambarUrlDeletion upload error=========");
           debugPrint(e.toString());
         }
       }
 
-      final gambarUrl = await Future.wait(
-        _images.value.map((e) {
-          if (e is FileImage) {
-            return FirebaseStorage.instance
-                .ref()
-                .child(DateTime.now().toIso8601String() +
-                    '_' +
-                    getRandomString(20))
-                .putFile((e).file)
-                .then((s) => s.ref.getDownloadURL());
-          }
+      List<String> gambarUrl = [];
+      try {
+        gambarUrl = await Future.wait(
+          _images.value.map((e) {
+            if (e is FileImage) {
+              return FirebaseStorage.instance
+                  .ref()
+                  .child(DateTime.now().toIso8601String() +
+                      '_' +
+                      getRandomString(20))
+                  .putFile((e).file)
+                  .then((s) => s.ref.getDownloadURL());
+            }
 
-          return Future.value((e as NetworkImage).url);
-        }),
-      );
+            return Future.value((e as NetworkImage).url);
+          }),
+        );
+      } catch (e) {
+        debugPrint("=========gambarUrl upload error=========");
+        debugPrint(e.toString());
+      }
 
       ArticleCategory jenis;
       if (widget.stateItem.category == ArticleStateItemCategory.event ||

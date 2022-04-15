@@ -31,7 +31,9 @@ class NotifikasiPageContainer extends HookConsumerWidget {
       }
     }
 
-    _handleDeleteArticle(Article article) async {}
+    _handleDeleteArticle(Article article) async {
+      await _articleState.delete(article: article);
+    }
 
     useEffect(() {
       _articleState.getAll(false);

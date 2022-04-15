@@ -59,9 +59,9 @@ class _DaftarPageContainerState extends State<LoginPageContainer> {
         ScaffoldMessenger.of(context).showSnackBar(CustomSnackbar(message));
       }
 
-      if (_emailController.text != "admin@himaskomapp.com") {
-        await setNotificationPreferences(true);
-      }
+      // if (_emailController.text != "admin@himaskomapp.com") {
+      await setNotificationPreferences(true);
+      // }
       _isLoading.value = false;
     }
 
