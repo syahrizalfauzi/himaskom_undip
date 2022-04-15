@@ -16,6 +16,8 @@ class ArticleEditorPagePresentational extends StatelessWidget {
   final String? Function(String) hargaValidator;
   final String? Function(String) tenggatDateValidator;
   final String? Function(String) tenggatTimeValidator;
+  final void Function(String) onJudulSubmit;
+  final FocusNode deskripsiNode;
   final void Function() onSubmit;
   final void Function()? onTenggatDateTap;
   final void Function()? onTenggatTimeTap;
@@ -38,6 +40,8 @@ class ArticleEditorPagePresentational extends StatelessWidget {
     required this.hargaValidator,
     required this.tenggatDateValidator,
     required this.tenggatTimeValidator,
+    required this.onJudulSubmit,
+    required this.deskripsiNode,
     required this.onSubmit,
     this.onTenggatDateTap,
     this.onTenggatTimeTap,
@@ -89,6 +93,7 @@ class ArticleEditorPagePresentational extends StatelessWidget {
                 controller: judulController,
                 minLength: 5,
                 maxLength: 20,
+                onSubmit: onJudulSubmit,
               ),
               if (tenggatDateController != null &&
                   onTenggatDateTap != null &&
@@ -155,6 +160,7 @@ class ArticleEditorPagePresentational extends StatelessWidget {
                 hintText: "Masukkan Deskripsi",
                 controller: deskripsiController,
                 minLength: 20,
+                focusNode: deskripsiNode,
               ),
               if (hargaController != null) ...[
                 const SizedBox(height: 24),

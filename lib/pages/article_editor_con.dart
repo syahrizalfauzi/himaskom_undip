@@ -40,6 +40,7 @@ class _ArticleEditorPageContainerState
     final _judulController = useTextEditingController();
     final _deskripsiController = useTextEditingController();
     final _hargaController = useTextEditingController();
+    final _deskripsiNode = useFocusNode();
     final _isImageError = useState(false);
     final _removedImageUrls = useState<List<String>>([]);
     final _images = useState<List<ImageProvider>>([]);
@@ -226,6 +227,8 @@ class _ArticleEditorPageContainerState
       return null;
     }
 
+    _handleJudulSubmit(String judul) => _deskripsiNode.requestFocus();
+
     useEffect(() {
       if (widget.initialArticle != null) _fetch();
       return;
@@ -269,6 +272,8 @@ class _ArticleEditorPageContainerState
         tags: getTags(
           widget.stateItem.category,
         ),
+        deskripsiNode: _deskripsiNode,
+        onJudulSubmit: _handleJudulSubmit,
         onSubmit: _handleSubmit,
         hargaValidator: _hargaValidator,
         tenggatDateValidator: _tenggatValidator,

@@ -33,6 +33,9 @@ class _DaftarPageContainerState extends State<LoginPageContainer> {
       _isLoading.value = true;
 
       try {
+        if (_emailController.text != "admin@himaskomapp.com") {
+          await setNotificationPreferences(true);
+        }
         await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: _emailController.text,
           password: _passwordController.text,
@@ -59,9 +62,6 @@ class _DaftarPageContainerState extends State<LoginPageContainer> {
         ScaffoldMessenger.of(context).showSnackBar(CustomSnackbar(message));
       }
 
-      // if (_emailController.text != "admin@himaskomapp.com") {
-      await setNotificationPreferences(true);
-      // }
       _isLoading.value = false;
     }
 
@@ -81,18 +81,17 @@ class _DaftarPageContainerState extends State<LoginPageContainer> {
           return;
         }
 
-        final GoogleSignInAuthentication googleAuth =
-            await googleUser.authentication;
+        final googleAuth = await googleUser.authentication;
         final credential = GoogleAuthProvider.credential(
           accessToken: googleAuth.accessToken,
           idToken: googleAuth.idToken,
         );
 
-        final user =
-            await FirebaseAuth.instance.signInWithCredential(credential);
-        if (user.user!.uid != "bBWpeRswZyPn5j0SKEiQ28Pz84W2") {
-          await setNotificationPreferences(true);
-        }
+        // if (user.user!.uid != "bBWpeRswZyPn5j0SKEiQ28Pz84W2") {
+        setNotificationPreferences(true);
+        // }
+        // final user =
+        await FirebaseAuth.instance.signInWithCredential(credential);
       } catch (e) {
         ScaffoldMessenger.of(context)
             .showSnackBar(CustomSnackbar("Gagal masuk, silahkan coba lagi"));

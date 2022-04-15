@@ -20,6 +20,7 @@ class CustomTextFormField extends HookWidget {
   final String? tipText;
   final TextEditingController? controller;
   final Widget? suffixIcon;
+  final FocusNode? focusNode;
 
   const CustomTextFormField({
     Key? key,
@@ -41,6 +42,7 @@ class CustomTextFormField extends HookWidget {
     this.tipText,
     this.controller,
     this.suffixIcon,
+    this.focusNode,
   }) : super(key: key);
 
   @override
@@ -72,6 +74,7 @@ class CustomTextFormField extends HookWidget {
           onFieldSubmitted: onSubmit,
           controller: controller,
           autofocus: autofocus,
+          focusNode: focusNode,
           decoration: InputDecoration(
             enabled: !disabled,
             filled: filled,
