@@ -6,11 +6,7 @@ import 'package:himaskom_undip/models/article.dart';
 import 'package:himaskom_undip/models/article_state.dart';
 import 'package:himaskom_undip/utils/convert_notif_article.dart';
 import 'package:himaskom_undip/utils/convert_notif_prefs.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-final notifikasiArticleState =
-    ChangeNotifierProvider((_) => NotifikasiArticleState());
 
 class NotifikasiArticleState extends ArticleState {
   @override

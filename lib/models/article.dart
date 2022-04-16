@@ -58,7 +58,7 @@ class Article {
     return Article(
       id: notifJson['id'],
       judul: notifJson['judul'],
-      jenis: ArticleCategory.values[int.parse(notifJson['jenisId'])],
+      jenis: ArticleCategory.values[int.parse(notifJson['jenisId'].toString())],
       gambarUrl: [],
       harga: 0,
       tenggat: null,

@@ -1,7 +1,10 @@
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:himaskom_undip/models/article.dart';
 import 'package:himaskom_undip/pages/admin_con.dart';
+import 'package:himaskom_undip/pages/article_detail_con.dart';
 import 'package:himaskom_undip/pages/login_con.dart';
 import 'package:himaskom_undip/pages/user_con.dart';
 
@@ -17,7 +20,8 @@ class AuthSwitcher extends HookWidget {
     final _state = useState(AuthState.loading);
 
     useEffect(() {
-      final subscription = FirebaseAuth.instance.userChanges().listen((user) {
+      final authSubscription =
+          FirebaseAuth.instance.userChanges().listen((user) {
         if (user == null) {
           _state.value = AuthState.none;
         } else {
@@ -28,7 +32,26 @@ class AuthSwitcher extends HookWidget {
           }
         }
       });
-      return subscription.cancel;
+      final notifSubscription =
+          AwesomeNotifications().actionStream.listen((event) {
+        final payload = event.payload;
+        if (payload == null || _state.value != AuthState.user) return;
+
+        final article = Article.fromNotifJson({
+          'id': payload['id'],
+          'judul': payload['judul'],
+          'jenisId': payload['jenisId'].toString()
+        });
+        Navigator.of(context).push(MaterialPageRoute(
+            builder: (_) => ArticleDetailPageContainer(article: article)));
+      });
+
+      return () {
+        Future.wait([
+          authSubscription.cancel(),
+          notifSubscription.cancel(),
+        ]);
+      };
     }, []);
 
     return AnimatedSwitcher(

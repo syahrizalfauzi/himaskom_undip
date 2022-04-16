@@ -6,9 +6,7 @@ import 'package:himaskom_undip/models/article.dart';
 import 'package:himaskom_undip/pages/article_detail_con.dart';
 import 'package:himaskom_undip/pages/search_con.dart';
 import 'package:himaskom_undip/pages/user_pres.dart';
-import 'package:himaskom_undip/states/beranda_article.dart';
-import 'package:himaskom_undip/states/notifikasi_article.dart';
-import 'package:himaskom_undip/states/penyimpanan_article.dart';
+import 'package:himaskom_undip/providers/article_states.dart';
 import 'package:himaskom_undip/utils/get_article_state.dart';
 import 'package:himaskom_undip/utils/set_notification_preferences.dart';
 import 'package:himaskom_undip/widgets/custom_snackbar.dart';
@@ -29,6 +27,7 @@ class _PageState extends ConsumerState<UserContainer> {
     final _currentPage = useState(Pages.beranda);
     final _user = useMemoized(() => FirebaseAuth.instance.currentUser!, []);
     final _isLoading = useState(true);
+    final _isLoggingOut = useState(false);
     final _penyimpananArticleState = ref.read(penyimpananArticleState);
     final _appBarTitle = useMemoized(() {
       switch (_currentPage.value) {
@@ -80,8 +79,10 @@ class _PageState extends ConsumerState<UserContainer> {
     }
 
     _handleTapLogOut() async {
-      setNotificationPreferences(false);
+      _isLoggingOut.value = true;
+      await setNotificationPreferences(false);
       await FirebaseAuth.instance.signOut();
+      _isLoggingOut.value = false;
     }
 
     _handleTapSearch() {
@@ -101,9 +102,9 @@ class _PageState extends ConsumerState<UserContainer> {
 
       return;
     }, []);
-
     return UserPresentational(
       isLoading: _isLoading.value,
+      isLoggingOut: _isLoggingOut.value,
       drawerController: _advancedDrawerController,
       appBarTitle: _appBarTitle,
       currentPage: _currentPage.value,

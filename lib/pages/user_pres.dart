@@ -12,6 +12,7 @@ enum Pages { beranda, notifikasi, semuakategori, penyimpanan, profile }
 
 class UserPresentational extends StatelessWidget {
   final bool isLoading;
+  final bool isLoggingOut;
   final AdvancedDrawerController drawerController;
   final String appBarTitle;
   final Pages currentPage;
@@ -27,6 +28,7 @@ class UserPresentational extends StatelessWidget {
   const UserPresentational({
     Key? key,
     required this.isLoading,
+    required this.isLoggingOut,
     required this.drawerController,
     required this.appBarTitle,
     required this.currentPage,
@@ -189,11 +191,13 @@ class UserPresentational extends StatelessWidget {
                 ),
                 const Spacer(),
                 ListTile(
-                  onTap: onTapLogOut,
-                  title: const Text(
-                    'Log Out',
+                  onTap: isLoggingOut ? null : onTapLogOut,
+                  title: Text(
+                    isLoggingOut ? 'Logging Out...' : 'Log Out',
                     style: TextStyle(
-                      color: Colors.red,
+                      color: isLoggingOut
+                          ? Theme.of(context).disabledColor
+                          : Colors.red,
                       fontWeight: FontWeight.w600,
                       fontSize: 18,
                     ),

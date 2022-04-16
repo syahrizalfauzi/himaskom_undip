@@ -3,7 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:himaskom_undip/models/article.dart';
 import 'package:himaskom_undip/pages/notifikasi_pres.dart';
 import 'package:himaskom_undip/pages/notifikasi_settings_con.dart';
-import 'package:himaskom_undip/states/notifikasi_article.dart';
+import 'package:himaskom_undip/providers/article_states.dart';
 import 'package:himaskom_undip/widgets/custom_snackbar.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 

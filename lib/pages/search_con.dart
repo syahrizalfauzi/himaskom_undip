@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:himaskom_undip/models/article.dart';
 import 'package:himaskom_undip/pages/search_pres.dart';
-import 'package:himaskom_undip/states/search_article.dart';
+import 'package:himaskom_undip/providers/article_states.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class SearchPageContainer extends HookConsumerWidget {

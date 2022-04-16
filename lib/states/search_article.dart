@@ -3,10 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:himaskom_undip/models/article.dart';
 import 'package:himaskom_undip/models/article_state.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:http/http.dart' as http;
-
-final searchArticleState = ChangeNotifierProvider((_) => SearchArticleState());
 
 class SearchArticleState extends ArticleState {
   @override

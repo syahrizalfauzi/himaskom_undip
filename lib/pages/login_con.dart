@@ -33,9 +33,9 @@ class _DaftarPageContainerState extends State<LoginPageContainer> {
       _isLoading.value = true;
 
       try {
-        if (_emailController.text != "admin@himaskomapp.com") {
-          await setNotificationPreferences(true);
-        }
+        // if (_emailController.text != "admin@himaskomapp.com") {
+        await setNotificationPreferences(true);
+        // }
         await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: _emailController.text,
           password: _passwordController.text,
@@ -88,7 +88,7 @@ class _DaftarPageContainerState extends State<LoginPageContainer> {
         );
 
         // if (user.user!.uid != "bBWpeRswZyPn5j0SKEiQ28Pz84W2") {
-        setNotificationPreferences(true);
+        await setNotificationPreferences(true);
         // }
         // final user =
         await FirebaseAuth.instance.signInWithCredential(credential);
