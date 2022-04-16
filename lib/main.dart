@@ -56,6 +56,9 @@ void main() async {
       playSound: true,
     ),
   ]);
+  //FCM Bug, supaya notif foreground tetep dapet
+  await FirebaseMessaging.instance.getToken();
+
   FirebaseMessaging.onMessage.listen(notificationHandler);
   FirebaseMessaging.onBackgroundMessage(notificationHandler);
   runApp(const MyApp());

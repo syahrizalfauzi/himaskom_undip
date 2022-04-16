@@ -5,7 +5,6 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:himaskom_undip/pages/daftar_con.dart';
 import 'package:himaskom_undip/pages/login_pres.dart';
 import 'package:himaskom_undip/pages/lupapassword_con.dart';
-import 'package:himaskom_undip/utils/set_notification_preferences.dart';
 import 'package:himaskom_undip/widgets/custom_snackbar.dart';
 
 class LoginPageContainer extends StatefulHookWidget {
@@ -34,7 +33,7 @@ class _DaftarPageContainerState extends State<LoginPageContainer> {
 
       try {
         // if (_emailController.text != "admin@himaskomapp.com") {
-        await setNotificationPreferences(true);
+        // await setNotificationPreferences(true);
         // }
         await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: _emailController.text,
@@ -88,7 +87,7 @@ class _DaftarPageContainerState extends State<LoginPageContainer> {
         );
 
         // if (user.user!.uid != "bBWpeRswZyPn5j0SKEiQ28Pz84W2") {
-        await setNotificationPreferences(true);
+        // await setNotificationPreferences(true);
         // }
         // final user =
         await FirebaseAuth.instance.signInWithCredential(credential);

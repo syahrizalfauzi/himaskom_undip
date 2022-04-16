@@ -7,6 +7,7 @@ import 'package:himaskom_undip/pages/admin_con.dart';
 import 'package:himaskom_undip/pages/article_detail_con.dart';
 import 'package:himaskom_undip/pages/login_con.dart';
 import 'package:himaskom_undip/pages/user_con.dart';
+import 'package:himaskom_undip/utils/set_notification_preferences.dart';
 
 enum AuthState { loading, admin, user, none }
 
@@ -20,18 +21,6 @@ class AuthSwitcher extends HookWidget {
     final _state = useState(AuthState.loading);
 
     useEffect(() {
-      final authSubscription =
-          FirebaseAuth.instance.userChanges().listen((user) {
-        if (user == null) {
-          _state.value = AuthState.none;
-        } else {
-          if (user.uid == 'bBWpeRswZyPn5j0SKEiQ28Pz84W2') {
-            _state.value = AuthState.admin;
-          } else {
-            _state.value = AuthState.user;
-          }
-        }
-      });
       final notifSubscription =
           AwesomeNotifications().actionStream.listen((event) {
         final payload = event.payload;
@@ -46,12 +35,23 @@ class AuthSwitcher extends HookWidget {
             builder: (_) => ArticleDetailPageContainer(article: article)));
       });
 
-      return () {
-        Future.wait([
-          authSubscription.cancel(),
-          notifSubscription.cancel(),
-        ]);
-      };
+      final authSubscription =
+          FirebaseAuth.instance.userChanges().listen((user) async {
+        if (user == null) {
+          _state.value = AuthState.none;
+        } else {
+          if (user.uid == 'bBWpeRswZyPn5j0SKEiQ28Pz84W2') {
+            _state.value = AuthState.admin;
+          } else {
+            _state.value = AuthState.loading;
+            await setNotificationPreferences(true);
+            _state.value = AuthState.user;
+          }
+        }
+      });
+
+      return () =>
+          Future.wait([notifSubscription.cancel(), authSubscription.cancel()]);
     }, []);
 
     return AnimatedSwitcher(
@@ -68,7 +68,18 @@ class AuthSwitcher extends HookWidget {
       child: (() {
         switch (_state.value) {
           case AuthState.loading:
-            return const Center(child: CircularProgressIndicator());
+            return Scaffold(
+              body: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: const [
+                    CircularProgressIndicator(),
+                    SizedBox(height: 12),
+                    Text('Mohon Tunggu...')
+                  ],
+                ),
+              ),
+            );
           case AuthState.admin:
             return const AdminContainer();
           case AuthState.user:
