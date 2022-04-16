@@ -112,7 +112,7 @@ class ArticleDetailPagePresentational extends StatelessWidget {
                           padding: const EdgeInsets.all(24),
                           child: Text(
                             article!.deskripsi!,
-                            style: Theme.of(context).textTheme.bodySmall,
+                            style: Theme.of(context).textTheme.bodyMedium,
                           ),
                         )
                       ],

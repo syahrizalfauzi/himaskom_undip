@@ -136,6 +136,12 @@ class _ArticleDetailPageContainerState
     _fetch() async {
       _article.value = null;
       final article = await _articleState.get(widget.article.id!);
+
+      if (article == null) {
+        Navigator.of(context).pop();
+        return;
+      }
+
       _articleState.checkSaved(_penyimpananArticleState.articles);
       final isSaved = _penyimpananArticleState.checkSavedSingle(article);
 

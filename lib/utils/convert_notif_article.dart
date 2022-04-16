@@ -3,8 +3,14 @@ import 'dart:convert';
 import 'package:himaskom_undip/models/article.dart';
 
 List<Article> articleListFromEncodedArticles(List<String> storedArticles) {
+  final ids = storedArticles
+      .map((e) => jsonDecode(e))
+      .map((e) => e['id'].toString())
+      .toSet();
+
   return storedArticles
       .map((e) => Article.fromNotifJson(jsonDecode(e)))
+      .where((e) => ids.contains(e.id))
       .toList();
 }
 

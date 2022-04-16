@@ -87,6 +87,12 @@ class _ArticleEditorPageContainerState
       final state =
           ref.read(getArticleStateFromArticle(widget.initialArticle!));
       final article = await state.get(widget.initialArticle!.id!);
+
+      if (article == null) {
+        Navigator.of(context).pop();
+        return;
+      }
+
       final tagPair = getTagFromArticle(article);
 
       _images.value =

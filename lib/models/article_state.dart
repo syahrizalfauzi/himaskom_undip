@@ -29,19 +29,24 @@ abstract class ArticleState extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<Article> get(String id) async {
+  Future<Article?> get(String id) async {
     final response = await http.get(Uri.parse('$baseUrl/articles/$id'));
-    final article = Article.fromJson(jsonDecode(response.body)["data"]);
 
-    final index = articles.indexWhere((e) => e.id == id);
+    try {
+      final article = Article.fromJson(jsonDecode(response.body)["data"]);
 
-    if (index == -1) {
-      articles.insert(0, article);
-    } else {
-      articles[index] = article;
+      final index = articles.indexWhere((e) => e.id == id);
+
+      if (index == -1) {
+        articles.insert(0, article);
+      } else {
+        articles[index] = article;
+      }
+
+      return article;
+    } catch (e) {
+      return null;
     }
-
-    return article;
   }
 
   Future<void> delete({required Article article, required String token}) async {
