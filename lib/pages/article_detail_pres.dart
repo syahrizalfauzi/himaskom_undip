@@ -186,7 +186,7 @@ class ArticleDetailPagePresentational extends StatelessWidget {
                           const SizedBox(width: 42),
                           Expanded(
                             child: CustomButton(
-                              onTap: () {},
+                              onTap: onHubungi,
                               text: 'Hubungi Sistore',
                             ),
                           ),

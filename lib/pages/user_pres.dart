@@ -185,7 +185,7 @@ class UserPresentational extends StatelessWidget {
                   isSelected: currentPage == Pages.penyimpanan,
                 ),
                 DrawerItem(
-                  title: 'Profile',
+                  title: 'Profil',
                   onTap: () => onChangePage(Pages.profile),
                   isSelected: currentPage == Pages.profile,
                 ),

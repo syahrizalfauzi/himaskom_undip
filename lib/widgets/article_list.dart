@@ -51,11 +51,13 @@ class ArticleList extends StatelessWidget {
                   onSave: onSaveArticle!,
                   onShare: onShareArticle!,
                 ),
-                const SizedBox(height: 32),
-                const Text(
-                  'Info Terbaru',
-                  style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
-                )
+                if (articles.length > 1) ...[
+                  const SizedBox(height: 32),
+                  const Text(
+                    'Info Terbaru',
+                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
+                  )
+                ]
               ],
             );
           } else {

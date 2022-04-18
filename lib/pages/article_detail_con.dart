@@ -10,8 +10,8 @@ import 'package:himaskom_undip/providers/article_states.dart';
 import 'package:himaskom_undip/utils/get_article_state.dart';
 import 'package:himaskom_undip/widgets/custom_snackbar.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:intl/intl.dart';
 import 'package:loop_page_view/loop_page_view.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ArticleDetailPageContainer extends StatefulHookConsumerWidget {
   final Article article;
@@ -46,14 +46,13 @@ class _ArticleDetailPageContainerState
     _handleBagikan() async {
       final article = _article.value!;
 
-      await Clipboard.setData(ClipboardData(
-          text:
-              "[${article.jenisString}] ${article.judul}\n\n${article.deskripsi}\n\n${DateFormat('dd MMM y').format(article.createdAt!)}"));
+      await Clipboard.setData(ClipboardData(text: article.shareString));
       ScaffoldMessenger.of(context).showSnackBar(
           CustomSnackbar('Berhasil menyalin article / item ke clipboard'));
     }
 
-    _handleHubungi() {}
+    _handleHubungi() =>
+        launch("https://liff.line.me/1645278921-kWRPP32q/?accountId=cvg5136w");
     _handlePengingat() async {
       final minutes = await showDialog<int>(
         context: context,

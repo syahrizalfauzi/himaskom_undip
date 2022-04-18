@@ -1,4 +1,5 @@
 import 'package:himaskom_undip/utils/parse_article_category.dart';
+import 'package:intl/intl.dart';
 
 enum ArticleCategory {
   umum,
@@ -127,6 +128,23 @@ class Article {
     } else {
       return PostVariant.article;
     }
+  }
+
+  String get shareString {
+    final sistoreText = jenis == ArticleCategory.sistore
+        ? NumberFormat.currency(
+            locale: 'id_ID',
+            symbol: "Rp. ",
+            decimalDigits: 0,
+          ).format(harga)
+        : "";
+    final eventText = tenggat != null
+        ? "Tenggat : " + DateFormat('dd MMM y').format(tenggat!)
+        : "";
+    String text =
+        "[$jenisString] $judul\n$sistoreText\n$deskripsi\n$eventText\n${DateFormat('dd MMM y').format(createdAt!)}";
+
+    return text;
   }
 
   Article copyWith({

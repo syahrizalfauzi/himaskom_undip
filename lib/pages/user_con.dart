@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_advanced_drawer/flutter_advanced_drawer.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:himaskom_undip/models/article.dart';
@@ -56,7 +57,12 @@ class _PageState extends ConsumerState<UserContainer> {
           builder: (_) => ArticleDetailPageContainer(article: article)));
     }
 
-    _handleShareArticle(Article article) {}
+    _handleShareArticle(Article article) async {
+      await Clipboard.setData(ClipboardData(text: article.shareString));
+      ScaffoldMessenger.of(context).showSnackBar(
+          CustomSnackbar('Berhasil menyalin article / item ke clipboard'));
+    }
+
     _handleSaveArticle(Article article) async {
       final token = await FirebaseAuth.instance.currentUser!.getIdToken();
       String snackbarMessage;

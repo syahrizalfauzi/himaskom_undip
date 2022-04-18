@@ -34,7 +34,12 @@ Future<void> notificationHandler(RemoteMessage message) async {
     ),
     pref.setStringList('notifarticles', notifications),
   ];
-  await Future.wait(sets);
+  try {
+    await Future.wait(sets);
+  } catch (e) {
+    debugPrint("notificationhandler error");
+    debugPrint(e.toString());
+  }
 }
 
 void main() async {
