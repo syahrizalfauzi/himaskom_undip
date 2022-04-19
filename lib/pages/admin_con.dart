@@ -67,12 +67,13 @@ class AdminContainer extends ConsumerWidget {
       }
 
       final articleState = ref.read(getArticleStateFromArticle(article));
+      final gambarUrl = (await articleState.get(article.id!))!.gambarUrl!;
       final token = await FirebaseAuth.instance.currentUser!.getIdToken();
 
       try {
         await Future.wait([
           articleState.delete(article: article, token: token),
-          ...article.gambarUrl!
+          ...gambarUrl
               .map((e) => FirebaseStorage.instance.refFromURL(e).delete()),
         ]);
       } catch (e) {
