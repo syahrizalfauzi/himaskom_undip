@@ -14,6 +14,12 @@ Future<void> setNotificationPreferences(bool condition) async {
       (e) => MapEntry(e.index.toString(), condition),
     ))),
   );
+  Future notifArticles;
+  if (condition) {
+    notifArticles = sharedPrefs.remove('notifarticles');
+  } else {
+    notifArticles = sharedPrefs.setStringList('notifarticles', []);
+  }
   final subscriptions = ArticleCategory.values.map((e) {
     if (condition) {
       return messaging.subscribeToTopic(e.index.toString());
@@ -21,5 +27,5 @@ Future<void> setNotificationPreferences(bool condition) async {
     return messaging.unsubscribeFromTopic(e.index.toString());
   });
 
-  await Future.wait([preferences, ...subscriptions]);
+  await Future.wait([preferences, notifArticles, ...subscriptions]);
 }

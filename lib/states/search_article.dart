@@ -7,7 +7,7 @@ import 'package:http/http.dart' as http;
 
 class SearchArticleState extends ArticleState {
   @override
-  final String fetchUrl = "search-article";
+  final String fetchUrl = "search-articles";
 
   @override
   bool isLoading = false;
