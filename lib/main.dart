@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:himaskom_undip/utils/convert_notif_article.dart';
-import 'package:himaskom_undip/widgets/auth_switcher.dart';
+import 'package:himaskom_undip/pages/loading_con.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -80,7 +80,7 @@ class MyApp extends StatelessWidget {
         title: 'HIMASKOM UNDIP',
         localizationsDelegates: const [GlobalMaterialLocalizations.delegate],
         supportedLocales: const [Locale('id', "ID")],
-        home: const AuthSwitcher(),
+        home: const LoadingPageContainer(),
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(
             seedColor: const Color(0xFF171936),
