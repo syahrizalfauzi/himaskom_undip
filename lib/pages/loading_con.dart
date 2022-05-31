@@ -31,7 +31,7 @@ class LoadingPageContainer extends HookWidget {
       });
 
       final authSubscription =
-          FirebaseAuth.instance.userChanges().listen((user) async {
+          FirebaseAuth.instance.userChanges().listen((user) {
         if (user == null) {
           _state.value = AuthState.none;
         } else {

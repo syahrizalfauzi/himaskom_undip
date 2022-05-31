@@ -81,6 +81,7 @@ class MyApp extends StatelessWidget {
         localizationsDelegates: const [GlobalMaterialLocalizations.delegate],
         supportedLocales: const [Locale('id', "ID")],
         home: const LoadingPageContainer(),
+        debugShowCheckedModeBanner: false,
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(
             seedColor: const Color(0xFF171936),

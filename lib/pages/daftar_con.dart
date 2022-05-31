@@ -34,7 +34,7 @@ class _DaftarPageContainerState extends State<DaftarPageContainer> {
           email: _emailController.text,
           password: _passwordController.text,
         );
-        credential.user!.updateDisplayName(_namaController.text);
+        await credential.user!.updateDisplayName(_namaController.text);
         Navigator.of(context).pop();
       } on FirebaseAuthException catch (e) {
         String message = '';

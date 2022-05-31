@@ -26,7 +26,7 @@ class _PageState extends ConsumerState<UserContainer> {
   @override
   Widget build(BuildContext context) {
     final _currentPage = useState(Pages.beranda);
-    final _user = useMemoized(() => FirebaseAuth.instance.currentUser!, []);
+    final _user = useState<User?>(null);
     final _isLoading = useState(true);
     final _isLoggingOut = useState(false);
     final _penyimpananArticleState = ref.read(penyimpananArticleState);
@@ -106,7 +106,12 @@ class _PageState extends ConsumerState<UserContainer> {
         _isLoading.value = false;
       })();
 
-      return;
+      final authSubscription =
+          FirebaseAuth.instance.userChanges().listen((user) {
+        _user.value = user;
+      });
+
+      return () => authSubscription.cancel();
     }, []);
     return UserPresentational(
       isLoading: _isLoading.value,
@@ -120,8 +125,8 @@ class _PageState extends ConsumerState<UserContainer> {
       onSaveArticle: _handleSaveArticle,
       onShareArticle: _handleShareArticle,
       onTapArticle: _handleTapArticle,
-      userEmail: _user.email!,
-      userName: _user.displayName!,
+      userEmail: _user.value?.email ?? "Loading...",
+      userName: _user.value?.displayName ?? "Loading...",
     );
   }
 }
