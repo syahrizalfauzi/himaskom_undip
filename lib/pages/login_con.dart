@@ -34,7 +34,8 @@ class _DaftarPageContainerState extends State<LoginPageContainer> {
 
       try {
         if (_emailController.text != "admin@himaskomapp.com") {
-          await setNotificationPreferences(true);
+          // await setNotificationPreferences(true);
+          await clearNotificationPreferences();
         }
         await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: _emailController.text,
@@ -87,7 +88,7 @@ class _DaftarPageContainerState extends State<LoginPageContainer> {
           idToken: googleAuth.idToken,
         );
 
-        await setNotificationPreferences(true);
+        await clearNotificationPreferences();
         await FirebaseAuth.instance.signInWithCredential(credential);
       } catch (e) {
         ScaffoldMessenger.of(context)

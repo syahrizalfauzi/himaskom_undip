@@ -86,7 +86,7 @@ class _PageState extends ConsumerState<UserContainer> {
 
     _handleTapLogOut() async {
       _isLoggingOut.value = true;
-      await setNotificationPreferences(false);
+      await clearNotificationPreferences();
       await FirebaseAuth.instance.signOut();
       _isLoggingOut.value = false;
     }
