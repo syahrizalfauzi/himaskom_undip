@@ -15,8 +15,6 @@ class ProfilePagePresentational extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.white,
-      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
       child: Column(
         children: [
           Row(
@@ -29,13 +27,13 @@ class ProfilePagePresentational extends StatelessWidget {
               ),
               const SizedBox(width: 16),
               Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(name, style: Theme.of(context).textTheme.headlineMedium),
                   const SizedBox(height: 12),
                   Text(email, style: Theme.of(context).textTheme.labelMedium)
                 ],
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
               ),
             ],
           ),
@@ -47,6 +45,8 @@ class ProfilePagePresentational extends StatelessWidget {
           const SizedBox(height: 48),
         ],
       ),
+      color: Colors.white,
+      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
     );
   }
 }
