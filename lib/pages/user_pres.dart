@@ -102,9 +102,7 @@ class UserPresentational extends StatelessWidget {
                   onShareArticle: onShareArticle,
                 );
               case Pages.notifikasi:
-                return NotifikasiPageContainer(
-                  onTapArticle: onTapArticle,
-                );
+                return const NotifikasiPageContainer();
               case Pages.semuakategori:
                 return KategoriPageContainer(
                   onTapSearch: onTapSearch,

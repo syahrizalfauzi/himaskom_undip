@@ -10,12 +10,12 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 Future<void> notificationHandler(RemoteMessage message) async {
-  final pref = await SharedPreferences.getInstance();
+  // final pref = await SharedPreferences.getInstance();
 
-  final articleToSave = encodedArticleFromNotifJson(message.data);
+  // final articleToSave = encodedArticleFromNotifJson(message.data);
 
-  final notifications = pref.getStringList('notifarticles') ?? [];
-  notifications.insert(0, articleToSave);
+  // final notifications = pref.getStringList('notifarticles') ?? [];
+  // notifications.insert(0, articleToSave);
 
   final sets = [
     AwesomeNotifications().createNotification(
@@ -32,7 +32,13 @@ Future<void> notificationHandler(RemoteMessage message) async {
         },
       ),
     ),
-    pref.setStringList('notifarticles', notifications),
+    SharedPreferences.getInstance().then((pref) {
+      final notifications = pref.getStringList('notifarticles') ?? [];
+      final articleToSave = encodedArticleFromNotifJson(message.data);
+      notifications.insert(0, articleToSave);
+
+      return pref.setStringList('notifarticles', notifications);
+    })
   ];
   try {
     await Future.wait(sets);
@@ -45,24 +51,31 @@ Future<void> notificationHandler(RemoteMessage message) async {
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  await AwesomeNotifications().initialize(null, [
-    NotificationChannel(
-      channelKey: 'notifikasi',
-      channelName: 'Notifikasi',
-      channelDescription: 'Notifikasi saat ada article / item terbaru',
-      ledColor: Colors.white,
-      playSound: true,
-    ),
-    NotificationChannel(
-      channelKey: 'reminder',
-      channelName: 'Pengingat',
-      channelDescription: 'Notifikasi pengingat untuk event',
-      ledColor: Colors.white,
-      playSound: true,
-    ),
-  ]);
+  await AwesomeNotifications().initialize(
+    'resource://mipmap/launcher_icon',
+    [
+      NotificationChannel(
+        channelKey: 'notifikasi',
+        channelName: 'Notifikasi',
+        channelDescription: 'Notifikasi saat ada article / item terbaru',
+        ledColor: Colors.white,
+        playSound: true,
+      ),
+      NotificationChannel(
+        channelKey: 'reminder',
+        channelName: 'Pengingat',
+        channelDescription: 'Notifikasi pengingat untuk event',
+        ledColor: Colors.white,
+        playSound: true,
+      ),
+    ],
+  );
   //FCM Bug, supaya notif foreground tetep dapet
-  await FirebaseMessaging.instance.getToken();
+  try {
+    await FirebaseMessaging.instance.getToken();
+  } catch (e) {
+    debugPrint(e.toString());
+  }
 
   FirebaseMessaging.onMessage.listen(notificationHandler);
   FirebaseMessaging.onBackgroundMessage(notificationHandler);

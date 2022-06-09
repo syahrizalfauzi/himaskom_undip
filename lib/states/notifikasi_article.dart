@@ -31,6 +31,7 @@ class NotifikasiArticleState extends ArticleState {
     }
 
     final sharedPrefs = await SharedPreferences.getInstance();
+    await sharedPrefs.reload();
 
     try {
       articles = articleListFromEncodedArticles(
@@ -115,10 +116,12 @@ class NotifikasiArticleState extends ArticleState {
       }
       return messaging.unsubscribeFromTopic(e.key.toString());
     });
+    final token = messaging.getToken();
 
     await Future.wait([
       preferences,
       ...subscriptions,
+      token,
     ]);
   }
 }

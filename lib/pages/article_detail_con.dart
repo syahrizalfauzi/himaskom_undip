@@ -137,7 +137,7 @@ class _ArticleDetailPageContainerState
       final article = await _articleState.get(widget.article.id!);
 
       if (article == null) {
-        Navigator.of(context).pop();
+        Navigator.of(context).pop(false);
         return;
       }
 

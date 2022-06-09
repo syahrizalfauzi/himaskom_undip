@@ -46,7 +46,12 @@ class NotifikasiSettingsContainer extends HookConsumerWidget {
       }
 
       _isLoading.value = true;
-      await _articleState.savePreferences();
+      try {
+        await _articleState.savePreferences();
+      } catch (e) {
+        debugPrint('=====ERROR SAVE NOTIF PREFS=====');
+        debugPrint(e.toString());
+      }
       _isLoading.value = false;
 
       Navigator.of(context).pop(prefsMap);
