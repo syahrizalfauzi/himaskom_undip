@@ -113,16 +113,13 @@ class KategoriPageContainer extends HookConsumerWidget {
       pushArticleStatesPage(
         context: context,
         states: [sistoreArticleState],
-        builder: (items) => UserScaffold.withArticleList(
+        builder: (items) => UserScaffold.withItemGrid(
           stateItem: ArticleStateItem.fromArticleState(
             state: items[0],
             onRefresh: handleRefresh,
           ),
           onTapSearch: onTapSearch,
-          onTapArticle: onTapArticle,
-          onSaveArticle: onSaveArticle,
-          onShareArticle: onShareArticle,
-          firstHighlight: true,
+          onTapItem: onTapArticle,
         ),
       );
     }
