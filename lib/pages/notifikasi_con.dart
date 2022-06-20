@@ -31,6 +31,8 @@ class NotifikasiPageContainer extends HookConsumerWidget {
 
     _handleDeleteArticle(Article article) async {
       await _articleState.delete(article: article);
+      ScaffoldMessenger.of(context)
+          .showSnackBar(CustomSnackbar("Artikel berhasil dihapus"));
     }
 
     _handleTapArticle(Article article) async {

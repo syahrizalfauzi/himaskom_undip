@@ -61,8 +61,14 @@ class _ArticleDetailPageContainerState
       if (minutes == null) return;
 
       final article = _article.value!;
-      final scheduleTime =
-          article.tenggat!.subtract(Duration(minutes: minutes));
+
+      final convertedUtcTime = article.tenggat!.toLocal();
+      final utcTime = article.tenggat!.hour;
+
+      final scheduleTime = convertedUtcTime
+          .subtract(Duration(hours: convertedUtcTime.hour - utcTime))
+          .subtract(Duration(minutes: minutes));
+
       String? body;
       switch (minutes) {
         case 1440:
@@ -82,7 +88,7 @@ class _ArticleDetailPageContainerState
           break;
       }
 
-      await AwesomeNotifications().createNotification(
+      final result = await AwesomeNotifications().createNotification(
         content: NotificationContent(
           id: article.id.hashCode,
           channelKey: 'reminder',
@@ -99,8 +105,14 @@ class _ArticleDetailPageContainerState
           },
           autoDismissible: false,
         ),
-        schedule: NotificationCalendar.fromDate(date: scheduleTime),
+        schedule: NotificationCalendar.fromDate(
+            date: scheduleTime,
+            // DateTime.now().add(const Duration(seconds: 10)),
+            preciseAlarm: true),
+        // schedule: NotificationCalendar.fromDate(date: scheduleTime),
       );
+
+      debugPrint(result.toString());
 
       ScaffoldMessenger.of(context).showSnackBar(CustomSnackbar(
           'Berhasil mengatur pengingat "${article.judul}" pada $body'));
