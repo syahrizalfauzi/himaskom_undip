@@ -7,6 +7,7 @@ import 'package:himaskom_undip/models/article.dart';
 import 'package:himaskom_undip/pages/article_detail_pres.dart';
 import 'package:himaskom_undip/pages/pengingat_settings_con.dart';
 import 'package:himaskom_undip/providers/article_states.dart';
+import 'package:himaskom_undip/utils/convert_utc_datetime.dart';
 import 'package:himaskom_undip/utils/get_article_state.dart';
 import 'package:himaskom_undip/widgets/custom_snackbar.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -62,11 +63,7 @@ class _ArticleDetailPageContainerState
 
       final article = _article.value!;
 
-      final convertedUtcTime = article.tenggat!.toLocal();
-      final utcTime = article.tenggat!.hour;
-
-      final scheduleTime = convertedUtcTime
-          .subtract(Duration(hours: convertedUtcTime.hour - utcTime))
+      final scheduleTime = convertUtcDatetime(article.tenggat!)
           .subtract(Duration(minutes: minutes));
 
       String? body;

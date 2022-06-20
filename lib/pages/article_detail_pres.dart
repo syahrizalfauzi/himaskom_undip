@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:himaskom_undip/models/article.dart';
+import 'package:himaskom_undip/utils/convert_utc_datetime.dart';
 import 'package:himaskom_undip/widgets/article_jenis_icon.dart';
 import 'package:himaskom_undip/widgets/custom_button.dart';
 import 'package:himaskom_undip/widgets/labeled_icon.dart';
@@ -33,6 +34,15 @@ class ArticleDetailPagePresentational extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // convertUtcDatetime(article!.tenggat!)
+    //                             .isAfter(DateTime.now()));
+    if (article != null) {
+      debugPrint("article tenggat");
+      debugPrint(convertUtcDatetime(article!.tenggat!).toString());
+      debugPrint("now");
+      debugPrint(DateTime.now().toString());
+    }
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: article == null
@@ -111,7 +121,7 @@ class ArticleDetailPagePresentational extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.all(24),
                           child: Text(
-                            article!.deskripsi!,
+                            '${article!.deskripsi!}${article!.tenggat != null ? "\n\nTenggat : ${DateFormat('dd MMMM y, H:m').format(convertUtcDatetime(article!.tenggat!))}" : ""}',
                             style: Theme.of(context).textTheme.bodyMedium,
                           ),
                         )
@@ -152,7 +162,9 @@ class ArticleDetailPagePresentational extends StatelessWidget {
                             onTap: onSimpan,
                           ),
                           if (article!.variant == PostVariant.event &&
-                              article!.tenggat!.isAfter(DateTime.now()))
+                              convertUtcDatetime(article!.tenggat!)
+                                  .isAfter(DateTime.now()))
+                            // article!.tenggat!.isAfter(DateTime.now()))
                             LabeledIcon(
                               icon: Icons.watch_later_outlined,
                               label: "Pengingat",
