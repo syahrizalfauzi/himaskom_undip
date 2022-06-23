@@ -36,12 +36,6 @@ class ArticleDetailPagePresentational extends StatelessWidget {
   Widget build(BuildContext context) {
     // convertUtcDatetime(article!.tenggat!)
     //                             .isAfter(DateTime.now()));
-    if (article != null) {
-      debugPrint("article tenggat");
-      debugPrint(convertUtcDatetime(article!.tenggat!).toString());
-      debugPrint("now");
-      debugPrint(DateTime.now().toString());
-    }
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -121,7 +115,7 @@ class ArticleDetailPagePresentational extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.all(24),
                           child: Text(
-                            '${article!.deskripsi!}${article!.tenggat != null ? "\n\nTenggat : ${DateFormat('dd MMMM y, H:m').format(convertUtcDatetime(article!.tenggat!))}" : ""}',
+                            '${article!.deskripsi!}${article!.tenggat != null ? "\n\nTenggat : ${DateFormat('dd MMMM y, HH:mm').format(convertUtcDatetime(article!.tenggat!))}" : ""}',
                             style: Theme.of(context).textTheme.bodyMedium,
                           ),
                         )
