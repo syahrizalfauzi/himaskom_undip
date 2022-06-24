@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:flutter/material.dart';
 import 'package:himaskom_undip/models/article.dart';
 import 'package:himaskom_undip/models/article_state.dart';
 import 'package:http/http.dart' as http;
@@ -34,7 +33,7 @@ class SearchArticleState extends ArticleState {
     } else if (data != null) {
       articles = data.map((e) => Article.fromJson(e)).toList();
     }
-    debugPrint(articles.toString());
+    // debugPrint(articles.toString());
 
     isLoading = false;
     notifyListeners();

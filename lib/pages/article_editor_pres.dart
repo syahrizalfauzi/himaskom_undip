@@ -77,13 +77,6 @@ class ArticleEditorPagePresentational extends StatelessWidget {
                     isError: isImageError,
                   ),
                 ),
-                if (isImageError) ...[
-                  const SizedBox(height: 8),
-                  Text(
-                    'Harus diisi',
-                    style: TextStyle(color: Theme.of(context).errorColor),
-                  ),
-                ],
                 const SizedBox(height: 24),
                 CustomTextFormField(
                   disabled: isLoading,

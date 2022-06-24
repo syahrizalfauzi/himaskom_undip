@@ -55,11 +55,17 @@ class _ArticleEditorPageContainerState
 
     _handleImageRemove(String url) => _removedImageUrls.value.add(url);
     _handleTenggatDateTap() async {
+      final firstDate = _tenggatDate.value == null
+          ? DateTime.now()
+          : _tenggatDate.value!.isAfter(DateTime.now())
+              ? DateTime.now()
+              : _tenggatDate.value!;
+
       final date = await showDatePicker(
         context: context,
         initialDate: _tenggatDate.value ?? DateTime.now(),
         locale: const Locale('id', 'ID'),
-        firstDate: DateTime.now(),
+        firstDate: firstDate,
         lastDate: DateTime.now().add(
           const Duration(days: 365),
         ),
@@ -119,11 +125,16 @@ class _ArticleEditorPageContainerState
       final user = FirebaseAuth.instance.currentUser;
 
       _isImageError.value = false;
-      if (!_formKey.currentState!.validate()) {
-        return;
-      }
+
+      final validations = [
+        !_formKey.currentState!.validate(),
+        _images.value.isEmpty
+      ];
       if (_images.value.isEmpty) {
         _isImageError.value = true;
+      }
+
+      if (validations.reduce((a, b) => a || b)) {
         return;
       }
 

@@ -91,59 +91,71 @@ class _ImagePickerState extends State<ImagePicker> {
       }
     }
 
-    return GridView.builder(
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 4,
-        mainAxisSpacing: 16,
-        crossAxisSpacing: 16,
-        childAspectRatio: 1,
-      ),
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      itemCount: 4,
-      itemBuilder: (context, index) {
-        final imageItem = _imageItems.value[index];
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        GridView.builder(
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 4,
+            mainAxisSpacing: 16,
+            crossAxisSpacing: 16,
+            childAspectRatio: 1,
+          ),
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          itemCount: 4,
+          itemBuilder: (context, index) {
+            final imageItem = _imageItems.value[index];
 
-        if (imageItem == null) {
-          return GestureDetector(
-            onTap: _handleAddImage,
-            child: DottedBorder(
-              borderType: BorderType.RRect,
-              radius: const Radius.circular(8),
-              color: widget.isError
-                  ? Theme.of(context).errorColor
-                  : Theme.of(context).disabledColor,
-              strokeWidth: 2,
-              strokeCap: StrokeCap.round,
-              dashPattern: const [2, 4],
-              child: Center(
-                child: Icon(
-                  Icons.add,
-                  size: 24,
+            if (imageItem == null) {
+              return GestureDetector(
+                onTap: _handleAddImage,
+                child: DottedBorder(
+                  borderType: BorderType.RRect,
+                  radius: const Radius.circular(8),
                   color: widget.isError
                       ? Theme.of(context).errorColor
                       : Theme.of(context).disabledColor,
+                  strokeWidth: 2,
+                  strokeCap: StrokeCap.round,
+                  dashPattern: const [2, 4],
+                  child: Center(
+                    child: Icon(
+                      Icons.add,
+                      size: 24,
+                      color: widget.isError
+                          ? Theme.of(context).errorColor
+                          : Theme.of(context).disabledColor,
+                    ),
+                  ),
+                ),
+              );
+            }
+
+            return GestureDetector(
+              onTap: () => _handleViewImage(index),
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(
+                    color: Theme.of(context).disabledColor.withOpacity(0.2),
+                  ),
+                ),
+                child: Image(
+                  image: imageItem,
                 ),
               ),
-            ),
-          );
-        }
-
-        return GestureDetector(
-          onTap: () => _handleViewImage(index),
-          child: Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(8),
-              border: Border.all(
-                color: Theme.of(context).disabledColor.withOpacity(0.2),
-              ),
-            ),
-            child: Image(
-              image: imageItem,
-            ),
+            );
+          },
+        ),
+        if (widget.isError) ...[
+          const SizedBox(height: 8),
+          Text(
+            'Harus diisi',
+            style: TextStyle(color: Theme.of(context).errorColor),
           ),
-        );
-      },
+        ],
+      ],
     );
   }
 }

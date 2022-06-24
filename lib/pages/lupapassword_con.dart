@@ -34,14 +34,15 @@ class _LupaPasswordPageContainerState extends State<LupaPasswordPageContainer> {
       } on FirebaseAuthException catch (e) {
         String message;
         switch (e.code) {
-          case 'auth/invalid-email':
+          case 'invalid-email':
             message = 'Bentuk email tidak benar';
             break;
-          case 'auth/user-not-found':
+          case 'user-not-found':
             message = 'Akun tidak ditemukan';
             break;
           default:
-            message = 'Gagal mengirim email, silahkan coba lagi';
+            debugPrint(e.code);
+            message = 'Gagal mengirim email, silahkan coba lagi (${e.code})';
             break;
         }
         ScaffoldMessenger.of(context).showSnackBar(CustomSnackbar(message));

@@ -142,7 +142,7 @@ class Article {
           ).format(harga)
         : "";
     final eventText = tenggat != null
-        ? "Tenggat : " + DateFormat('dd MMM y').format(tenggat!)
+        ? "Tenggat : " + DateFormat('dd MMMM y, HH:mm').format(tenggat!) + "\n"
         : "";
     String text =
         "[$jenisString] $judul\n$sistoreText\n$deskripsi\n$eventText\n${DateFormat('dd MMM y').format(createdAt!)}";
