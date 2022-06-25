@@ -64,7 +64,6 @@ class _ArticleEditorPageContainerState
       final date = await showDatePicker(
         context: context,
         initialDate: _tenggatDate.value ?? DateTime.now(),
-        locale: const Locale('id', 'ID'),
         firstDate: firstDate,
         lastDate: DateTime.now().add(
           const Duration(days: 365),
@@ -191,12 +190,17 @@ class _ArticleEditorPageContainerState
 
       DateTime? tenggat;
       if (widget.stateItem.category == ArticleStateItemCategory.event) {
-        tenggat = _tenggatDate.value!.add(
-          Duration(
-            hours: _tenggatTime.value!.hour,
-            minutes: _tenggatTime.value!.minute,
-          ),
-        );
+        tenggat = _tenggatDate.value!
+            .subtract(Duration(
+              hours: _tenggatDate.value!.hour,
+              minutes: _tenggatDate.value!.minute,
+            ))
+            .add(
+              Duration(
+                hours: _tenggatTime.value!.hour,
+                minutes: _tenggatTime.value!.minute,
+              ),
+            );
       }
 
       final article = Article(

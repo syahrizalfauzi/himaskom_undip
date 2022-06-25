@@ -63,8 +63,13 @@ class _ArticleDetailPageContainerState
 
       final article = _article.value!;
 
-      final scheduleTime = convertUtcDatetime(article.tenggat!)
-          .subtract(Duration(minutes: minutes));
+      final scheduleTime =
+          // article.tenggat!.subtract(Duration(minutes: minutes));
+
+          convertUtcDatetime(article.tenggat!)
+              .subtract(Duration(minutes: minutes));
+      debugPrint("schedule at");
+      debugPrint(scheduleTime.toString());
 
       String? body;
       switch (minutes) {
