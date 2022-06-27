@@ -9,7 +9,6 @@ import 'package:himaskom_undip/pages/search_con.dart';
 import 'package:himaskom_undip/pages/user_pres.dart';
 import 'package:himaskom_undip/providers/article_states.dart';
 import 'package:himaskom_undip/utils/get_article_state.dart';
-import 'package:himaskom_undip/utils/set_notification_preferences.dart';
 import 'package:himaskom_undip/widgets/custom_snackbar.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -87,7 +86,7 @@ class _PageState extends ConsumerState<UserContainer> {
     _handleTapLogOut() async {
       _isLoggingOut.value = true;
       // Disabled unsub from FCM for testing purposes
-      await clearNotificationPreferences();
+      // await clearNotificationPreferences();
       await FirebaseAuth.instance.signOut();
       _isLoggingOut.value = false;
     }
