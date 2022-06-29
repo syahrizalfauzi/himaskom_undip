@@ -264,11 +264,6 @@ class AdminContainer extends ConsumerWidget {
       );
     }
 
-    // return AdminPresentational(
-    //   onTapArticle: _handleTapArticle,
-    //   onDeleteArticle: _handleDeleteArticle,
-    // );
-
     final items = [
       ArticleStateItem.fromArticleStates(
         states: _eventStates,

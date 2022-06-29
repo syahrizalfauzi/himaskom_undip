@@ -19,13 +19,6 @@ class AdminPresentational extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // return AdminScaffold(
-    //   title: 'Home',
-    //   child: AdminHomePageContainer(
-    //     onTapArticle: onTapArticle,
-    //     onDeleteArticle: onDeleteArticle,
-    //   ),
-    // );
     return AdminScaffold(
       title: 'Home',
       child: Column(
