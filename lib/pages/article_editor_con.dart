@@ -220,6 +220,12 @@ class _ArticleEditorPageContainerState
       if (widget.initialArticle == null) {
         result = await state.add(article: article, token: token);
       } else {
+        // if change jenis, remove on old state, add to new state (jenis)
+        if (widget.initialArticle!.jenis != article.jenis) {
+          final oldState =
+              ref.read(getArticleStateFromArticle(widget.initialArticle!));
+          oldState.removeArticleOnList(article);
+        }
         result = await state.update(article: article, token: token);
       }
 

@@ -112,7 +112,8 @@ class ArticleDetailPagePresentational extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.all(24),
                           child: Text(
-                            '${article!.deskripsi!}${article!.tenggat != null ? "\n\nTenggat : ${DateFormat('dd MMMM y, HH:mm').format(article!.tenggat!)}" : ""}',
+                            // '${article!.deskripsi!}${article!.tenggat != null ? "\n\nTenggat : ${DateFormat('dd MMMM y, HH:mm').format(article!.tenggat!)}" : ""}',
+                            article!.detailString,
                             style: Theme.of(context).textTheme.bodyMedium,
                           ),
                         )

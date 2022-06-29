@@ -142,12 +142,47 @@ class Article {
           ).format(harga)
         : "";
     final eventText = tenggat != null
-        ? "Tenggat : " + DateFormat('dd MMMM y, HH:mm').format(tenggat!) + "\n"
+        ? "\nTenggat : " +
+            DateFormat('dd MMMM y, HH:mm').format(tenggat!) +
+            "\n"
         : "";
     String text =
         "[$jenisString] $judul\n$sistoreText\n$deskripsi\n$eventText\n${DateFormat('dd MMM y').format(createdAt!)}";
 
     return text;
+  }
+
+  String get detailString {
+    final tenggatString = tenggat != null
+        ? "\n\nTenggat : ${DateFormat('dd MMMM y, HH:mm').format(tenggat!)}"
+        : "";
+    String kategoriString = 'Kategori : $jenisString';
+    switch (jenis) {
+      case ArticleCategory.eventAm:
+        kategoriString += " (Al-Muharrik)";
+        break;
+      case ArticleCategory.eventHm:
+        kategoriString += " (HIMASKOM)";
+        break;
+      case ArticleCategory.eventUkm:
+        kategoriString += " (UKM Tekkom)";
+        break;
+      case ArticleCategory.karirLoker:
+        kategoriString += " (Lowongan Kerja)";
+        break;
+      case ArticleCategory.karirMagang:
+        kategoriString += " (Magang)";
+        break;
+      case ArticleCategory.lombaAkademik:
+        kategoriString += " (Akademik)";
+        break;
+      case ArticleCategory.lombaNonakademik:
+        kategoriString += " (Non-Akademik)";
+        break;
+      default:
+        break;
+    }
+    return '${deskripsi!}\n\n$kategoriString$tenggatString';
   }
 
   Article copyWith({

@@ -137,10 +137,24 @@ abstract class ArticleState extends ChangeNotifier {
         return "Gagal menghubungi server, silahkan coba lagi";
     }
 
-    articles[articles.indexWhere((e) => e.id == article.id)] = article;
+    final index = articles.indexWhere((e) => e.id == article.id);
+    if (index != -1) {
+      articles[articles.indexWhere((e) => e.id == article.id)] = article;
+    } else {
+      if (articles.isEmpty) {
+        articles.add(article);
+      } else {
+        articles.insert(articles.length - 1, article);
+      }
+    }
     isLoading = false;
     notifyListeners();
     return null;
+  }
+
+  @nonVirtual
+  void removeArticleOnList(Article article) {
+    articles.removeWhere((e) => e.id == article.id);
   }
 
   @nonVirtual
